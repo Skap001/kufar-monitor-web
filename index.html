@@ -14,29 +14,77 @@
             --btn_text: var(--tg-theme-button-text-color, #ffffff);
             --card_bg: var(--tg-theme-secondary-bg-color, #232e3c);
             --border: var(--tg-theme-section-separator-color, #2f3b4a);
+            --green: #34c759; /* Зеленый цвет для галочек как у Kufar */
         }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; }
         .screen { display: none; flex-direction: column; height: 100vh; }
         .screen.active { display: flex; }
         .main-content { padding: 16px; padding-bottom: 90px; flex: 1; overflow-y: auto; }
         h1 { font-size: 20px; margin: 0 0 16px 0; }
+        
+        /* Фикс инпутов цены */
         .search-input { width: 100%; background-color: var(--card_bg); border: none; padding: 14px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; margin-bottom: 20px; }
-        .menu-item { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 16px; }
+        .menu-item { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 16px; touch-action: manipulation; }
         .menu-item .value { color: var(--hint); text-align: right; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        
         .price-block { margin-top: 24px; }
-        .price-inputs { display: flex; gap: 12px; }
-        .price-inputs input { flex: 1; background-color: var(--card_bg); border: none; padding: 14px; border-radius: 10px; color: var(--text); font-size: 16px; }
+        .price-inputs { display: flex; gap: 12px; width: 100%; }
+        .price-inputs input { 
+            flex: 1 1 0; 
+            min-width: 0; /* Чтобы не вылезали за края */
+            width: 100%;
+            background-color: var(--card_bg); 
+            border: none; 
+            padding: 14px; 
+            border-radius: 10px; 
+            color: var(--text); 
+            font-size: 16px; 
+            box-sizing: border-box;
+        }
+        
         .bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); border-top: 1px solid var(--border); }
-        .save-btn { width: 100%; padding: 16px; background-color: var(--btn); color: var(--btn_text); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; }
+        .save-btn { width: 100%; padding: 16px; background-color: var(--btn); color: var(--btn_text); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        
         .header { display: flex; align-items: center; padding: 16px; }
-        .back-btn { font-size: 24px; padding-right: 16px; color: var(--btn); cursor: pointer; }
+        .back-btn { font-size: 24px; padding-right: 16px; color: var(--btn); cursor: pointer; touch-action: manipulation; }
         .list-container { padding: 0 16px; overflow-y: auto; flex: 1; }
-        .list-item { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 16px; cursor: pointer; align-items: center; }
-        .list-item:active { opacity: 0.7; }
-        .check-mark { display: none; color: var(--btn); font-weight: bold; font-size: 18px; }
-        .list-item.selected .check-mark { display: block; }
-        .arrow { color: var(--hint); font-size: 14px; }
-        .select-current { color: var(--btn); font-weight: bold; border-bottom: 2px solid var(--btn); }
+        
+        /* Элемент списка с чекбоксом */
+        .list-item { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 0; border-bottom: 1px solid var(--border); 
+            font-size: 16px; cursor: pointer; touch-action: manipulation;
+        }
+        .list-item:active { background-color: var(--card_bg); }
+        
+        /* Квадратный чекбокс */
+        .checkbox {
+            width: 22px; height: 22px;
+            border: 2px solid var(--hint);
+            border-radius: 6px;
+            display: flex; justify-content: center; align-items: center;
+            box-sizing: border-box;
+        }
+        .list-item.selected .checkbox {
+            background-color: var(--green);
+            border-color: var(--green);
+        }
+        .checkbox::after {
+            content: '';
+            display: none;
+            width: 6px; height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin-bottom: 2px;
+        }
+        .list-item.selected .checkbox::after { display: block; }
+        
+        .arrow { color: var(--hint); font-size: 18px; padding: 0 8px; }
+        
+        /* Нижняя панель для списков */
+        .list-bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); }
+        .apply-btn { width: 100%; padding: 16px; background-color: var(--green); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -44,11 +92,11 @@
         <div class="main-content">
             <h1>Новый поиск</h1>
             <input type="text" id="query" class="search-input" placeholder="🔍 Что вы ищете?">
-            <div class="menu-item" onclick="openCategoryScreen()">
+            <div class="menu-item" onclick="openList('category')">
                 <div class="label">📦 Категория</div>
                 <div class="value"><span id="current-category">Все категории</span> ›</div>
             </div>
-            <div class="menu-item" onclick="openLocationScreen()">
+            <div class="menu-item" onclick="openList('location')">
                 <div class="label">📍 Локация</div>
                 <div class="value"><span id="current-location">Вся Беларусь</span> ›</div>
             </div>
@@ -69,6 +117,10 @@
             <h2 id="list-title">Выбор</h2>
         </div>
         <div class="list-container" id="list-container"></div>
+        <!-- Кнопка Применить для списков -->
+        <div class="list-bottom-btn" id="apply-container" style="display: none;">
+            <button class="apply-btn" onclick="showScreen('main-screen')">Применить</button>
+        </div>
     </div>
 
     <script>
@@ -76,7 +128,7 @@
         tg.ready(); tg.expand();
 
         let selectedCategory = { id: "all", name: "Все категории", slug: "" };
-        let selectedCity = { id: "all", name: "Вся Беларусь" };
+        let selectedCity = { id: "all", name: "Вся Беларусь", slug: "" };
         
         let categoriesData = [];
         let regionsData = [];
@@ -91,17 +143,10 @@
             document.getElementById(id).classList.add('active');
         }
 
-        function openCategoryScreen() {
-            currentListType = "category";
-            historyStack = [{ id: "0", name: "Категории" }];
-            renderList("0", "Категории");
-            showScreen('list-screen');
-        }
-
-        function openLocationScreen() {
-            currentListType = "location";
-            historyStack = [{ id: "0", name: "Локация" }];
-            renderList("0", "Локация");
+        function openList(type) {
+            currentListType = type;
+            historyStack = [{ id: "0", name: type === 'category' ? "Категории" : "Локация" }];
+            renderList("0", type === 'category' ? "Категории" : "Локация");
             showScreen('list-screen');
         }
 
@@ -109,39 +154,32 @@
             document.getElementById('list-title').innerText = title;
             const container = document.getElementById('list-container');
             container.innerHTML = '';
+            
+            // Показываем кнопку "Применить" только на внутренних экранах
+            document.getElementById('apply-container').style.display = (parentId === "0") ? "none" : "block";
+            // Отступ снизу, чтобы кнопка не перекрывала список
+            container.style.paddingBottom = (parentId === "0") ? "0" : "80px";
 
             const data = currentListType === 'category' ? categoriesData : regionsData;
 
-            // Если мы не в самом начале, показываем кнопку "Выбрать [Название]"
-            if (parentId !== "0") {
-                const currentNode = data.find(i => i.id === parentId);
-                if (currentNode) {
-                    const selectCurrent = document.createElement('div');
-                    selectCurrent.className = 'list-item select-current';
-                    selectCurrent.innerHTML = `✅ Выбрать: ${currentNode.name} <span class="check-mark" style="display:block; color:var(--btn);">✓</span>`;
-                    selectCurrent.onclick = () => {
-                        if (currentListType === 'category') {
-                            selectedCategory = { id: currentNode.id, name: currentNode.name, slug: currentNode.slug };
-                            document.getElementById('current-category').innerText = currentNode.name;
-                        } else {
-                            selectedCity = { id: currentNode.id, name: currentNode.name };
-                            document.getElementById('current-location').innerText = currentNode.name;
-                        }
-                        showScreen('main-screen');
-                    };
-                    container.appendChild(selectCurrent);
-                }
-            } else {
-                // На самом верхнем уровне "Все категории" / "Вся Беларусь"
+            // 1. Кнопка "Все категории" / "Вся Беларусь" на корневом экране
+            if (parentId === "0") {
                 const allItem = document.createElement('div');
                 allItem.className = 'list-item';
-                allItem.innerHTML = `${currentListType === 'category' ? 'Все категории' : 'Вся Беларусь'} <span class="check-mark" style="display:block; color:var(--btn);">✓</span>`;
+                const isAll = (currentListType === 'category' && selectedCategory.id === 'all') || 
+                              (currentListType === 'location' && selectedCity.id === 'all');
+                if (isAll) allItem.classList.add('selected');
+                
+                allItem.innerHTML = `
+                    <span>${currentListType === 'category' ? 'Все категории' : 'Вся Беларусь'}</span>
+                    <div class="checkbox"></div>
+                `;
                 allItem.onclick = () => {
                     if (currentListType === 'category') {
                         selectedCategory = { id: "all", name: "Все категории", slug: "" };
                         document.getElementById('current-category').innerText = "Все категории";
                     } else {
-                        selectedCity = { id: "all", name: "Вся Беларусь" };
+                        selectedCity = { id: "all", name: "Вся Беларусь", slug: "" };
                         document.getElementById('current-location').innerText = "Вся Беларусь";
                     }
                     showScreen('main-screen');
@@ -149,43 +187,69 @@
                 container.appendChild(allItem);
             }
 
+            // 2. Список элементов
             const items = data.filter(item => item.parent_id === parentId);
 
             items.forEach(item => {
                 const hasChildren = data.some(child => child.parent_id === item.id);
+                
+                // Проверка на выделение (для локаций учитываем parent_id, так как id могут дублироваться)
+                let isSelected = false;
+                if (currentListType === 'category') {
+                    isSelected = (selectedCategory.id === item.id);
+                } else {
+                    isSelected = (selectedCity.id === item.id && selectedCity.name === item.name);
+                }
 
                 const div = document.createElement('div');
-                div.className = 'list-item';
+                div.className = `list-item ${isSelected ? 'selected' : ''}`;
+                
+                // Внутренняя структура строки
                 div.innerHTML = `
-                    <span>${item.name}</span>
-                    <span style="display:flex; gap:8px; align-items:center;">
-                        ${hasChildren ? '<span class="arrow">›</span>' : '<span class="check-mark" style="display:block; color:var(--btn);">✓</span>'}
-                    </span>
+                    <div style="display:flex; align-items:center; flex:1;" onclick="event.stopPropagation(); selectItem('${item.id}', '${item.name}', '${item.slug || ''}', ${hasChildren})">
+                        <span>${item.name}</span>
+                    </div>
+                    <div style="display:flex; align-items:center;">
+                        <div class="checkbox" onclick="event.stopPropagation(); selectItem('${item.id}', '${item.name}', '${item.slug || ''}', ${hasChildren})"></div>
+                        ${hasChildren ? `<span class="arrow" onclick="event.stopPropagation(); goInside('${item.id}', '${item.name}')">›</span>` : ''}
+                    </div>
                 `;
-
-                div.onclick = () => {
-                    if (hasChildren) {
-                        historyStack.push({ id: parentId, name: title });
-                        renderList(item.id, item.name);
-                    } else {
-                        if (currentListType === 'category') {
-                            selectedCategory = { id: item.id, name: item.name, slug: item.slug };
-                            document.getElementById('current-category').innerText = item.name;
-                        } else {
-                            selectedCity = { id: item.id, name: item.name };
-                            document.getElementById('current-location').innerText = item.name;
-                        }
-                        showScreen('main-screen');
-                    }
-                };
                 container.appendChild(div);
             });
         }
 
+        // Выбор элемента (ставит галочку)
+        function selectItem(id, name, slug, hasChildren) {
+            if (currentListType === 'category') {
+                selectedCategory = { id: id, name: name, slug: slug };
+                document.getElementById('current-category').innerText = name;
+            } else {
+                selectedCity = { id: id, name: name, slug: slug };
+                document.getElementById('current-location').innerText = name;
+            }
+            
+            // Обновляем визуальное состояние (снимаем галочки со всех, ставим на этот)
+            const items = document.querySelectorAll('.list-item');
+            items.forEach(el => el.classList.remove('selected'));
+            event.currentTarget.closest('.list-item').classList.add('selected');
+            
+            // Если это конечная категория (без детей), сразу закрываем
+            if (!hasChildren) {
+                showScreen('main-screen');
+            }
+        }
+
+        // Заход внутрь категории/локации
+        function goInside(id, name) {
+            historyStack.push({ id: id, name: name });
+            renderList(id, name);
+        }
+
         function goBack() {
-            if (historyStack.length > 0) {
-                const prevState = historyStack.pop();
-                renderList(prevState.id, prevState.name);
+            if (historyStack.length > 1) {
+                historyStack.pop();
+                const prev = historyStack[historyStack.length - 1];
+                renderList(prev.id, prev.name);
             } else {
                 showScreen('main-screen');
             }
@@ -196,7 +260,7 @@
                 query: document.getElementById('query').value || "",
                 category_slug: selectedCategory.slug,
                 category_name: selectedCategory.name,
-                region_id: selectedCity.id,
+                region_slug: selectedCity.slug, // ВАЖНО: шлем слаг локации
                 region_name: selectedCity.name,
                 price_min: Number(document.getElementById('price_min').value) || 0,
                 price_max: Number(document.getElementById('price_max').value) || 0
