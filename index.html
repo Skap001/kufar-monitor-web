@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: sans-serif; background: var(--tg-theme-bg-color); color: var(--tg-theme-text-color); padding: 20px; }
+        .btn { display: block; width: 100%; padding: 15px; margin-top: 20px; background: var(--tg-theme-button-color); color: var(--tg-theme-button-text-color); border: none; border-radius: 8px; font-size: 16px; font-weight: bold; }
+        .input-group { margin-bottom: 15px; }
+        input, select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+    <h2>Настройка поиска</h2>
+    
+    <div class="input-group">
+        <label>Категория</label>
+        <select id="category">
+            <option value="sneakers">Кроссовки</option>
+            <option value="phones">Телефоны</option>
+            <option value="auto">Авто</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>Цена до (BYN)</label>
+        <input type="number" id="price_max" value="200">
+    </div>
+
+    <button class="btn" onclick="sendData()">Сохранить и начать</button>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Разворачиваем на весь экран
+
+        function sendData() {
+            const category = document.getElementById('category').value;
+            const price = document.getElementById('price_max').value;
+            
+            // Формируем JSON, который бот получит
+            const data = {
+                category: category,
+                price_max: Number(price)
+            };
+            
+            tg.sendData(JSON.stringify(data)); // Отправляем в бот
+            tg.close(); // Закрываем окно
+        }
+    </script>
+</body>
+</html>
