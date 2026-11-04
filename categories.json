@@ -1,0 +1,1424 @@
+[
+  {
+    "id": "1000",
+    "name": "Недвижимость",
+    "slug": "nedvizhimost",
+    "parent_id": "0"
+  },
+  {
+    "id": "1120",
+    "name": "Новостройки",
+    "slug": "novostrojki",
+    "parent_id": "1000"
+  },
+  {
+    "id": "1010",
+    "name": "Квартиры",
+    "slug": "kvartiry",
+    "parent_id": "1000"
+  },
+  {
+    "id": "1040",
+    "name": "Комнаты",
+    "slug": "komnaty",
+    "parent_id": "1000"
+  },
+  {
+    "id": "1020",
+    "name": "Дома, дачи, коттеджи",
+    "slug": "doma-dachi-kottedzhi",
+    "parent_id": "1000"
+  },
+  {
+    "id": "1030",
+    "name": "Гаражи и стоянки",
+    "slug": "garazhi-i-stojanki",
+    "parent_id": "1000"
+  },
+  {
+    "id": "1080",
+    "name": "Участки",
+    "slug": "uchastki",
+    "parent_id": "1000"
+  },
+  {
+    "id": "1050",
+    "name": "Коммерческая недвижимость",
+    "slug": "kommercheskaja-nedvizhimost",
+    "parent_id": "1000"
+  },
+  {
+    "id": "25000",
+    "name": "Путешествия",
+    "slug": "puteshestvija",
+    "parent_id": "0"
+  },
+  {
+    "id": "25010",
+    "name": "Путешествия",
+    "slug": "puteshestvija",
+    "parent_id": "25000"
+  },
+  {
+    "id": "2000",
+    "name": "Авто и запчасти",
+    "slug": "avto-i-zapchasti",
+    "parent_id": "0"
+  },
+  {
+    "id": "2010",
+    "name": "Легковые авто",
+    "slug": "legkovye-avto",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2040",
+    "name": "Запчасти",
+    "slug": "zapchasti",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2060",
+    "name": "Грузовики и автобусы",
+    "slug": "gruzoviki-i-avtobusy",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2030",
+    "name": "Мототехника",
+    "slug": "mototehnika",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2080",
+    "name": "Сельхозтехника",
+    "slug": "sel-hoztehnika",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2090",
+    "name": "Спецтехника",
+    "slug": "spetstehnika",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2020",
+    "name": "Прицепы",
+    "slug": "pritsepy",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2050",
+    "name": "Водный транспорт",
+    "slug": "vodnyj-transport",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2110",
+    "name": "Автокресла и бустеры",
+    "slug": "avtokresla-i-bustery",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2045",
+    "name": "Аксессуары",
+    "slug": "aksessuary",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2075",
+    "name": "Шины, диски",
+    "slug": "shiny-diski",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2070",
+    "name": "Инструмент, оборудование",
+    "slug": "instrument-oborudovanie",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2120",
+    "name": "Автохимия и автомасла",
+    "slug": "avtohimija-i-avtomasla",
+    "parent_id": "2000"
+  },
+  {
+    "id": "2100",
+    "name": "Услуги для авто",
+    "slug": "uslugi-dlja-avto",
+    "parent_id": "2000"
+  },
+  {
+    "id": "13000",
+    "name": "Услуги",
+    "slug": "uslugi",
+    "parent_id": "0"
+  },
+  {
+    "id": "13010",
+    "name": "Услуги для авто",
+    "slug": "uslugi-dlja-avto",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13020",
+    "name": "Бытовые услуги",
+    "slug": "bytovye-uslugi",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13030",
+    "name": "Компьютерные услуги, интернет",
+    "slug": "komp-juternye-uslugi-internet",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13210",
+    "name": "Ремонт техники и электроники",
+    "slug": "remont-tehniki-i-elektroniki",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13040",
+    "name": "Красота",
+    "slug": "krasota",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13250",
+    "name": "Здоровье",
+    "slug": "zdorov-e",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13050",
+    "name": "Няни и сиделки",
+    "slug": "njani-i-sidelki",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13200",
+    "name": "Образовательные услуги",
+    "slug": "obrazovatel-nye-uslugi",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13070",
+    "name": "Грузоперевозки",
+    "slug": "gruzoperevozki",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13260",
+    "name": "Пассажирские перевозки",
+    "slug": "passazhirskie-perevozki",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13270",
+    "name": "Услуги грузчиков",
+    "slug": "uslugi-gruzchikov",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13280",
+    "name": "Услуги эвакуатора",
+    "slug": "uslugi-evakuatora",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13290",
+    "name": "Вывоз мусора",
+    "slug": "vyvoz-musora",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13080",
+    "name": "Полиграфия, наружная реклама",
+    "slug": "poligrafija-naruzhnaja-reklama",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13090",
+    "name": "Строительные работы",
+    "slug": "stroitel-nye-raboty",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13190",
+    "name": "Ремонт квартиры, дома",
+    "slug": "remont-kvartiry-doma",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13180",
+    "name": "Ремонт, сборка, перетяжка мебели",
+    "slug": "remont-sborka-peretjazhka-mebeli",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13160",
+    "name": "Ремонт и пошив одежды",
+    "slug": "remont-i-poshiv-odezhdy",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13100",
+    "name": "Сад, благоустройство",
+    "slug": "sad-blagoustrojstvo",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13110",
+    "name": "Услуги для животных",
+    "slug": "uslugi-dlja-zhivotnyh",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13120",
+    "name": "Фото и видеосъемка",
+    "slug": "foto-i-videos-emka",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13130",
+    "name": "Деловые услуги",
+    "slug": "delovye-uslugi",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13140",
+    "name": "Впечатления",
+    "slug": "vpechatlenija",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13170",
+    "name": "Услуги для торжеств",
+    "slug": "uslugi-dlja-torzhestv",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13300",
+    "name": "Аренда и прокат",
+    "slug": "arenda-i-prokat",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13220",
+    "name": "Аренда бань и беседок",
+    "slug": "arenda-ban-i-besedok",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13150",
+    "name": "Прочие услуги",
+    "slug": "prochie-uslugi",
+    "parent_id": "13000"
+  },
+  {
+    "id": "13230",
+    "name": "Ритуальные товары и услуги",
+    "slug": "ritual-nye-tovary-i-uslugi",
+    "parent_id": "13000"
+  },
+  {
+    "id": "15000",
+    "name": "Бытовая техника",
+    "slug": "bytovaja-tehnika",
+    "parent_id": "0"
+  },
+  {
+    "id": "15010",
+    "name": "Техника для кухни",
+    "slug": "tehnika-dlja-kuhni",
+    "parent_id": "15000"
+  },
+  {
+    "id": "15020",
+    "name": "Крупная техника для кухни",
+    "slug": "krupnaja-tehnika-dlja-kuhni",
+    "parent_id": "15000"
+  },
+  {
+    "id": "15030",
+    "name": "Техника для уборки",
+    "slug": "tehnika-dlja-uborki",
+    "parent_id": "15000"
+  },
+  {
+    "id": "15040",
+    "name": "Техника для стирки и ухода за одеждой",
+    "slug": "tehnika-dlja-stirki-i-uhoda-za-odezhdoj",
+    "parent_id": "15000"
+  },
+  {
+    "id": "15050",
+    "name": "Климатическая техника",
+    "slug": "klimaticheskaja-tehnika",
+    "parent_id": "15000"
+  },
+  {
+    "id": "15060",
+    "name": "Техника для красоты и здоровья",
+    "slug": "tehnika-dlja-krasoty-i-zdorov-ja",
+    "parent_id": "15000"
+  },
+  {
+    "id": "16000",
+    "name": "Компьютерная техника",
+    "slug": "komp-juternaja-tehnika",
+    "parent_id": "0"
+  },
+  {
+    "id": "16040",
+    "name": "Ноутбуки",
+    "slug": "noutbuki",
+    "parent_id": "16000"
+  },
+  {
+    "id": "16020",
+    "name": "Компьютеры / системные блоки",
+    "slug": "komp-jutery-sistemnye-bloki",
+    "parent_id": "16000"
+  },
+  {
+    "id": "16030",
+    "name": "Мониторы",
+    "slug": "monitory",
+    "parent_id": "16000"
+  },
+  {
+    "id": "16010",
+    "name": "Комплектующие",
+    "slug": "komplektujuschie",
+    "parent_id": "16000"
+  },
+  {
+    "id": "16050",
+    "name": "Оргтехника",
+    "slug": "orgtehnika",
+    "parent_id": "16000"
+  },
+  {
+    "id": "16060",
+    "name": "Периферия и аксессуары",
+    "slug": "periferija-i-aksessuary",
+    "parent_id": "16000"
+  },
+  {
+    "id": "16070",
+    "name": "Сетевое оборудование",
+    "slug": "setevoe-oborudovanie",
+    "parent_id": "16000"
+  },
+  {
+    "id": "16080",
+    "name": "Прочие компьютерные товары",
+    "slug": "prochie-komp-juternye-tovary",
+    "parent_id": "16000"
+  },
+  {
+    "id": "17000",
+    "name": "Телефоны и планшеты",
+    "slug": "telefony-i-planshety",
+    "parent_id": "0"
+  },
+  {
+    "id": "17010",
+    "name": "Мобильные телефоны",
+    "slug": "mobil-nye-telefony",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17020",
+    "name": "Комплектующие для телефонов",
+    "slug": "komplektujuschie-dlja-telefonov",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17030",
+    "name": "Аксессуары для телефонов",
+    "slug": "aksessuary-dlja-telefonov",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17040",
+    "name": "Телефония и связь",
+    "slug": "telefonija-i-svjaz",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17050",
+    "name": "Планшеты",
+    "slug": "planshety",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17120",
+    "name": "Комплектующие для планшетов",
+    "slug": "komplektujuschie-dlja-planshetov",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17060",
+    "name": "Графические планшеты",
+    "slug": "graficheskie-planshety",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17070",
+    "name": "Электронные книги",
+    "slug": "elektronnye-knigi",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17090",
+    "name": "Умные часы и фитнес-браслеты",
+    "slug": "umnye-chasy-i-fitnes-braslety",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17080",
+    "name": "Аксессуары для планшетов и книг",
+    "slug": "aksessuary-dlja-planshetov-i-knig",
+    "parent_id": "17000"
+  },
+  {
+    "id": "17100",
+    "name": "Наушники",
+    "slug": "naushniki",
+    "parent_id": "17000"
+  },
+  {
+    "id": "5000",
+    "name": "Электроника",
+    "slug": "elektronika",
+    "parent_id": "0"
+  },
+  {
+    "id": "5020",
+    "name": "Аудиотехника",
+    "slug": "audiotehnika",
+    "parent_id": "5000"
+  },
+  {
+    "id": "5100",
+    "name": "Наушники",
+    "slug": "naushniki",
+    "parent_id": "5000"
+  },
+  {
+    "id": "5060",
+    "name": "ТВ и видеотехника",
+    "slug": "tv-i-videotehnika",
+    "parent_id": "5000"
+  },
+  {
+    "id": "5070",
+    "name": "Фототехника и оптика",
+    "slug": "fototehnika-i-optika",
+    "parent_id": "5000"
+  },
+  {
+    "id": "5040",
+    "name": "Игры и приставки",
+    "slug": "igry-i-pristavki",
+    "parent_id": "5000"
+  },
+  {
+    "id": "5110",
+    "name": "Безопасность и умный дом",
+    "slug": "bezopasnost-i-umnyj-dom",
+    "parent_id": "5000"
+  },
+  {
+    "id": "8000",
+    "name": "Женский гардероб",
+    "slug": "zhenskij-garderob",
+    "parent_id": "0"
+  },
+  {
+    "id": "8110",
+    "name": "Премиум одежда",
+    "slug": "premium-odezhda",
+    "parent_id": "8000"
+  },
+  {
+    "id": "8080",
+    "name": "Женская одежда",
+    "slug": "zhenskaja-odezhda",
+    "parent_id": "8000"
+  },
+  {
+    "id": "8100",
+    "name": "Женская обувь",
+    "slug": "zhenskaja-obuv",
+    "parent_id": "8000"
+  },
+  {
+    "id": "8020",
+    "name": "Женские аксессуары",
+    "slug": "zhenskie-aksessuary",
+    "parent_id": "8000"
+  },
+  {
+    "id": "8050",
+    "name": "Ремонт и пошив одежды",
+    "slug": "remont-i-poshiv-odezhdy",
+    "parent_id": "8000"
+  },
+  {
+    "id": "8060",
+    "name": "Одежда для беременных",
+    "slug": "odezhda-dlja-beremennyh",
+    "parent_id": "8000"
+  },
+  {
+    "id": "19000",
+    "name": "Мужской гардероб",
+    "slug": "muzhskoj-garderob",
+    "parent_id": "0"
+  },
+  {
+    "id": "19010",
+    "name": "Мужская одежда",
+    "slug": "muzhskaja-odezhda",
+    "parent_id": "19000"
+  },
+  {
+    "id": "19020",
+    "name": "Мужская обувь",
+    "slug": "muzhskaja-obuv",
+    "parent_id": "19000"
+  },
+  {
+    "id": "19030",
+    "name": "Мужские аксессуары",
+    "slug": "muzhskie-aksessuary",
+    "parent_id": "19000"
+  },
+  {
+    "id": "18000",
+    "name": "Красота и здоровье",
+    "slug": "krasota-i-zdorov-e",
+    "parent_id": "0"
+  },
+  {
+    "id": "18010",
+    "name": "Декоративная косметика",
+    "slug": "dekorativnaja-kosmetika",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18020",
+    "name": "Уходовая косметика",
+    "slug": "uhodovaja-kosmetika",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18030",
+    "name": "Парфюмерия",
+    "slug": "parfjumerija",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18040",
+    "name": "Товары для маникюра и педикюра",
+    "slug": "tovary-dlja-manikjura-i-pedikjura",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18050",
+    "name": "Средства для волос",
+    "slug": "sredstva-dlja-volos",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18060",
+    "name": "Средства гигиены, депиляция",
+    "slug": "sredstva-gigieny-depiljatsija",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18070",
+    "name": "Товары для ресниц, бровей и татуажа",
+    "slug": "tovary-dlja-resnits-brovej-i-tatuazha",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18090",
+    "name": "Косметические аксессуары",
+    "slug": "kosmeticheskie-aksessuary",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18080",
+    "name": "Медицинские товары",
+    "slug": "meditsinskie-tovary",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18120",
+    "name": "Техника для красоты и здоровья",
+    "slug": "tehnika-dlja-krasoty-i-zdorov-ja",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18100",
+    "name": "Услуги: красота",
+    "slug": "uslugi-krasota",
+    "parent_id": "18000"
+  },
+  {
+    "id": "18130",
+    "name": "Услуги: здоровье",
+    "slug": "uslugi-zdorov-e",
+    "parent_id": "18000"
+  },
+  {
+    "id": "12000",
+    "name": "Всё для детей и мам",
+    "slug": "vse-dlja-detej-i-mam",
+    "parent_id": "0"
+  },
+  {
+    "id": "12010",
+    "name": "Одежда до 1 года",
+    "slug": "odezhda-do-1-goda",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12140",
+    "name": "Одежда для девочек",
+    "slug": "odezhda-dlja-devochek",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12150",
+    "name": "Одежда для мальчиков",
+    "slug": "odezhda-dlja-mal-chikov",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12170",
+    "name": "Аксессуары для детей",
+    "slug": "aksessuary-dlja-detej",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12020",
+    "name": "Детская обувь",
+    "slug": "detskaja-obuv",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12040",
+    "name": "Ходунки, шезлонги, качели",
+    "slug": "hodunki-shezlongi-kacheli",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12050",
+    "name": "Коляски",
+    "slug": "koljaski",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12060",
+    "name": "Автокресла и бустеры",
+    "slug": "avtokresla-i-bustery",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12070",
+    "name": "Кормление и уход",
+    "slug": "kormlenie-i-uhod",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12160",
+    "name": "Текстиль для детей",
+    "slug": "tekstil-dlja-detej",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12080",
+    "name": "Сумки-кенгуру и слинги",
+    "slug": "sumki-kenguru-i-slingi",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12090",
+    "name": "Игрушки и книги",
+    "slug": "igrushki-i-knigi",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12100",
+    "name": "Детский транспорт",
+    "slug": "detskij-transport",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12110",
+    "name": "Товары для мам",
+    "slug": "tovary-dlja-mam",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12120",
+    "name": "Одежда для беременных",
+    "slug": "odezhda-dlja-beremennyh",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12130",
+    "name": "Прочие товары для детей",
+    "slug": "prochie-tovary-dlja-detej",
+    "parent_id": "12000"
+  },
+  {
+    "id": "12180",
+    "name": "Детская мебель",
+    "slug": "detskaja-mebel",
+    "parent_id": "12000"
+  },
+  {
+    "id": "21000",
+    "name": "Мебель",
+    "slug": "mebel",
+    "parent_id": "0"
+  },
+  {
+    "id": "21010",
+    "name": "Банкетки, пуфики",
+    "slug": "banketki-pufiki",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21020",
+    "name": "Вешалки, прихожие",
+    "slug": "veshalki-prihozhie",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21180",
+    "name": "Детская мебель",
+    "slug": "detskaja-mebel",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21030",
+    "name": "Комоды",
+    "slug": "komody",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21040",
+    "name": "Кровати,матрасы",
+    "slug": "krovati-matrasy",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21050",
+    "name": "Кухни",
+    "slug": "kuhni",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21060",
+    "name": "Кухонные уголки",
+    "slug": "kuhonnye-ugolki",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21070",
+    "name": "Мягкая мебель",
+    "slug": "mjagkaja-mebel",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21090",
+    "name": "Полки, стеллажи, шкафчики",
+    "slug": "polki-stellazhi-shkafchiki",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21100",
+    "name": "Спальные гарнитуры",
+    "slug": "spal-nye-garnitury",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21110",
+    "name": "Стенки, секции, модули",
+    "slug": "stenki-sektsii-moduli",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21120",
+    "name": "Столы и обеденные группы",
+    "slug": "stoly-i-obedennye-gruppy",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21130",
+    "name": "Стулья",
+    "slug": "stul-ja",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21140",
+    "name": "Тумбы, буфеты",
+    "slug": "tumby-bufety",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21150",
+    "name": "Шкафы",
+    "slug": "shkafy",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21160",
+    "name": "Мебельная фурнитура и составляющие",
+    "slug": "mebel-naja-furnitura-i-sostavljajuschie",
+    "parent_id": "21000"
+  },
+  {
+    "id": "21170",
+    "name": "Прочая мебель",
+    "slug": "prochaja-mebel",
+    "parent_id": "21000"
+  },
+  {
+    "id": "3000",
+    "name": "Все для дома",
+    "slug": "vse-dlja-doma",
+    "parent_id": "0"
+  },
+  {
+    "id": "3060",
+    "name": "Предметы интерьера, зеркала",
+    "slug": "predmety-inter-era-zerkala",
+    "parent_id": "3000"
+  },
+  {
+    "id": "3150",
+    "name": "Шторы, жалюзи, карнизы",
+    "slug": "shtory-zhaljuzi-karnizy",
+    "parent_id": "3000"
+  },
+  {
+    "id": "3160",
+    "name": "Текстиль и ковры",
+    "slug": "tekstil-i-kovry",
+    "parent_id": "3000"
+  },
+  {
+    "id": "3170",
+    "name": "Освещение",
+    "slug": "osveschenie",
+    "parent_id": "3000"
+  },
+  {
+    "id": "3110",
+    "name": "Хозяйственные товары",
+    "slug": "hozjajstvennye-tovary",
+    "parent_id": "3000"
+  },
+  {
+    "id": "3100",
+    "name": "Посуда и кухонные аксессуары",
+    "slug": "posuda-i-kuhonnye-aksessuary",
+    "parent_id": "3000"
+  },
+  {
+    "id": "3120",
+    "name": "Комнатные растения",
+    "slug": "komnatnye-rastenija",
+    "parent_id": "3000"
+  },
+  {
+    "id": "3130",
+    "name": "Бытовые услуги",
+    "slug": "bytovye-uslugi",
+    "parent_id": "3000"
+  },
+  {
+    "id": "3140",
+    "name": "Ремонт, сборка, перетяжка мебели",
+    "slug": "remont-sborka-peretjazhka-mebeli",
+    "parent_id": "3000"
+  },
+  {
+    "id": "14000",
+    "name": "Ремонт и стройка",
+    "slug": "remont-i-strojka",
+    "parent_id": "0"
+  },
+  {
+    "id": "14010",
+    "name": "Строительный инструмент",
+    "slug": "stroitel-nyj-instrument",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14180",
+    "name": "Строительное оборудование",
+    "slug": "stroitel-noe-oborudovanie",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14020",
+    "name": "Сантехника и отопление",
+    "slug": "santehnika-i-otoplenie",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14030",
+    "name": "Стройматериалы",
+    "slug": "strojmaterialy",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14040",
+    "name": "Отделочные материалы",
+    "slug": "otdelochnye-materialy",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14050",
+    "name": "Окна и двери",
+    "slug": "okna-i-dveri",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14080",
+    "name": "Дома, срубы и сооружения",
+    "slug": "doma-sruby-i-sooruzhenija",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14090",
+    "name": "Ворота, заборы",
+    "slug": "vorota-zabory",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14100",
+    "name": "Электроснабжение",
+    "slug": "elektrosnabzhenie",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14190",
+    "name": "Средства индивидуальной защиты",
+    "slug": "sredstva-individual-noj-zaschity",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14060",
+    "name": "Прочее для ремонта и стройки",
+    "slug": "prochee-dlja-remonta-i-strojki",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14070",
+    "name": "Строительные работы",
+    "slug": "stroitel-nye-raboty",
+    "parent_id": "14000"
+  },
+  {
+    "id": "14170",
+    "name": "Ремонт квартиры, дома",
+    "slug": "remont-kvartiry-doma",
+    "parent_id": "14000"
+  },
+  {
+    "id": "10000",
+    "name": "Сад и огород",
+    "slug": "sad-i-ogorod",
+    "parent_id": "0"
+  },
+  {
+    "id": "10010",
+    "name": "Садовая мебель и бассейны",
+    "slug": "sadovaja-mebel-i-bassejny",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10100",
+    "name": "Мангалы, аксессуары, топливо",
+    "slug": "mangaly-aksessuary-toplivo",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10110",
+    "name": "Мотоблоки и культиваторы",
+    "slug": "motobloki-i-kul-tivatory",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10030",
+    "name": "Садовая техника",
+    "slug": "sadovaja-tehnika",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10050",
+    "name": "Садовый инвентарь",
+    "slug": "sadovyj-inventar",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10040",
+    "name": "Теплицы и парники",
+    "slug": "teplitsy-i-parniki",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10020",
+    "name": "Растения, рассада и семена",
+    "slug": "rastenija-rassada-i-semena",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10060",
+    "name": "Удобрения и агрохимия",
+    "slug": "udobrenija-i-agrohimija",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10070",
+    "name": "Все для пчеловода",
+    "slug": "vse-dlja-pchelovoda",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10090",
+    "name": "Бани, хозблоки, санузлы",
+    "slug": "bani-hozbloki-sanuzly",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10080",
+    "name": "Прочее для сада и огорода",
+    "slug": "prochee-dlja-sada-i-ogoroda",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10120",
+    "name": "Комнатные растения",
+    "slug": "komnatnye-rastenija",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10130",
+    "name": "Cельхозтехника",
+    "slug": "cel-hoztehnika",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10140",
+    "name": "Срубы, бытовки, кунги",
+    "slug": "sruby-bytovki-kungi",
+    "parent_id": "10000"
+  },
+  {
+    "id": "10150",
+    "name": "Услуги: cад, благоустройство",
+    "slug": "uslugi-cad-blagoustrojstvo",
+    "parent_id": "10000"
+  },
+  {
+    "id": "4000",
+    "name": "Хобби, спорт и туризм",
+    "slug": "hobbi-sport-i-turizm",
+    "parent_id": "0"
+  },
+  {
+    "id": "4010",
+    "name": "CD, DVD, пластинки",
+    "slug": "cd-dvd-plastinki",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4030",
+    "name": "Антиквариат",
+    "slug": "antikvariat",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4170",
+    "name": "Коллекционирование",
+    "slug": "kollektsionirovanie",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4120",
+    "name": "Билеты",
+    "slug": "bilety",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4040",
+    "name": "Книги и журналы",
+    "slug": "knigi-i-zhurnaly",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4130",
+    "name": "Металлоискатели",
+    "slug": "metalloiskateli",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4070",
+    "name": "Музыкальные инструменты",
+    "slug": "muzykal-nye-instrumenty",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4140",
+    "name": "Настольные игры и пазлы",
+    "slug": "nastol-nye-igry-i-pazly",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4060",
+    "name": "Охота и рыбалка",
+    "slug": "ohota-i-rybalka",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4090",
+    "name": "Туристические товары",
+    "slug": "turisticheskie-tovary",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4150",
+    "name": "Радиоуправляемые модели",
+    "slug": "radioupravljaemye-modeli",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4080",
+    "name": "Рукоделие",
+    "slug": "rukodelie",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4020",
+    "name": "Спорттовары",
+    "slug": "sporttovary",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4050",
+    "name": "Велоспорт",
+    "slug": "velosport",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4160",
+    "name": "Электротранспорт",
+    "slug": "elektrotransport",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4110",
+    "name": "Туристические услуги",
+    "slug": "turisticheskie-uslugi",
+    "parent_id": "4000"
+  },
+  {
+    "id": "4100",
+    "name": "Прочее в Хобби, спорт и туризм",
+    "slug": "prochee-v-hobbi-sport-i-turizm",
+    "parent_id": "4000"
+  },
+  {
+    "id": "9000",
+    "name": "Свадьба и праздники",
+    "slug": "svad-ba-i-prazdniki",
+    "parent_id": "0"
+  },
+  {
+    "id": "9020",
+    "name": "Свадебные платья",
+    "slug": "svadebnye-plat-ja",
+    "parent_id": "9000"
+  },
+  {
+    "id": "9030",
+    "name": "Свадебные костюмы",
+    "slug": "svadebnye-kostjumy",
+    "parent_id": "9000"
+  },
+  {
+    "id": "9040",
+    "name": "Свадебная обувь",
+    "slug": "svadebnaja-obuv",
+    "parent_id": "9000"
+  },
+  {
+    "id": "9050",
+    "name": "Свадебные аксессуары",
+    "slug": "svadebnye-aksessuary",
+    "parent_id": "9000"
+  },
+  {
+    "id": "9010",
+    "name": "Подарки и праздничные товары",
+    "slug": "podarki-i-prazdnichnye-tovary",
+    "parent_id": "9000"
+  },
+  {
+    "id": "9070",
+    "name": "Карнавальные костюмы",
+    "slug": "karnaval-nye-kostjumy",
+    "parent_id": "9000"
+  },
+  {
+    "id": "9060",
+    "name": "Услуги для торжеств",
+    "slug": "uslugi-dlja-torzhestv",
+    "parent_id": "9000"
+  },
+  {
+    "id": "11000",
+    "name": "Животные",
+    "slug": "zhivotnye",
+    "parent_id": "0"
+  },
+  {
+    "id": "11060",
+    "name": "Питомцы в дар",
+    "slug": "pitomtsy-v-dar",
+    "parent_id": "11000"
+  },
+  {
+    "id": "11010",
+    "name": "Домашние питомцы",
+    "slug": "domashnie-pitomtsy",
+    "parent_id": "11000"
+  },
+  {
+    "id": "11020",
+    "name": "Сельхоз животные",
+    "slug": "sel-hoz-zhivotnye",
+    "parent_id": "11000"
+  },
+  {
+    "id": "11030",
+    "name": "Товары для животных",
+    "slug": "tovary-dlja-zhivotnyh",
+    "parent_id": "11000"
+  },
+  {
+    "id": "11050",
+    "name": "Вязка животных",
+    "slug": "vjazka-zhivotnyh",
+    "parent_id": "11000"
+  },
+  {
+    "id": "11040",
+    "name": "Услуги для животных",
+    "slug": "uslugi-dlja-zhivotnyh",
+    "parent_id": "11000"
+  },
+  {
+    "id": "20000",
+    "name": "Готовый бизнес и оборудование",
+    "slug": "gotovyj-biznes-i-oborudovanie",
+    "parent_id": "0"
+  },
+  {
+    "id": "20010",
+    "name": "Готовый бизнес",
+    "slug": "gotovyj-biznes",
+    "parent_id": "20000"
+  },
+  {
+    "id": "20020",
+    "name": "Оборудование для бизнеса",
+    "slug": "oborudovanie-dlja-biznesa",
+    "parent_id": "20000"
+  },
+  {
+    "id": "6000",
+    "name": "Работа",
+    "slug": "rabota",
+    "parent_id": "0"
+  },
+  {
+    "id": "6010",
+    "name": "Вакансии",
+    "slug": "vakansii",
+    "parent_id": "6000"
+  },
+  {
+    "id": "6020",
+    "name": "Резюме",
+    "slug": "rezjume",
+    "parent_id": "6000"
+  },
+  {
+    "id": "7000",
+    "name": "Прочее",
+    "slug": "prochee",
+    "parent_id": "0"
+  },
+  {
+    "id": "7030",
+    "name": "Бюро находок",
+    "slug": "bjuro-nahodok",
+    "parent_id": "7000"
+  },
+  {
+    "id": "7070",
+    "name": "Кальяны",
+    "slug": "kal-jany",
+    "parent_id": "7000"
+  },
+  {
+    "id": "7060",
+    "name": "Канцелярские товары",
+    "slug": "kantseljarskie-tovary",
+    "parent_id": "7000"
+  },
+  {
+    "id": "7020",
+    "name": "Продукты питания",
+    "slug": "produkty-pitanija",
+    "parent_id": "7000"
+  },
+  {
+    "id": "7090",
+    "name": "Ритуальные товары и услуги",
+    "slug": "ritual-nye-tovary-i-uslugi",
+    "parent_id": "7000"
+  },
+  {
+    "id": "7080",
+    "name": "Электронные парогенераторы",
+    "slug": "elektronnye-parogeneratory",
+    "parent_id": "7000"
+  },
+  {
+    "id": "7040",
+    "name": "Спрос",
+    "slug": "spros",
+    "parent_id": "7000"
+  },
+  {
+    "id": "7010",
+    "name": "Все остальное",
+    "slug": "vse-ostal-noe",
+    "parent_id": "7000"
+  }
+]

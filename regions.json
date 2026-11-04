@@ -1,0 +1,1124 @@
+[
+  {
+    "id": "1",
+    "name": "Брестская область",
+    "slug": "brestskaja-oblast",
+    "parent_id": "0"
+  },
+  {
+    "id": "1",
+    "name": "Брест",
+    "slug": "brest",
+    "parent_id": "1"
+  },
+  {
+    "id": "2",
+    "name": "Кобрин",
+    "slug": "kobrin",
+    "parent_id": "1"
+  },
+  {
+    "id": "3",
+    "name": "Лунинец",
+    "slug": "luninets",
+    "parent_id": "1"
+  },
+  {
+    "id": "4",
+    "name": "Пинск",
+    "slug": "pinsk",
+    "parent_id": "1"
+  },
+  {
+    "id": "31",
+    "name": "Другие города",
+    "slug": "drugie-goroda",
+    "parent_id": "1"
+  },
+  {
+    "id": "37",
+    "name": "Барановичи",
+    "slug": "baranovichi",
+    "parent_id": "1"
+  },
+  {
+    "id": "38",
+    "name": "Береза",
+    "slug": "bereza",
+    "parent_id": "1"
+  },
+  {
+    "id": "48",
+    "name": "Ганцевичи",
+    "slug": "gantsevichi",
+    "parent_id": "1"
+  },
+  {
+    "id": "49",
+    "name": "Дрогичин",
+    "slug": "drogichin",
+    "parent_id": "1"
+  },
+  {
+    "id": "50",
+    "name": "Жабинка",
+    "slug": "zhabinka",
+    "parent_id": "1"
+  },
+  {
+    "id": "51",
+    "name": "Иваново",
+    "slug": "ivanovo",
+    "parent_id": "1"
+  },
+  {
+    "id": "52",
+    "name": "Ивацевичи",
+    "slug": "ivatsevichi",
+    "parent_id": "1"
+  },
+  {
+    "id": "53",
+    "name": "Каменец",
+    "slug": "kamenets",
+    "parent_id": "1"
+  },
+  {
+    "id": "54",
+    "name": "Ляховичи",
+    "slug": "ljahovichi",
+    "parent_id": "1"
+  },
+  {
+    "id": "55",
+    "name": "Малорита",
+    "slug": "malorita",
+    "parent_id": "1"
+  },
+  {
+    "id": "56",
+    "name": "Пружаны",
+    "slug": "pruzhany",
+    "parent_id": "1"
+  },
+  {
+    "id": "57",
+    "name": "Столин",
+    "slug": "stolin",
+    "parent_id": "1"
+  },
+  {
+    "id": "123",
+    "name": "Белоозёрск",
+    "slug": "beloozersk",
+    "parent_id": "1"
+  },
+  {
+    "id": "146",
+    "name": "Микашевичи",
+    "slug": "mikashevichi",
+    "parent_id": "1"
+  },
+  {
+    "id": "147",
+    "name": "Давид - Городок",
+    "slug": "david-gorodok",
+    "parent_id": "1"
+  },
+  {
+    "id": "148",
+    "name": "Высокое",
+    "slug": "vysokoe",
+    "parent_id": "1"
+  },
+  {
+    "id": "150",
+    "name": "Брестский район",
+    "slug": "brestskij-rajon",
+    "parent_id": "1"
+  },
+  {
+    "id": "159",
+    "name": "Городище",
+    "slug": "gorodische",
+    "parent_id": "1"
+  },
+  {
+    "id": "160",
+    "name": "Ружаны",
+    "slug": "ruzhany",
+    "parent_id": "1"
+  },
+  {
+    "id": "161",
+    "name": "Телеханы",
+    "slug": "telehany",
+    "parent_id": "1"
+  },
+  {
+    "id": "2",
+    "name": "Гомельская область",
+    "slug": "gomel-skaja-oblast",
+    "parent_id": "0"
+  },
+  {
+    "id": "5",
+    "name": "Гомель",
+    "slug": "gomel",
+    "parent_id": "2"
+  },
+  {
+    "id": "6",
+    "name": "Жлобин",
+    "slug": "zhlobin",
+    "parent_id": "2"
+  },
+  {
+    "id": "7",
+    "name": "Мозырь",
+    "slug": "mozyr",
+    "parent_id": "2"
+  },
+  {
+    "id": "8",
+    "name": "Речица",
+    "slug": "rechitsa",
+    "parent_id": "2"
+  },
+  {
+    "id": "32",
+    "name": "Другие города",
+    "slug": "drugie-goroda",
+    "parent_id": "2"
+  },
+  {
+    "id": "39",
+    "name": "Светлогорск",
+    "slug": "svetlogorsk",
+    "parent_id": "2"
+  },
+  {
+    "id": "58",
+    "name": "Буда-Кошелево",
+    "slug": "buda-koshelevo",
+    "parent_id": "2"
+  },
+  {
+    "id": "59",
+    "name": "Ветка",
+    "slug": "vetka",
+    "parent_id": "2"
+  },
+  {
+    "id": "60",
+    "name": "Добруш",
+    "slug": "dobrush",
+    "parent_id": "2"
+  },
+  {
+    "id": "61",
+    "name": "Ельск",
+    "slug": "el-sk",
+    "parent_id": "2"
+  },
+  {
+    "id": "62",
+    "name": "Житковичи",
+    "slug": "zhitkovichi",
+    "parent_id": "2"
+  },
+  {
+    "id": "63",
+    "name": "Калинковичи",
+    "slug": "kalinkovichi",
+    "parent_id": "2"
+  },
+  {
+    "id": "64",
+    "name": "Наровля",
+    "slug": "narovlja",
+    "parent_id": "2"
+  },
+  {
+    "id": "65",
+    "name": "Петриков",
+    "slug": "petrikov",
+    "parent_id": "2"
+  },
+  {
+    "id": "66",
+    "name": "Рогачев",
+    "slug": "rogachev",
+    "parent_id": "2"
+  },
+  {
+    "id": "67",
+    "name": "Хойники",
+    "slug": "hojniki",
+    "parent_id": "2"
+  },
+  {
+    "id": "68",
+    "name": "Чечерск",
+    "slug": "chechersk",
+    "parent_id": "2"
+  },
+  {
+    "id": "128",
+    "name": "Брагин",
+    "slug": "bragin",
+    "parent_id": "2"
+  },
+  {
+    "id": "129",
+    "name": "Корма",
+    "slug": "korma",
+    "parent_id": "2"
+  },
+  {
+    "id": "130",
+    "name": "Лельчицы",
+    "slug": "lel-chitsy",
+    "parent_id": "2"
+  },
+  {
+    "id": "131",
+    "name": "Лоев",
+    "slug": "loev",
+    "parent_id": "2"
+  },
+  {
+    "id": "132",
+    "name": "Октябрьский",
+    "slug": "oktjabr-skij",
+    "parent_id": "2"
+  },
+  {
+    "id": "149",
+    "name": "Василевичи",
+    "slug": "vasilevichi",
+    "parent_id": "2"
+  },
+  {
+    "id": "152",
+    "name": "Гомельский район",
+    "slug": "gomel-skij-rajon",
+    "parent_id": "2"
+  },
+  {
+    "id": "162",
+    "name": "Большевик",
+    "slug": "bol-shevik",
+    "parent_id": "2"
+  },
+  {
+    "id": "163",
+    "name": "Костюковка",
+    "slug": "kostjukovka",
+    "parent_id": "2"
+  },
+  {
+    "id": "164",
+    "name": "Паричи",
+    "slug": "parichi",
+    "parent_id": "2"
+  },
+  {
+    "id": "165",
+    "name": "Тереховка",
+    "slug": "terehovka",
+    "parent_id": "2"
+  },
+  {
+    "id": "166",
+    "name": "Туров",
+    "slug": "turov",
+    "parent_id": "2"
+  },
+  {
+    "id": "167",
+    "name": "Уваровичи",
+    "slug": "uvarovichi",
+    "parent_id": "2"
+  },
+  {
+    "id": "3",
+    "name": "Гродненская область",
+    "slug": "grodnenskaja-oblast",
+    "parent_id": "0"
+  },
+  {
+    "id": "9",
+    "name": "Гродно",
+    "slug": "grodno",
+    "parent_id": "3"
+  },
+  {
+    "id": "10",
+    "name": "Лида",
+    "slug": "lida",
+    "parent_id": "3"
+  },
+  {
+    "id": "11",
+    "name": "Слоним",
+    "slug": "slonim",
+    "parent_id": "3"
+  },
+  {
+    "id": "33",
+    "name": "Другие города",
+    "slug": "drugie-goroda",
+    "parent_id": "3"
+  },
+  {
+    "id": "40",
+    "name": "Волковыск",
+    "slug": "volkovysk",
+    "parent_id": "3"
+  },
+  {
+    "id": "41",
+    "name": "Сморгонь",
+    "slug": "smorgon",
+    "parent_id": "3"
+  },
+  {
+    "id": "69",
+    "name": "Березовка",
+    "slug": "berezovka",
+    "parent_id": "3"
+  },
+  {
+    "id": "70",
+    "name": "Дятлово",
+    "slug": "djatlovo",
+    "parent_id": "3"
+  },
+  {
+    "id": "71",
+    "name": "Ивье",
+    "slug": "iv-e",
+    "parent_id": "3"
+  },
+  {
+    "id": "72",
+    "name": "Мосты",
+    "slug": "mosty",
+    "parent_id": "3"
+  },
+  {
+    "id": "73",
+    "name": "Новогрудок",
+    "slug": "novogrudok",
+    "parent_id": "3"
+  },
+  {
+    "id": "74",
+    "name": "Островец",
+    "slug": "ostrovets",
+    "parent_id": "3"
+  },
+  {
+    "id": "75",
+    "name": "Ошмяны",
+    "slug": "oshmjany",
+    "parent_id": "3"
+  },
+  {
+    "id": "76",
+    "name": "Свислочь",
+    "slug": "svisloch",
+    "parent_id": "3"
+  },
+  {
+    "id": "77",
+    "name": "Скидель",
+    "slug": "skidel",
+    "parent_id": "3"
+  },
+  {
+    "id": "78",
+    "name": "Щучин",
+    "slug": "schuchin",
+    "parent_id": "3"
+  },
+  {
+    "id": "133",
+    "name": "Берестовица",
+    "slug": "berestovitsa",
+    "parent_id": "3"
+  },
+  {
+    "id": "134",
+    "name": "Вороново",
+    "slug": "voronovo",
+    "parent_id": "3"
+  },
+  {
+    "id": "135",
+    "name": "Зельва",
+    "slug": "zel-va",
+    "parent_id": "3"
+  },
+  {
+    "id": "136",
+    "name": "Кореличи",
+    "slug": "korelichi",
+    "parent_id": "3"
+  },
+  {
+    "id": "153",
+    "name": "Гродненский район",
+    "slug": "grodnenskij-rajon",
+    "parent_id": "3"
+  },
+  {
+    "id": "168",
+    "name": "Большая Берестовица",
+    "slug": "bol-shaja-berestovitsa",
+    "parent_id": "3"
+  },
+  {
+    "id": "169",
+    "name": "Красносельский",
+    "slug": "krasnosel-skij",
+    "parent_id": "3"
+  },
+  {
+    "id": "170",
+    "name": "Мир",
+    "slug": "mir",
+    "parent_id": "3"
+  },
+  {
+    "id": "171",
+    "name": "Радунь",
+    "slug": "radun",
+    "parent_id": "3"
+  },
+  {
+    "id": "172",
+    "name": "Россь",
+    "slug": "ross",
+    "parent_id": "3"
+  },
+  {
+    "id": "4",
+    "name": "Могилевская область",
+    "slug": "mogilevskaja-oblast",
+    "parent_id": "0"
+  },
+  {
+    "id": "12",
+    "name": "Бобруйск",
+    "slug": "bobrujsk",
+    "parent_id": "4"
+  },
+  {
+    "id": "13",
+    "name": "Могилев",
+    "slug": "mogilev",
+    "parent_id": "4"
+  },
+  {
+    "id": "14",
+    "name": "Осиповичи",
+    "slug": "osipovichi",
+    "parent_id": "4"
+  },
+  {
+    "id": "34",
+    "name": "Другие города",
+    "slug": "drugie-goroda",
+    "parent_id": "4"
+  },
+  {
+    "id": "42",
+    "name": "Горки",
+    "slug": "gorki",
+    "parent_id": "4"
+  },
+  {
+    "id": "43",
+    "name": "Кричев",
+    "slug": "krichev",
+    "parent_id": "4"
+  },
+  {
+    "id": "79",
+    "name": "Быхов",
+    "slug": "byhov",
+    "parent_id": "4"
+  },
+  {
+    "id": "80",
+    "name": "Глуск",
+    "slug": "glusk",
+    "parent_id": "4"
+  },
+  {
+    "id": "81",
+    "name": "Кировск",
+    "slug": "kirovsk",
+    "parent_id": "4"
+  },
+  {
+    "id": "82",
+    "name": "Климовичи",
+    "slug": "klimovichi",
+    "parent_id": "4"
+  },
+  {
+    "id": "83",
+    "name": "Кличев",
+    "slug": "klichev",
+    "parent_id": "4"
+  },
+  {
+    "id": "84",
+    "name": "Костюковичи",
+    "slug": "kostjukovichi",
+    "parent_id": "4"
+  },
+  {
+    "id": "85",
+    "name": "Мстиславль",
+    "slug": "mstislavl",
+    "parent_id": "4"
+  },
+  {
+    "id": "86",
+    "name": "Славгород",
+    "slug": "slavgorod",
+    "parent_id": "4"
+  },
+  {
+    "id": "87",
+    "name": "Чаусы",
+    "slug": "chausy",
+    "parent_id": "4"
+  },
+  {
+    "id": "88",
+    "name": "Чериков",
+    "slug": "cherikov",
+    "parent_id": "4"
+  },
+  {
+    "id": "89",
+    "name": "Шклов",
+    "slug": "shklov",
+    "parent_id": "4"
+  },
+  {
+    "id": "137",
+    "name": "Белыничи",
+    "slug": "belynichi",
+    "parent_id": "4"
+  },
+  {
+    "id": "138",
+    "name": "Дрибин",
+    "slug": "dribin",
+    "parent_id": "4"
+  },
+  {
+    "id": "139",
+    "name": "Краснополье",
+    "slug": "krasnopol-e",
+    "parent_id": "4"
+  },
+  {
+    "id": "140",
+    "name": "Круглое",
+    "slug": "krugloe",
+    "parent_id": "4"
+  },
+  {
+    "id": "141",
+    "name": "Хотимск",
+    "slug": "hotimsk",
+    "parent_id": "4"
+  },
+  {
+    "id": "154",
+    "name": "Могилевский район",
+    "slug": "mogilevskij-rajon",
+    "parent_id": "4"
+  },
+  {
+    "id": "173",
+    "name": "Елизово",
+    "slug": "elizovo",
+    "parent_id": "4"
+  },
+  {
+    "id": "5",
+    "name": "Минская область",
+    "slug": "minskaja-oblast",
+    "parent_id": "0"
+  },
+  {
+    "id": "15",
+    "name": "Борисов",
+    "slug": "borisov",
+    "parent_id": "5"
+  },
+  {
+    "id": "16",
+    "name": "Молодечно",
+    "slug": "molodechno",
+    "parent_id": "5"
+  },
+  {
+    "id": "17",
+    "name": "Слуцк",
+    "slug": "slutsk",
+    "parent_id": "5"
+  },
+  {
+    "id": "35",
+    "name": "Другие города",
+    "slug": "drugie-goroda",
+    "parent_id": "5"
+  },
+  {
+    "id": "44",
+    "name": "Жодино",
+    "slug": "zhodino",
+    "parent_id": "5"
+  },
+  {
+    "id": "45",
+    "name": "Солигорск",
+    "slug": "soligorsk",
+    "parent_id": "5"
+  },
+  {
+    "id": "91",
+    "name": "Березино",
+    "slug": "berezino",
+    "parent_id": "5"
+  },
+  {
+    "id": "92",
+    "name": "Вилейка",
+    "slug": "vilejka",
+    "parent_id": "5"
+  },
+  {
+    "id": "93",
+    "name": "Воложин",
+    "slug": "volozhin",
+    "parent_id": "5"
+  },
+  {
+    "id": "94",
+    "name": "Дзержинск",
+    "slug": "dzerzhinsk",
+    "parent_id": "5"
+  },
+  {
+    "id": "95",
+    "name": "Клецк",
+    "slug": "kletsk",
+    "parent_id": "5"
+  },
+  {
+    "id": "96",
+    "name": "Копыль",
+    "slug": "kopyl",
+    "parent_id": "5"
+  },
+  {
+    "id": "97",
+    "name": "Крупки",
+    "slug": "krupki",
+    "parent_id": "5"
+  },
+  {
+    "id": "98",
+    "name": "Логойск",
+    "slug": "logojsk",
+    "parent_id": "5"
+  },
+  {
+    "id": "99",
+    "name": "Любань",
+    "slug": "ljuban",
+    "parent_id": "5"
+  },
+  {
+    "id": "100",
+    "name": "Мядель",
+    "slug": "mjadel",
+    "parent_id": "5"
+  },
+  {
+    "id": "101",
+    "name": "Несвиж",
+    "slug": "nesvizh",
+    "parent_id": "5"
+  },
+  {
+    "id": "102",
+    "name": "Смолевичи",
+    "slug": "smolevichi",
+    "parent_id": "5"
+  },
+  {
+    "id": "103",
+    "name": "Старые Дороги",
+    "slug": "starye-dorogi",
+    "parent_id": "5"
+  },
+  {
+    "id": "104",
+    "name": "Столбцы",
+    "slug": "stolbtsy",
+    "parent_id": "5"
+  },
+  {
+    "id": "105",
+    "name": "Узда",
+    "slug": "uzda",
+    "parent_id": "5"
+  },
+  {
+    "id": "106",
+    "name": "Червень",
+    "slug": "cherven",
+    "parent_id": "5"
+  },
+  {
+    "id": "122",
+    "name": "Марьина Горка",
+    "slug": "mar-ina-gorka",
+    "parent_id": "5"
+  },
+  {
+    "id": "142",
+    "name": "Минский район",
+    "slug": "minskij-rajon",
+    "parent_id": "5"
+  },
+  {
+    "id": "143",
+    "name": "Заславль",
+    "slug": "zaslavl",
+    "parent_id": "5"
+  },
+  {
+    "id": "144",
+    "name": "Фаниполь",
+    "slug": "fanipol",
+    "parent_id": "5"
+  },
+  {
+    "id": "145",
+    "name": "Руденск",
+    "slug": "rudensk",
+    "parent_id": "5"
+  },
+  {
+    "id": "156",
+    "name": "Плещеницы",
+    "slug": "pleschenitsy",
+    "parent_id": "5"
+  },
+  {
+    "id": "157",
+    "name": "Радошковичи",
+    "slug": "radoshkovichi",
+    "parent_id": "5"
+  },
+  {
+    "id": "158",
+    "name": "Боровляны",
+    "slug": "borovljany",
+    "parent_id": "5"
+  },
+  {
+    "id": "174",
+    "name": "Городея",
+    "slug": "gorodeja",
+    "parent_id": "5"
+  },
+  {
+    "id": "175",
+    "name": "Зеленый Бор",
+    "slug": "zelenyj-bor",
+    "parent_id": "5"
+  },
+  {
+    "id": "176",
+    "name": "Ивенец",
+    "slug": "ivenets",
+    "parent_id": "5"
+  },
+  {
+    "id": "177",
+    "name": "Смиловичи",
+    "slug": "smilovichi",
+    "parent_id": "5"
+  },
+  {
+    "id": "178",
+    "name": "Старобин",
+    "slug": "starobin",
+    "parent_id": "5"
+  },
+  {
+    "id": "180",
+    "name": "Мачулищи",
+    "slug": "machulischi",
+    "parent_id": "5"
+  },
+  {
+    "id": "182",
+    "name": "Ждановичи",
+    "slug": "zhdanovichi",
+    "parent_id": "5"
+  },
+  {
+    "id": "6",
+    "name": "Витебская область",
+    "slug": "vitebskaja-oblast",
+    "parent_id": "0"
+  },
+  {
+    "id": "18",
+    "name": "Витебск",
+    "slug": "vitebsk",
+    "parent_id": "6"
+  },
+  {
+    "id": "19",
+    "name": "Орша",
+    "slug": "orsha",
+    "parent_id": "6"
+  },
+  {
+    "id": "20",
+    "name": "Полоцк",
+    "slug": "polotsk",
+    "parent_id": "6"
+  },
+  {
+    "id": "36",
+    "name": "Другие города",
+    "slug": "drugie-goroda",
+    "parent_id": "6"
+  },
+  {
+    "id": "46",
+    "name": "Новополоцк",
+    "slug": "novopolotsk",
+    "parent_id": "6"
+  },
+  {
+    "id": "47",
+    "name": "Поставы",
+    "slug": "postavy",
+    "parent_id": "6"
+  },
+  {
+    "id": "107",
+    "name": "Барань",
+    "slug": "baran",
+    "parent_id": "6"
+  },
+  {
+    "id": "108",
+    "name": "Браслав",
+    "slug": "braslav",
+    "parent_id": "6"
+  },
+  {
+    "id": "109",
+    "name": "Верхнедвинск",
+    "slug": "verhnedvinsk",
+    "parent_id": "6"
+  },
+  {
+    "id": "110",
+    "name": "Глубокое",
+    "slug": "glubokoe",
+    "parent_id": "6"
+  },
+  {
+    "id": "111",
+    "name": "Городок",
+    "slug": "gorodok",
+    "parent_id": "6"
+  },
+  {
+    "id": "112",
+    "name": "Докшицы",
+    "slug": "dokshitsy",
+    "parent_id": "6"
+  },
+  {
+    "id": "113",
+    "name": "Дубровно",
+    "slug": "dubrovno",
+    "parent_id": "6"
+  },
+  {
+    "id": "114",
+    "name": "Лепель",
+    "slug": "lepel",
+    "parent_id": "6"
+  },
+  {
+    "id": "115",
+    "name": "Лиозно",
+    "slug": "liozno",
+    "parent_id": "6"
+  },
+  {
+    "id": "116",
+    "name": "Миоры",
+    "slug": "miory",
+    "parent_id": "6"
+  },
+  {
+    "id": "117",
+    "name": "Новолукомль",
+    "slug": "novolukoml",
+    "parent_id": "6"
+  },
+  {
+    "id": "118",
+    "name": "Россоны",
+    "slug": "rossony",
+    "parent_id": "6"
+  },
+  {
+    "id": "119",
+    "name": "Сенно",
+    "slug": "senno",
+    "parent_id": "6"
+  },
+  {
+    "id": "120",
+    "name": "Толочин",
+    "slug": "tolochin",
+    "parent_id": "6"
+  },
+  {
+    "id": "121",
+    "name": "Чашники",
+    "slug": "chashniki",
+    "parent_id": "6"
+  },
+  {
+    "id": "124",
+    "name": "Шумилино",
+    "slug": "shumilino",
+    "parent_id": "6"
+  },
+  {
+    "id": "125",
+    "name": "Бешенковичи",
+    "slug": "beshenkovichi",
+    "parent_id": "6"
+  },
+  {
+    "id": "126",
+    "name": "Ушачи",
+    "slug": "ushachi",
+    "parent_id": "6"
+  },
+  {
+    "id": "127",
+    "name": "Шарковщина",
+    "slug": "sharkovschina",
+    "parent_id": "6"
+  },
+  {
+    "id": "151",
+    "name": "Витебский район",
+    "slug": "vitebskij-rajon",
+    "parent_id": "6"
+  },
+  {
+    "id": "155",
+    "name": "Браславский район",
+    "slug": "braslavskij-rajon",
+    "parent_id": "6"
+  },
+  {
+    "id": "179",
+    "name": "Ветрино",
+    "slug": "vetrino",
+    "parent_id": "6"
+  },
+  {
+    "id": "181",
+    "name": "Коханово",
+    "slug": "kohanovo",
+    "parent_id": "6"
+  },
+  {
+    "id": "7",
+    "name": "Минск",
+    "slug": "minsk",
+    "parent_id": "0"
+  },
+  {
+    "id": "22",
+    "name": "Центральный",
+    "slug": "tsentral-nyj",
+    "parent_id": "7"
+  },
+  {
+    "id": "23",
+    "name": "Советский",
+    "slug": "sovetskij",
+    "parent_id": "7"
+  },
+  {
+    "id": "24",
+    "name": "Первомайский",
+    "slug": "pervomajskij",
+    "parent_id": "7"
+  },
+  {
+    "id": "25",
+    "name": "Партизанский",
+    "slug": "partizanskij",
+    "parent_id": "7"
+  },
+  {
+    "id": "26",
+    "name": "Заводской",
+    "slug": "zavodskoj",
+    "parent_id": "7"
+  },
+  {
+    "id": "27",
+    "name": "Ленинский",
+    "slug": "leninskij",
+    "parent_id": "7"
+  },
+  {
+    "id": "28",
+    "name": "Октябрьский",
+    "slug": "oktjabr-skij",
+    "parent_id": "7"
+  },
+  {
+    "id": "29",
+    "name": "Московский",
+    "slug": "moskovskij",
+    "parent_id": "7"
+  },
+  {
+    "id": "30",
+    "name": "Фрунзенский",
+    "slug": "frunzenskij",
+    "parent_id": "7"
+  }
+]
