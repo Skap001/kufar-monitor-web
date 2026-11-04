@@ -13,6 +13,7 @@
             --btn: var(--tg-theme-button-color, #2481cc);
             --btn_text: var(--tg-theme-button-text-color, #ffffff);
             --card_bg: var(--tg-theme-secondary-bg-color, #232e3c);
+            --border: var(--tg-theme-section-separator-color, #2f3b4a);
         }
         
         body {
@@ -21,139 +22,140 @@
             color: var(--text);
             margin: 0;
             padding: 16px;
-            padding-bottom: 90px; /* Место для нижней кнопки */
+            padding-bottom: 90px;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
 
-        h1 { font-size: 20px; margin-top: 0; margin-bottom: 20px; }
+        h1 { font-size: 20px; margin: 0 0 16px 0; font-weight: 600; }
 
-        .section { margin-bottom: 24px; }
-        .section-title { font-size: 13px; color: var(--hint); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        .card {
+        /* Строка поиска */
+        .search-input {
+            width: 100%;
             background-color: var(--card_bg);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 8px;
+            border: none;
+            padding: 14px 16px;
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        .search-input::placeholder { color: var(--hint); }
+
+        /* Вертикальные списки-кнопки */
+        .menu-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
             font-size: 16px;
         }
+        .menu-item:active { opacity: 0.7; }
+        .menu-item .label { display: flex; align-items: center; gap: 12px; }
+        .menu-item .value { color: var(--hint); display: flex; align-items: center; gap: 4px; }
+        .icon { font-size: 18px; }
+        .arrow { font-size: 14px; color: var(--hint); }
 
-        .card span { color: var(--text); }
-        .card span.value { color: var(--hint); }
-
-        .chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
-        .chip {
-            background-color: var(--card_bg);
-            padding: 10px 16px;
-            border-radius: 20px;
-            white-space: nowrap;
-            border: 1px solid transparent;
-            cursor: pointer;
-        }
-        .chip.active { border-color: var(--btn); color: var(--btn); background-color: rgba(36, 129, 204, 0.1); }
-
+        /* Блок цены */
+        .price-block { margin-top: 20px; margin-bottom: 24px; }
+        .price-title { font-size: 14px; color: var(--hint); margin-bottom: 8px; }
         .price-inputs { display: flex; gap: 10px; }
         .price-inputs input {
             flex: 1; background-color: var(--card_bg); border: none; padding: 14px;
-            border-radius: 12px; color: var(--text); font-size: 16px; outline: none;
+            border-radius: 10px; color: var(--text); font-size: 16px; outline: none;
         }
         .price-inputs input::placeholder { color: var(--hint); }
 
+        /* Нижняя кнопка */
         .bottom-btn {
             position: fixed; bottom: 0; left: 0; right: 0;
             padding: 16px; background-color: var(--bg);
             box-sizing: border-box;
         }
-        
         .save-btn {
             width: 100%; padding: 16px; background-color: var(--btn);
-            color: var(--btn_text); border: none; border-radius: 12px;
-            font-size: 16px; font-weight: bold; cursor: pointer;
+            color: var(--btn_text); border: none; border-radius: 10px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
         }
         .save-btn:active { opacity: 0.8; }
+
+        /* Нативные селекты, стилизованные под список */
+        select {
+            width: 100%;
+            background-color: var(--bg);
+            color: var(--text);
+            border: none;
+            font-size: 16px;
+            font-family: inherit;
+            appearance: none; /* Убираем стандартную стрелку на iOS */
+            outline: none;
+            padding: 16px 0;
+            cursor: pointer;
+        }
+        select option { background-color: var(--bg); color: var(--text); }
+
     </style>
 </head>
 <body>
 
     <h1>Новый поиск</h1>
 
-    <!-- Категории -->
-    <div class="section">
-        <div class="section-title">Категория</div>
-        <div class="chips" id="category-chips">
-            <div class="chip active" data-val="sneakers">Кроссовки</div>
-            <div class="chip" data-val="phones">Телефоны</div>
-            <div class="chip" data-val="auto">Авто</div>
-            <div class="chip" data-val="realty">Недвижимость</div>
-        </div>
+    <input type="text" id="query" class="search-input" placeholder="🔍 Что вы ищете?">
+
+    <div class="menu-item">
+        <div class="label"><span class="icon">📦</span> Все категории</div>
+        <select id="category">
+            <option value="all">Все категории</option>
+            <option value="sneakers">Обувь (Кроссовки)</option>
+            <option value="phones">Телефоны</option>
+            <option value="clothes">Одежда</option>
+        </select>
     </div>
 
-    <!-- Локация -->
-    <div class="section">
-        <div class="section-title">Локация</div>
-        <div class="chips" id="city-chips">
-            <div class="chip active" data-val="all">Вся Беларусь</div>
-            <div class="chip" data-val="minsk">Минск</div>
-            <div class="chip" data-val="brest">Брест</div>
-            <div class="chip" data-val="grodno">Гродно</div>
-        </div>
+    <div class="menu-item">
+        <div class="label"><span class="icon">📍</span> Локация</div>
+        <select id="city">
+            <option value="all">Вся Беларусь</option>
+            <option value="minsk">Минск</option>
+            <option value="brest">Брестская область</option>
+            <option value="grodno">Гродненская область</option>
+            <option value="gomel">Гомельская область</option>
+            <option value="mogilev">Могилевская область</option>
+            <option value="vitebsk">Витебская область</option>
+            <option value="minsk_region">Минская область</option>
+        </select>
     </div>
 
-    <!-- Цена -->
-    <div class="section">
-        <div class="section-title">Цена (BYN)</div>
+    <div class="price-block">
+        <div class="price-title">Цена (BYN)</div>
         <div class="price-inputs">
-            <input type="number" id="price_min" placeholder="От" min="0">
-            <input type="number" id="price_max" placeholder="До" min="0">
+            <input type="number" id="price_min" placeholder="От">
+            <input type="number" id="price_max" placeholder="До">
         </div>
     </div>
 
-    <!-- Кнопка сохранения -->
     <div class="bottom-btn">
         <button class="save-btn" onclick="sendData()">Сохранить и начать</button>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
-        tg.expand(); // Открыть на весь экран
-        tg.BackButton.hide(); // Скрыть кнопку "Назад" из шапки
-
-        // Логика переключения чипсов (кнопок)
-        let selectedCategory = "sneakers";
-        let selectedCity = "all";
-
-        document.querySelectorAll('#category-chips .chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                document.querySelectorAll('#category-chips .chip').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                selectedCategory = chip.getAttribute('data-val');
-            });
-        });
-
-        document.querySelectorAll('#city-chips .chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                document.querySelectorAll('#city-chips .chip').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                selectedCity = chip.getAttribute('data-val');
-            });
-        });
+        tg.expand();
+        tg.BackButton.hide();
 
         function sendData() {
-            const priceMin = document.getElementById('price_min').value || 0;
-            const priceMax = document.getElementById('price_max').value || 0;
-            
             const data = {
-                category: selectedCategory,
-                city: selectedCity,
-                price_min: Number(priceMin),
-                price_max: Number(priceMax)
+                query: document.getElementById('query').value || "",
+                category: document.getElementById('category').value,
+                city: document.getElementById('city').value,
+                price_min: Number(document.getElementById('price_min').value) || 0,
+                price_max: Number(document.getElementById('price_max').value) || 0
             };
             
-            // Отправляем JSON в бота
             tg.sendData(JSON.stringify(data));
             tg.close();
         }
