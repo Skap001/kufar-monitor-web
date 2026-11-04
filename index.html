@@ -21,15 +21,32 @@
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            padding: 16px;
-            padding-bottom: 90px;
+            padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* --- Экраны --- */
+        .screen {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .screen.active {
+            display: flex;
+        }
+
+        /* --- Главный экран --- */
+        .main-content {
+            padding: 16px;
+            padding-bottom: 90px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
         h1 { font-size: 20px; margin: 0 0 16px 0; font-weight: 600; }
 
-        /* Строка поиска */
         .search-input {
             width: 100%;
             background-color: var(--card_bg);
@@ -44,7 +61,7 @@
         }
         .search-input::placeholder { color: var(--hint); }
 
-        /* Вертикальные списки-кнопки */
+        /* Кнопки-строки (Категория, Локация) */
         .menu-item {
             display: flex;
             justify-content: space-between;
@@ -57,24 +74,36 @@
         .menu-item:active { opacity: 0.7; }
         .menu-item .label { display: flex; align-items: center; gap: 12px; }
         .menu-item .value { color: var(--hint); display: flex; align-items: center; gap: 4px; }
-        .icon { font-size: 18px; }
-        .arrow { font-size: 14px; color: var(--hint); }
-
+        
         /* Блок цены */
-        .price-block { margin-top: 20px; margin-bottom: 24px; }
+        .price-block { margin-top: 24px; }
         .price-title { font-size: 14px; color: var(--hint); margin-bottom: 8px; }
-        .price-inputs { display: flex; gap: 10px; }
-        .price-inputs input {
-            flex: 1; background-color: var(--card_bg); border: none; padding: 14px;
-            border-radius: 10px; color: var(--text); font-size: 16px; outline: none;
+        .price-inputs { display: flex; gap: 12px; align-items: center; }
+        
+        /* Фикс кривых инпутов: убираем стрелочки и делаем ровные плашки */
+        .price-inputs input[type=number]::-webkit-inner-spin-button, 
+        .price-inputs input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; margin: 0; 
         }
-        .price-inputs input::placeholder { color: var(--hint); }
+        .price-inputs input {
+            width: 100%;
+            background-color: var(--card_bg); 
+            border: none; 
+            padding: 14px;
+            border-radius: 10px; 
+            color: var(--text); 
+            font-size: 16px; 
+            outline: none;
+            box-sizing: border-box;
+        }
+        .price-inputs input::placeholder { color: var(--hint); text-align: center; }
 
         /* Нижняя кнопка */
         .bottom-btn {
             position: fixed; bottom: 0; left: 0; right: 0;
             padding: 16px; background-color: var(--bg);
             box-sizing: border-box;
+            border-top: 1px solid var(--border);
         }
         .save-btn {
             width: 100%; padding: 16px; background-color: var(--btn);
@@ -83,76 +112,167 @@
         }
         .save-btn:active { opacity: 0.8; }
 
-        /* Нативные селекты, стилизованные под список */
-        select {
-            width: 100%;
-            background-color: var(--bg);
-            color: var(--text);
-            border: none;
-            font-size: 16px;
-            font-family: inherit;
-            appearance: none; /* Убираем стандартную стрелку на iOS */
-            outline: none;
-            padding: 16px 0;
-            cursor: pointer;
+        /* --- Экраны списков (Категории / Локации) --- */
+        .header {
+            display: flex; align-items: center; padding: 16px;
+            background-color: var(--bg); position: sticky; top: 0; z-index: 10;
         }
-        select option { background-color: var(--bg); color: var(--text); }
+        .back-btn {
+            font-size: 24px; cursor: pointer; padding-right: 16px; color: var(--btn);
+        }
+        .header h2 { font-size: 20px; margin: 0; font-weight: 600; }
 
+        .list-container { padding: 0 16px; overflow-y: auto; flex: 1; }
+
+        .list-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 0; border-bottom: 1px solid var(--border);
+            font-size: 16px; cursor: pointer;
+        }
+        .list-item:active { background-color: var(--card_bg); }
+        
+        .check-mark { display: none; color: var(--btn); font-weight: bold; font-size: 18px; }
+        .list-item.selected .check-mark { display: block; }
+
+        /* Скрываем скроллбары для красоты */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
     </style>
 </head>
 <body>
 
-    <h1>Новый поиск</h1>
+    <!-- ЭКРАН 1: ГЛАВНЫЙ -->
+    <div id="main-screen" class="screen active">
+        <div class="main-content">
+            <h1>Новый поиск</h1>
 
-    <input type="text" id="query" class="search-input" placeholder="🔍 Что вы ищете?">
+            <input type="text" id="query" class="search-input" placeholder="🔍 Что вы ищете?">
 
-    <div class="menu-item">
-        <div class="label"><span class="icon">📦</span> Все категории</div>
-        <select id="category">
-            <option value="all">Все категории</option>
-            <option value="sneakers">Обувь (Кроссовки)</option>
-            <option value="phones">Телефоны</option>
-            <option value="clothes">Одежда</option>
-        </select>
-    </div>
+            <div class="menu-item" onclick="showScreen('category-screen')">
+                <div class="label"><span>📦</span> Категория</div>
+                <div class="value"><span id="current-category">Все категории</span> <span>›</span></div>
+            </div>
 
-    <div class="menu-item">
-        <div class="label"><span class="icon">📍</span> Локация</div>
-        <select id="city">
-            <option value="all">Вся Беларусь</option>
-            <option value="minsk">Минск</option>
-            <option value="brest">Брестская область</option>
-            <option value="grodno">Гродненская область</option>
-            <option value="gomel">Гомельская область</option>
-            <option value="mogilev">Могилевская область</option>
-            <option value="vitebsk">Витебская область</option>
-            <option value="minsk_region">Минская область</option>
-        </select>
-    </div>
+            <div class="menu-item" onclick="showScreen('location-screen')">
+                <div class="label"><span>📍</span> Локация</div>
+                <div class="value"><span id="current-location">Вся Беларусь</span> <span>›</span></div>
+            </div>
 
-    <div class="price-block">
-        <div class="price-title">Цена (BYN)</div>
-        <div class="price-inputs">
-            <input type="number" id="price_min" placeholder="От">
-            <input type="number" id="price_max" placeholder="До">
+            <div class="price-block">
+                <div class="price-title">Цена (BYN)</div>
+                <div class="price-inputs">
+                    <input type="number" id="price_min" placeholder="От">
+                    <input type="number" id="price_max" placeholder="До">
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-btn">
+            <button class="save-btn" onclick="sendData()">Сохранить и начать</button>
         </div>
     </div>
 
-    <div class="bottom-btn">
-        <button class="save-btn" onclick="sendData()">Сохранить и начать</button>
+    <!-- ЭКРАН 2: ВЫБОР КАТЕГОРИИ -->
+    <div id="category-screen" class="screen">
+        <div class="header">
+            <div class="back-btn" onclick="showScreen('main-screen')">←</div>
+            <h2>Категории</h2>
+        </div>
+        <div class="list-container" id="category-list">
+            <div class="list-item selected" data-val="all" onclick="selectCategory(this)">
+                Все категории <span class="check-mark">✓</span>
+            </div>
+            <div class="list-item" data-val="sneakers" onclick="selectCategory(this)">
+                Обувь (Кроссовки) <span class="check-mark">✓</span>
+            </div>
+            <div class="list-item" data-val="phones" onclick="selectCategory(this)">
+                Телефоны и планшеты <span class="check-mark">✓</span>
+            </div>
+            <div class="list-item" data-val="clothes" onclick="selectCategory(this)">
+                Одежда <span class="check-mark">✓</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЭКРАН 3: ВЫБОР ЛОКАЦИИ -->
+    <div id="location-screen" class="screen">
+        <div class="header">
+            <div class="back-btn" onclick="showScreen('main-screen')">←</div>
+            <h2>Локация</h2>
+        </div>
+        <div class="list-container" id="location-list">
+            <div class="list-item selected" data-val="all" onclick="selectLocation(this)">
+                Вся Беларусь <span class="check-mark">✓</span>
+            </div>
+            <div class="list-item" data-val="minsk" onclick="selectLocation(this)">
+                Минск <span class="check-mark">✓</span>
+            </div>
+            <div class="list-item" data-val="brest" onclick="selectLocation(this)">
+                Брестская область <span class="check-mark">✓</span>
+            </div>
+            <div class="list-item" data-val="grodno" onclick="selectLocation(this)">
+                Гродненская область <span class="check-mark">✓</span>
+            </div>
+            <div class="list-item" data-val="gomel" onclick="selectLocation(this)">
+                Гомельская область <span class="check-mark">✓</span>
+            </div>
+        </div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
-        tg.BackButton.hide();
 
+        // Переменные для хранения выбора
+        let selectedCategory = "all";
+        let selectedCity = "all";
+
+        // Логика переключения экранов
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            
+            // Управляем нативной кнопкой "Назад" в Telegram
+            if (screenId === 'main-screen') {
+                tg.BackButton.hide();
+            } else {
+                tg.BackButton.show();
+                tg.BackButton.onClick(() => showScreen('main-screen'));
+            }
+        }
+
+        // Выбор категории
+        function selectCategory(element) {
+            // Снимаем выделение со всех
+            document.querySelectorAll('#category-list .list-item').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            // Сохраняем значение и текст
+            selectedCategory = element.getAttribute('data-val');
+            const text = element.innerText.replace('✓', '').trim();
+            document.getElementById('current-category').innerText = text;
+            
+            showScreen('main-screen');
+        }
+
+        // Выбор локации
+        function selectLocation(element) {
+            document.querySelectorAll('#location-list .list-item').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            selectedCity = element.getAttribute('data-val');
+            const text = element.innerText.replace('✓', '').trim();
+            document.getElementById('current-location').innerText = text;
+            
+            showScreen('main-screen');
+        }
+
+        // Отправка данных
         function sendData() {
             const data = {
                 query: document.getElementById('query').value || "",
-                category: document.getElementById('category').value,
-                city: document.getElementById('city').value,
+                category: selectedCategory,
+                city: selectedCity,
                 price_min: Number(document.getElementById('price_min').value) || 0,
                 price_max: Number(document.getElementById('price_max').value) || 0
             };
