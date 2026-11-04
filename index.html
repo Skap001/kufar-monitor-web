@@ -36,10 +36,10 @@
         .check-mark { display: none; color: var(--btn); font-weight: bold; font-size: 18px; }
         .list-item.selected .check-mark { display: block; }
         .arrow { color: var(--hint); font-size: 14px; }
+        .select-current { color: var(--btn); font-weight: bold; border-bottom: 2px solid var(--btn); }
     </style>
 </head>
 <body>
-    <!-- Главный экран -->
     <div id="main-screen" class="screen active">
         <div class="main-content">
             <h1>Новый поиск</h1>
@@ -63,7 +63,6 @@
         <div class="bottom-btn"><button class="save-btn" onclick="sendData()">Сохранить и начать</button></div>
     </div>
 
-    <!-- Экран списков (Общий для категорий и локаций) -->
     <div id="list-screen" class="screen">
         <div class="header">
             <div class="back-btn" onclick="goBack()">←</div>
@@ -76,15 +75,14 @@
         let tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
 
-        let selectedCategory = { id: "all", name: "Все категории" };
+        let selectedCategory = { id: "all", name: "Все категории", slug: "" };
         let selectedCity = { id: "all", name: "Вся Беларусь" };
         
         let categoriesData = [];
         let regionsData = [];
-        let currentListType = ""; // 'category' или 'location'
-        let historyStack = []; // Для кнопки Назад
+        let currentListType = "";
+        let historyStack = []; 
 
-        // Загрузка данных
         fetch('categories.json').then(r => r.json()).then(data => categoriesData = data);
         fetch('regions.json').then(r => r.json()).then(data => regionsData = data);
 
@@ -93,40 +91,54 @@
             document.getElementById(id).classList.add('active');
         }
 
-        // --- ЛОГИКА КАТЕГОРИЙ ---
         function openCategoryScreen() {
             currentListType = "category";
-            historyStack = ["0"]; // Начинаем с корня
+            historyStack = [{ id: "0", name: "Категории" }];
             renderList("0", "Категории");
             showScreen('list-screen');
         }
 
-        // --- ЛОГИКА ЛОКАЦИЙ ---
         function openLocationScreen() {
             currentListType = "location";
-            historyStack = ["0"];
+            historyStack = [{ id: "0", name: "Локация" }];
             renderList("0", "Локация");
             showScreen('list-screen');
         }
 
-        // --- РЕНДЕР СПИСКА ---
         function renderList(parentId, title) {
             document.getElementById('list-title').innerText = title;
             const container = document.getElementById('list-container');
             container.innerHTML = '';
 
-            // Добавляем кнопку "Вся Беларусь" / "Все категории" на верхний уровень
-            if (parentId === "0") {
+            const data = currentListType === 'category' ? categoriesData : regionsData;
+
+            // Если мы не в самом начале, показываем кнопку "Выбрать [Название]"
+            if (parentId !== "0") {
+                const currentNode = data.find(i => i.id === parentId);
+                if (currentNode) {
+                    const selectCurrent = document.createElement('div');
+                    selectCurrent.className = 'list-item select-current';
+                    selectCurrent.innerHTML = `✅ Выбрать: ${currentNode.name} <span class="check-mark" style="display:block; color:var(--btn);">✓</span>`;
+                    selectCurrent.onclick = () => {
+                        if (currentListType === 'category') {
+                            selectedCategory = { id: currentNode.id, name: currentNode.name, slug: currentNode.slug };
+                            document.getElementById('current-category').innerText = currentNode.name;
+                        } else {
+                            selectedCity = { id: currentNode.id, name: currentNode.name };
+                            document.getElementById('current-location').innerText = currentNode.name;
+                        }
+                        showScreen('main-screen');
+                    };
+                    container.appendChild(selectCurrent);
+                }
+            } else {
+                // На самом верхнем уровне "Все категории" / "Вся Беларусь"
                 const allItem = document.createElement('div');
                 allItem.className = 'list-item';
-                const isAll = (currentListType === 'category' && selectedCategory.id === 'all') || 
-                              (currentListType === 'location' && selectedCity.id === 'all');
-                if (isAll) allItem.classList.add('selected');
-                
-                allItem.innerHTML = `${currentListType === 'category' ? 'Все категории' : 'Вся Беларусь'} <span class="check-mark">✓</span>`;
+                allItem.innerHTML = `${currentListType === 'category' ? 'Все категории' : 'Вся Беларусь'} <span class="check-mark" style="display:block; color:var(--btn);">✓</span>`;
                 allItem.onclick = () => {
                     if (currentListType === 'category') {
-                        selectedCategory = { id: "all", name: "Все категории" };
+                        selectedCategory = { id: "all", name: "Все категории", slug: "" };
                         document.getElementById('current-category').innerText = "Все категории";
                     } else {
                         selectedCity = { id: "all", name: "Вся Беларусь" };
@@ -137,41 +149,30 @@
                 container.appendChild(allItem);
             }
 
-            const data = currentListType === 'category' ? categoriesData : regionsData;
             const items = data.filter(item => item.parent_id === parentId);
 
             items.forEach(item => {
-                // Проверяем, есть ли у этого элемента дочерние
                 const hasChildren = data.some(child => child.parent_id === item.id);
 
                 const div = document.createElement('div');
                 div.className = 'list-item';
-                
-                // Проверка на выделение (по id и parent_id, чтобы не путать Брест-город и Брест-область)
-                const isSelected = (currentListType === 'category' && selectedCategory.id === item.id) || 
-                                   (currentListType === 'location' && selectedCity.id === item.id && selectedCity.parent === item.parent_id);
-                if (isSelected) div.classList.add('selected');
-
                 div.innerHTML = `
                     <span>${item.name}</span>
                     <span style="display:flex; gap:8px; align-items:center;">
-                        <span class="check-mark">✓</span>
-                        ${hasChildren ? '<span class="arrow">›</span>' : ''}
+                        ${hasChildren ? '<span class="arrow">›</span>' : '<span class="check-mark" style="display:block; color:var(--btn);">✓</span>'}
                     </span>
                 `;
 
                 div.onclick = () => {
                     if (hasChildren) {
-                        // Если есть дети — идем внутрь
-                        historyStack.push(parentId);
+                        historyStack.push({ id: parentId, name: title });
                         renderList(item.id, item.name);
                     } else {
-                        // Если это лист — выбираем и возвращаемся
                         if (currentListType === 'category') {
-                            selectedCategory = { id: item.id, name: item.name };
+                            selectedCategory = { id: item.id, name: item.name, slug: item.slug };
                             document.getElementById('current-category').innerText = item.name;
                         } else {
-                            selectedCity = { id: item.id, name: item.name, parent: item.parent_id };
+                            selectedCity = { id: item.id, name: item.name };
                             document.getElementById('current-location').innerText = item.name;
                         }
                         showScreen('main-screen');
@@ -182,13 +183,9 @@
         }
 
         function goBack() {
-            if (historyStack.length > 1) {
-                historyStack.pop(); // Удаляем текущий
-                const prevParentId = historyStack[historyStack.length - 1];
-                // Восстанавливаем заголовок (ищем имя родителя)
-                const data = currentListType === 'category' ? categoriesData : regionsData;
-                const parentItem = data.find(i => i.id === prevParentId);
-                renderList(prevParentId, parentItem ? parentItem.name : (currentListType === 'category' ? 'Категории' : 'Локация'));
+            if (historyStack.length > 0) {
+                const prevState = historyStack.pop();
+                renderList(prevState.id, prevState.name);
             } else {
                 showScreen('main-screen');
             }
@@ -197,7 +194,7 @@
         function sendData() {
             const data = {
                 query: document.getElementById('query').value || "",
-                category_id: selectedCategory.id,
+                category_slug: selectedCategory.slug,
                 category_name: selectedCategory.name,
                 region_id: selectedCity.id,
                 region_name: selectedCity.name,
