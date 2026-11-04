@@ -269,16 +269,22 @@
 
         // Отправка данных
         function sendData() {
-            const data = {
-                query: document.getElementById('query').value || "",
-                category: selectedCategory,
-                city: selectedCity,
-                price_min: Number(document.getElementById('price_min').value) || 0,
-                price_max: Number(document.getElementById('price_max').value) || 0
-            };
-            
-            tg.sendData(JSON.stringify(data));
-            tg.close();
+            try {
+                const data = {
+                    query: document.getElementById('query').value || "",
+                    category: selectedCategory || "all",
+                    city: selectedCity || "all",
+                    price_min: Number(document.getElementById('price_min').value) || 0,
+                    price_max: Number(document.getElementById('price_max').value) || 0
+                };
+                
+                const jsonString = JSON.stringify(data);
+                tg.sendData(jsonString);
+                tg.close();
+            } catch (e) {
+                // Показываем ошибку прямо в Telegram
+                tg.showAlert("Ошибка JS: " + e.message);
+            }
         }
     </script>
 </body>
