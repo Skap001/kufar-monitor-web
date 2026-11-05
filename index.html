@@ -392,9 +392,12 @@
                 selectAllRow.className = `select-all-row ${isAllSelected ? 'selected' : ''}`;
                 selectAllRow.innerHTML = `<span>Вся ${title}</span> <div class="checkbox"></div>`;
                 selectAllRow.onclick = () => {
-                    if (isAllSelected) selectedLocations = selectedLocations.filter(l => l.parentId !== parentId);
-                    else {
+                    // Сбрасываем другие области
+                    selectedLocations = selectedLocations.filter(l => l.parentId === parentId || l.id === 'all');
+                    
+                    if (isAllSelected) {
                         selectedLocations = selectedLocations.filter(l => l.parentId !== parentId);
+                    } else {
                         cities.forEach(c => selectedLocations.push({ id: c.id, name: c.name, parentId: parentId }));
                     }
                     renderList(parentId, title); 
@@ -408,11 +411,23 @@
                     const div = document.createElement('div');
                     div.className = `list-item ${isSelected ? 'selected' : ''}`;
                     div.setAttribute('data-name', city.name.toLowerCase());
+                    
                     div.innerHTML = `<span style="flex: 1; padding: 10px 0;">${city.name}</span> <div class="checkbox"></div>`;
+                    
                     div.onclick = () => {
+                        // Проверяем, есть ли уже выбранные города из ДРУГИХ областей
+                        const hasOtherRegions = selectedLocations.some(l => l.parentId && l.parentId !== parentId && l.parentId !== "0");
+                        if (hasOtherRegions) {
+                            // Если есть, сбрасываем всё (начинаем новую область)
+                            selectedLocations = [];
+                        }
+
                         const exists = selectedLocations.some(l => l.id === city.id && l.parentId === parentId);
-                        if (exists) selectedLocations = selectedLocations.filter(l => !(l.id === city.id && l.parentId === parentId));
-                        else selectedLocations.push({ id: city.id, name: city.name, parentId: parentId });
+                        if (exists) {
+                            selectedLocations = selectedLocations.filter(l => !(l.id === city.id && l.parentId === parentId));
+                        } else {
+                            selectedLocations.push({ id: city.id, name: city.name, parentId: parentId });
+                        }
                         renderList(parentId, title);
                     };
                     listWrapper.appendChild(div);
@@ -515,6 +530,10 @@
         }
 
         function sendData() {
+            if (!selectedCategory || selectedCategory.id === 'all') {
+                tg.showAlert("Пожалуйста, выберите конкретную категорию (не 'Все категории').");
+                return;
+            }
             // Группируем выбранные локации по областям
             let locGroups = {};
             selectedLocations.forEach(loc => {
