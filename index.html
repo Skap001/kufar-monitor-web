@@ -10,11 +10,11 @@
             --bg: var(--tg-theme-bg-color, #17212b);
             --text: var(--tg-theme-text-color, #ffffff);
             --hint: var(--tg-theme-hint-color, #708499);
-            --btn: var(--tg-theme-button-color, #2481cc);
-            --btn_text: var(--tg-theme-button-text-color, #ffffff);
+            --btn_blue: #2481cc; 
+            --btn_text: #ffffff;
             --card_bg: var(--tg-theme-secondary-bg-color, #232e3c);
             --border: var(--tg-theme-section-separator-color, #2f3b4a);
-            --green: #34c759; /* Зеленый цвет для галочек как у Kufar */
+            --green: #34c759; /* Ярко-зеленый как в Kufar */
         }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; }
         .screen { display: none; flex-direction: column; height: 100vh; }
@@ -22,72 +22,52 @@
         .main-content { padding: 16px; padding-bottom: 90px; flex: 1; overflow-y: auto; }
         h1 { font-size: 20px; margin: 0 0 16px 0; }
         
-        /* Фикс инпутов цены */
-        .search-input { width: 100%; background-color: var(--card_bg); border: none; padding: 14px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; margin-bottom: 20px; }
+        .search-input { width: 100%; background-color: var(--card_bg); border: none; padding: 14px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; margin-bottom: 20px; outline: none; }
         .menu-item { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 16px; touch-action: manipulation; }
         .menu-item .value { color: var(--hint); text-align: right; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
         .price-block { margin-top: 24px; }
         .price-inputs { display: flex; gap: 12px; width: 100%; }
-        .price-inputs input { 
-            flex: 1 1 0; 
-            min-width: 0; /* Чтобы не вылезали за края */
-            width: 100%;
-            background-color: var(--card_bg); 
-            border: none; 
-            padding: 14px; 
-            border-radius: 10px; 
-            color: var(--text); 
-            font-size: 16px; 
-            box-sizing: border-box;
-        }
+        .price-inputs input { flex: 1 1 0; min-width: 0; width: 100%; background-color: var(--card_bg); border: none; padding: 14px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; outline: none; }
         
         .bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); border-top: 1px solid var(--border); }
-        .save-btn { width: 100%; padding: 16px; background-color: var(--btn); color: var(--btn_text); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .save-btn { width: 100%; padding: 16px; background-color: var(--btn_blue); color: var(--btn_text); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
         
         .header { display: flex; align-items: center; padding: 16px; }
-        .back-btn { font-size: 24px; padding-right: 16px; color: var(--btn); cursor: pointer; touch-action: manipulation; }
+        .back-btn { font-size: 24px; padding-right: 16px; color: var(--btn_blue); cursor: pointer; touch-action: manipulation; }
+        .list-title { font-size: 20px; font-weight: 600; margin: 0; }
+        
+        .list-search-wrapper { padding: 0 16px 10px 16px; }
+        .list-search { width: 100%; background-color: var(--card_bg); border: none; padding: 12px 14px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; outline: none; }
+        
         .list-container { padding: 0 16px; overflow-y: auto; flex: 1; }
         
-        /* Элемент списка с чекбоксом */
-        .list-item { 
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 16px 0; border-bottom: 1px solid var(--border); 
-            font-size: 16px; cursor: pointer; touch-action: manipulation;
-        }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 16px; cursor: pointer; touch-action: manipulation; }
         .list-item:active { background-color: var(--card_bg); }
         
-        /* Квадратный чекбокс */
-        .checkbox {
-            width: 22px; height: 22px;
-            border: 2px solid var(--hint);
-            border-radius: 6px;
-            display: flex; justify-content: center; align-items: center;
-            box-sizing: border-box;
-        }
-        .list-item.selected .checkbox {
-            background-color: var(--green);
-            border-color: var(--green);
-        }
-        .checkbox::after {
-            content: '';
-            display: none;
-            width: 6px; height: 12px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-            margin-bottom: 2px;
-        }
+        /* Для категорий (без квадратиков) */
+        .list-item .check-mark-only { display: none; color: var(--green); font-size: 20px; font-weight: bold; }
+        .list-item.selected .check-mark-only { display: block; }
+        
+        /* Для локаций (квадратные чекбоксы) */
+        .checkbox { width: 24px; height: 24px; border: 2px solid var(--hint); border-radius: 6px; display: flex; justify-content: center; align-items: center; box-sizing: border-box; background-color: transparent; transition: 0.2s; }
+        .list-item.selected .checkbox { background-color: var(--green); border-color: var(--green); }
+        .checkbox::after { content: ''; display: none; width: 6px; height: 12px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-bottom: 2px; }
         .list-item.selected .checkbox::after { display: block; }
         
-        .arrow { color: var(--hint); font-size: 18px; padding: 0 8px; }
+        .arrow { color: var(--hint); font-size: 20px; padding-left: 10px; }
+
+        /* Кнопки Применить/Выбрать */
+        .apply-block { padding: 16px; background-color: var(--bg); }
+        .apply-btn { width: 100%; padding: 16px; background-color: var(--green); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; touch-action: manipulation; }
         
-        /* Нижняя панель для списков */
-        .list-bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); }
-        .apply-btn { width: 100%; padding: 16px; background-color: var(--green); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .select-all-row { display: flex; justify-content: space-between; align-items: center; padding: 16px; background-color: var(--card_bg); border-radius: 10px; margin-bottom: 16px; font-weight: 600; cursor: pointer; touch-action: manipulation; }
+        .select-all-row .checkbox { border-color: var(--hint); }
+        .select-all-row.selected .checkbox { background-color: var(--green); border-color: var(--green); }
     </style>
 </head>
 <body>
+    <!-- Главный экран -->
     <div id="main-screen" class="screen active">
         <div class="main-content">
             <h1>Новый поиск</h1>
@@ -111,15 +91,18 @@
         <div class="bottom-btn"><button class="save-btn" onclick="sendData()">Сохранить и начать</button></div>
     </div>
 
+    <!-- Экран списков -->
     <div id="list-screen" class="screen">
         <div class="header">
             <div class="back-btn" onclick="goBack()">←</div>
-            <h2 id="list-title">Выбор</h2>
+            <h2 id="list-title" class="list-title">Выбор</h2>
+        </div>
+        <div class="list-search-wrapper">
+            <input type="text" id="list-search" class="list-search" placeholder="Поиск..." oninput="filterList()">
         </div>
         <div class="list-container" id="list-container"></div>
-        <!-- Кнопка Применить для списков -->
-        <div class="list-bottom-btn" id="apply-container" style="display: none;">
-            <button class="apply-btn" onclick="showScreen('main-screen')">Применить</button>
+        <div class="apply-block" id="apply-container" style="display: none;">
+            <button class="apply-btn" onclick="applyLocation()">Применить</button>
         </div>
     </div>
 
@@ -127,13 +110,15 @@
         let tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
 
+        // Состояния
         let selectedCategory = { id: "all", name: "Все категории", slug: "" };
-        let selectedCity = { id: "all", name: "Вся Беларусь", slug: "" };
+        let selectedCity = { id: "all", name: "Вся Беларусь", cities: [] }; // cities: массив ID выбранных городов
         
         let categoriesData = [];
         let regionsData = [];
         let currentListType = "";
         let historyStack = []; 
+        let currentRenderParentId = "0";
 
         fetch('categories.json').then(r => r.json()).then(data => categoriesData = data);
         fetch('regions.json').then(r => r.json()).then(data => regionsData = data);
@@ -146,100 +131,211 @@
         function openList(type) {
             currentListType = type;
             historyStack = [{ id: "0", name: type === 'category' ? "Категории" : "Локация" }];
+            document.getElementById('list-search').value = '';
             renderList("0", type === 'category' ? "Категории" : "Локация");
             showScreen('list-screen');
         }
 
         function renderList(parentId, title) {
+            currentRenderParentId = parentId;
             document.getElementById('list-title').innerText = title;
+            document.getElementById('list-search').value = ''; // Сброс поиска при переходе
+            
             const container = document.getElementById('list-container');
             container.innerHTML = '';
             
-            // Показываем кнопку "Применить" только на внутренних экранах
-            document.getElementById('apply-container').style.display = (parentId === "0") ? "none" : "block";
-            // Отступ снизу, чтобы кнопка не перекрывала список
-            container.style.paddingBottom = (parentId === "0") ? "0" : "80px";
+            // Блок "Применить" показываем только внутри локаций (не на корневом экране)
+            document.getElementById('apply-container').style.display = (currentListType === 'location' && parentId !== "0") ? "block" : "none";
+            container.style.paddingBottom = (currentListType === 'location' && parentId !== "0") ? "80px" : "0";
 
-            const data = currentListType === 'category' ? categoriesData : regionsData;
+            if (currentListType === 'category') {
+                renderCategoryList(parentId);
+            } else {
+                renderLocationList(parentId);
+            }
+        }
 
-            // 1. Кнопка "Все категории" / "Вся Беларусь" на корневом экране
+        // --- РЕНДЕР КАТЕГОРИЙ ---
+        function renderCategoryList(parentId) {
+            const container = document.getElementById('list-container');
+            
+            // Если мы на верхнем уровне
             if (parentId === "0") {
                 const allItem = document.createElement('div');
-                allItem.className = 'list-item';
-                const isAll = (currentListType === 'category' && selectedCategory.id === 'all') || 
-                              (currentListType === 'location' && selectedCity.id === 'all');
-                if (isAll) allItem.classList.add('selected');
-                
-                allItem.innerHTML = `
-                    <span>${currentListType === 'category' ? 'Все категории' : 'Вся Беларусь'}</span>
-                    <div class="checkbox"></div>
-                `;
+                allItem.className = `list-item ${selectedCategory.id === 'all' ? 'selected' : ''}`;
+                allItem.innerHTML = `<span>Все категории</span> <span class="check-mark-only">✓</span>`;
                 allItem.onclick = () => {
-                    if (currentListType === 'category') {
-                        selectedCategory = { id: "all", name: "Все категории", slug: "" };
-                        document.getElementById('current-category').innerText = "Все категории";
-                    } else {
-                        selectedCity = { id: "all", name: "Вся Беларусь", slug: "" };
-                        document.getElementById('current-location').innerText = "Вся Беларусь";
-                    }
+                    selectedCategory = { id: "all", name: "Все категории", slug: "" };
+                    document.getElementById('current-category').innerText = "Все категории";
                     showScreen('main-screen');
                 };
                 container.appendChild(allItem);
+            } else {
+                // Кнопка "Выбрать текущую категорию" (сверху)
+                const parentNode = categoriesData.find(i => i.id === parentId);
+                if (parentNode) {
+                    const selectCurrent = document.createElement('div');
+                    selectCurrent.className = 'select-all-row';
+                    selectCurrent.innerHTML = `<span>✅ Выбрать: ${parentNode.name}</span>`;
+                    selectCurrent.onclick = () => {
+                        selectedCategory = { id: parentNode.id, name: parentNode.name, slug: parentNode.slug };
+                        document.getElementById('current-category').innerText = parentNode.name;
+                        showScreen('main-screen');
+                    };
+                    container.appendChild(selectCurrent);
+                }
             }
 
-            // 2. Список элементов
-            const items = data.filter(item => item.parent_id === parentId);
+            const items = categoriesData.filter(item => item.parent_id === parentId);
+            const listWrapper = document.createElement('div');
+            listWrapper.id = 'actual-list';
 
             items.forEach(item => {
-                const hasChildren = data.some(child => child.parent_id === item.id);
-                
-                // Проверка на выделение (для локаций учитываем parent_id, так как id могут дублироваться)
-                let isSelected = false;
-                if (currentListType === 'category') {
-                    isSelected = (selectedCategory.id === item.id);
-                } else {
-                    isSelected = (selectedCity.id === item.id && selectedCity.name === item.name);
-                }
+                const hasChildren = categoriesData.some(child => child.parent_id === item.id);
+                const isSelected = (selectedCategory.id === item.id);
 
                 const div = document.createElement('div');
                 div.className = `list-item ${isSelected ? 'selected' : ''}`;
+                div.setAttribute('data-name', item.name.toLowerCase());
                 
-                // Внутренняя структура строки
+                // Если есть дети - стрелочка. Если нет - галочка при выборе.
                 div.innerHTML = `
-                    <div style="display:flex; align-items:center; flex:1;" onclick="event.stopPropagation(); selectItem('${item.id}', '${item.name}', '${item.slug || ''}', ${hasChildren})">
-                        <span>${item.name}</span>
-                    </div>
-                    <div style="display:flex; align-items:center;">
-                        <div class="checkbox" onclick="event.stopPropagation(); selectItem('${item.id}', '${item.name}', '${item.slug || ''}', ${hasChildren})"></div>
-                        ${hasChildren ? `<span class="arrow" onclick="event.stopPropagation(); goInside('${item.id}', '${item.name}')">›</span>` : ''}
-                    </div>
+                    <span style="flex: 1; padding: 10px 0;" onclick="event.stopPropagation(); ${hasChildren ? `goInside('${item.id}', '${item.name}')` : `selectLeafCategory('${item.id}', '${item.name}', '${item.slug}')`}">${item.name}</span>
+                    ${hasChildren ? `<span class="arrow" onclick="event.stopPropagation(); goInside('${item.id}', '${item.name}')">›</span>` : `<span class="check-mark-only">✓</span>`}
                 `;
-                container.appendChild(div);
+                
+                // Тап по всей строке тоже работает
+                div.onclick = () => {
+                    if (hasChildren) goInside(item.id, item.name);
+                    else selectLeafCategory(item.id, item.name, item.slug);
+                };
+                listWrapper.appendChild(div);
+            });
+            container.appendChild(listWrapper);
+        }
+
+        function selectLeafCategory(id, name, slug) {
+            selectedCategory = { id: id, name: name, slug: slug };
+            document.getElementById('current-category').innerText = name;
+            showScreen('main-screen');
+        }
+
+        // --- РЕНДЕР ЛОКАЦИЙ ---
+        function renderLocationList(parentId) {
+            const container = document.getElementById('list-container');
+
+            if (parentId === "0") {
+                // Корень: Вся Беларусь и Области (без чекбоксов)
+                const allItem = document.createElement('div');
+                allItem.className = `list-item ${selectedCity.id === 'all' ? 'selected' : ''}`;
+                allItem.innerHTML = `<span>Вся Беларусь</span> <span class="check-mark-only">✓</span>`;
+                allItem.onclick = () => {
+                    selectedCity = { id: "all", name: "Вся Беларусь", cities: [] };
+                    document.getElementById('current-location').innerText = "Вся Беларусь";
+                    showScreen('main-screen');
+                };
+                container.appendChild(allItem);
+
+                const regions = regionsData.filter(item => item.parent_id === "0");
+                regions.forEach(reg => {
+                    const div = document.createElement('div');
+                    div.className = 'list-item';
+                    div.setAttribute('data-name', reg.name.toLowerCase());
+                    div.innerHTML = `<span>${reg.name}</span> <span class="arrow">›</span>`;
+                    div.onclick = () => goInside(reg.id, reg.name);
+                    container.appendChild(div);
+                });
+
+            } else {
+                // Внутри области: Мультивыбор с чекбоксами
+                const regionNode = regionsData.find(i => i.id === parentId);
+                const cities = regionsData.filter(item => item.parent_id === parentId);
+
+                // Кнопка "Вся область" (Сверху)
+                const isAllSelected = cities.length > 0 && cities.every(c => selectedCity.cities.includes(c.id));
+                const selectAllRow = document.createElement('div');
+                selectAllRow.className = `select-all-row ${isAllSelected ? 'selected' : ''}`;
+                selectAllRow.innerHTML = `<span>Вся ${regionNode.name}</span> <div class="checkbox"></div>`;
+                selectAllRow.onclick = () => {
+                    if (isAllSelected) {
+                        selectedCity.cities = []; // Снимаем все
+                    } else {
+                        selectedCity.cities = cities.map(c => c.id); // Ставим все
+                    }
+                    renderList(parentId, regionNode.name); // Перерисовываем
+                };
+                container.appendChild(selectAllRow);
+
+                const listWrapper = document.createElement('div');
+                listWrapper.id = 'actual-list';
+
+                cities.forEach(city => {
+                    const isSelected = selectedCity.cities.includes(city.id);
+                    const div = document.createElement('div');
+                    div.className = `list-item ${isSelected ? 'selected' : ''}`;
+                    div.setAttribute('data-name', city.name.toLowerCase());
+                    
+                    div.innerHTML = `
+                        <span style="flex: 1; padding: 10px 0;">${city.name}</span>
+                        <div class="checkbox"></div>
+                    `;
+                    
+                    div.onclick = () => {
+                        // Мультивыбор
+                        if (selectedCity.cities.includes(city.id)) {
+                            selectedCity.cities = selectedCity.cities.filter(id => id !== city.id);
+                            div.classList.remove('selected');
+                        } else {
+                            selectedCity.cities.push(city.id);
+                            div.classList.add('selected');
+                        }
+                        
+                        // Проверяем, все ли выбраны, чтобы обновить чекбокс "Вся область"
+                        const allNow = cities.every(c => selectedCity.cities.includes(c.id));
+                        if (allNow) selectAllRow.classList.add('selected');
+                        else selectAllRow.classList.remove('selected');
+                    };
+                    listWrapper.appendChild(div);
+                });
+                container.appendChild(listWrapper);
+            }
+        }
+
+        function applyLocation() {
+            const parentNode = regionsData.find(i => i.id === currentRenderParentId);
+            
+            if (selectedCity.cities.length === 0) {
+                // Если ничего не выбрали, ставим саму область
+                selectedCity = { id: parentNode.id, name: parentNode.name, cities: [] };
+            } else {
+                // Если выбрали города
+                const cityNames = regionsData.filter(c => selectedCity.cities.includes(c.id)).map(c => c.name);
+                if (cityNames.length === 1) {
+                    selectedCity = { id: selectedCity.cities[0], name: cityNames[0], cities: selectedCity.cities };
+                } else {
+                    selectedCity = { id: "multi", name: `${parentNode.name} (${cityNames.length} шт.)`, cities: selectedCity.cities };
+                }
+            }
+            document.getElementById('current-location').innerText = selectedCity.name;
+            showScreen('main-screen');
+        }
+
+        // --- ПОИСК ---
+        function filterList() {
+            const query = document.getElementById('list-search').value.toLowerCase().trim();
+            const listItems = document.querySelectorAll('#actual-list .list-item');
+            
+            listItems.forEach(item => {
+                const name = item.getAttribute('data-name');
+                if (name && name.includes(query)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
             });
         }
 
-        // Выбор элемента (ставит галочку)
-        function selectItem(id, name, slug, hasChildren) {
-            if (currentListType === 'category') {
-                selectedCategory = { id: id, name: name, slug: slug };
-                document.getElementById('current-category').innerText = name;
-            } else {
-                selectedCity = { id: id, name: name, slug: slug };
-                document.getElementById('current-location').innerText = name;
-            }
-            
-            // Обновляем визуальное состояние (снимаем галочки со всех, ставим на этот)
-            const items = document.querySelectorAll('.list-item');
-            items.forEach(el => el.classList.remove('selected'));
-            event.currentTarget.closest('.list-item').classList.add('selected');
-            
-            // Если это конечная категория (без детей), сразу закрываем
-            if (!hasChildren) {
-                showScreen('main-screen');
-            }
-        }
-
-        // Заход внутрь категории/локации
+        // --- НАВИГАЦИЯ ---
         function goInside(id, name) {
             historyStack.push({ id: id, name: name });
             renderList(id, name);
@@ -260,8 +356,8 @@
                 query: document.getElementById('query').value || "",
                 category_slug: selectedCategory.slug,
                 category_name: selectedCategory.name,
-                region_slug: selectedCity.slug, // ВАЖНО: шлем слаг локации
                 region_name: selectedCity.name,
+                region_cities: selectedCity.cities, // Массив ID городов
                 price_min: Number(document.getElementById('price_min').value) || 0,
                 price_max: Number(document.getElementById('price_max').value) || 0
             };
