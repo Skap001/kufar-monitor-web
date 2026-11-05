@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <title>Kufar Monitor</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -15,10 +15,18 @@
             --card_bg: var(--tg-theme-secondary-bg-color, #232e3c);
             --border: var(--tg-theme-section-separator-color, #2f3b4a);
         }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        .screen { display: none; flex-direction: column; height: 100vh; }
+        /* Фикс мобильной высоты */
+        html, body { margin: 0; padding: 0; height: 100vh; overflow: hidden; background-color: var(--bg); }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            color: var(--text); -webkit-tap-highlight-color: transparent; 
+        }
+        
+        .screen { display: none; flex-direction: column; height: 100%; box-sizing: border-box; }
         .screen.active { display: flex; }
-        .main-content { padding: 16px; padding-bottom: 90px; flex: 1; overflow-y: auto; }
+        
+        /* Отступ снизу, чтобы контент не залезал под кнопки */
+        .main-content { padding: 16px; padding-bottom: 100px; flex: 1; overflow-y: auto; }
         h1 { font-size: 20px; margin: 0 0 16px 0; }
         
         .search-input { width: 100%; background-color: var(--card_bg); border: none; padding: 16px; border-radius: 12px; color: var(--text); font-size: 17px; box-sizing: border-box; margin-bottom: 20px; outline: none; }
@@ -34,10 +42,10 @@
         
         .quick-filters { display: flex; gap: 16px; margin-bottom: 24px; }
         .filter-checkbox { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 16px; }
-        .filter-checkbox .checkbox { width: 22px; height: 22px; border: 2px solid var(--hint); border-radius: 6px; display: flex; justify-content: center; align-items: center; box-sizing: border-box; background-color: transparent; }
-        .filter-checkbox.selected .checkbox { background-color: var(--btn_blue); border-color: var(--btn_blue); }
-        .filter-checkbox .checkbox::after { content: ''; display: none; width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-bottom: 2px; }
-        .filter-checkbox.selected .checkbox::after { display: block; }
+        .filter-checkbox .box { width: 22px; height: 22px; border: 2px solid var(--hint); border-radius: 6px; display: flex; justify-content: center; align-items: center; box-sizing: border-box; background-color: transparent; }
+        .filter-checkbox.selected .box { background-color: var(--btn_blue); border-color: var(--btn_blue); }
+        .filter-checkbox .box::after { content: ''; display: none; width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-bottom: 2px; }
+        .filter-checkbox.selected .box::after { display: block; }
 
         .filter-actions { display: flex; gap: 12px; align-items: stretch; margin-top: 10px; }
         .btn-filters { flex: 1; display: flex; justify-content: center; align-items: center; gap: 8px; background-color: var(--card_bg); color: var(--text); border: none; padding: 16px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
@@ -45,10 +53,8 @@
         .btn-reset { width: 56px; display: flex; justify-content: center; align-items: center; background-color: var(--card_bg); color: var(--text); border: none; border-radius: 10px; cursor: pointer; }
         .btn-reset svg { width: 24px; height: 24px; fill: currentColor; }
         
-        .bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); border-top: 1px solid var(--border); }
+        .bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); border-top: 1px solid var(--border); box-sizing: border-box; }
         .save-btn { width: 100%; padding: 16px; background-color: var(--btn_blue); color: var(--btn_text); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        
-        /* Стили для заблокированной кнопки */
         .save-btn:disabled { background-color: #2f3b4a; color: #708499; cursor: not-allowed; opacity: 0.7; }
         
         .header { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); }
@@ -58,15 +64,13 @@
         .list-search-wrapper { padding: 16px; }
         .list-search { width: 100%; background-color: var(--card_bg); border: none; padding: 14px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; outline: none; }
         
-        .list-container { padding: 0 16px; overflow-y: auto; flex: 1; }
+        .list-container { padding: 0 16px; overflow-y: auto; flex: 1; padding-bottom: 100px; }
         
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); font-size: 17px; cursor: pointer; touch-action: manipulation; outline: none; }
         .list-item:active { background-color: var(--card_bg); }
         
-        .checkbox { width: 26px; height: 26px; border: 2px solid var(--hint); border-radius: 6px; display: flex; justify-content: center; align-items: center; box-sizing: border-box; background-color: transparent; transition: 0.1s; }
-        .selected .checkbox { background-color: var(--btn_blue); border-color: var(--btn_blue); }
-        .checkbox::after { content: ''; display: none; width: 7px; height: 13px; border: solid white; border-width: 0 3px 3px 0; transform: rotate(45deg); margin-bottom: 2px; }
-        .selected .checkbox::after { display: block; }
+        .check-mark-only { display: none; color: var(--btn_blue); font-size: 24px; font-weight: bold; }
+        .list-item.selected .check-mark-only { display: block; }
         
         .arrow { color: var(--hint); font-size: 28px; font-weight: 300; padding-left: 10px; user-select: none; margin-top: -4px;}
         
@@ -75,9 +79,7 @@
         
         .select-cat-btn { display: flex; align-items: center; gap: 12px; padding: 16px; background-color: var(--card_bg); border-radius: 10px; margin-bottom: 16px; font-weight: 600; cursor: pointer; touch-action: manipulation; color: var(--text); font-size: 17px; }
         .blue-square-check { width: 24px; height: 24px; background-color: var(--btn_blue); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: bold; }
-        .select-all-row { display: flex; justify-content: space-between; align-items: center; padding: 16px; background-color: var(--card_bg); border-radius: 10px; margin-bottom: 16px; font-weight: 600; cursor: pointer; touch-action: manipulation; outline: none; font-size: 17px;}
-        .select-all-row .checkbox { border-color: var(--hint); }
-        .select-all-row.selected .checkbox { background-color: var(--btn_blue); border-color: var(--btn_blue); }
+        
         .search-result-path { font-size: 13px; color: var(--hint); margin-top: 4px; }
 
         .filter-screen-content { padding: 16px; padding-bottom: 100px; flex: 1; overflow-y: auto; }
@@ -117,10 +119,10 @@
 
             <div class="quick-filters">
                 <div class="filter-checkbox" id="chk-free" onclick="toggleQuickFilter('free')">
-                    <div class="checkbox"></div> <span>Бесплатно</span>
+                    <div class="box"></div> <span>Бесплатно</span>
                 </div>
                 <div class="filter-checkbox" id="chk-neg" onclick="toggleQuickFilter('neg')">
-                    <div class="checkbox"></div> <span>Договорная</span>
+                    <div class="box"></div> <span>Договорная</span>
                 </div>
             </div>
 
@@ -136,7 +138,6 @@
             </div>
         </div>
         <div class="bottom-btn">
-            <!-- Добавили disabled по умолчанию -->
             <button id="save-btn" class="save-btn" onclick="sendData()" disabled>Сохранить и начать</button>
         </div>
     </div>
@@ -150,9 +151,6 @@
             <input type="text" id="list-search" class="list-search" placeholder="Поиск..." oninput="filterList()">
         </div>
         <div class="list-container" id="list-container"></div>
-        <div class="apply-block" id="apply-container" style="display: none;">
-            <button class="apply-btn" onclick="applyLocation()">Применить</button>
-        </div>
     </div>
 
     <div id="filters-screen" class="screen">
@@ -196,8 +194,7 @@
         tg.ready(); tg.expand();
 
         let selectedCategory = null; 
-        let selectedLocations = []; 
-        let lastLocationParentId = "0"; // Запоминаем, в какой области были последний раз
+        let selectedLocations = []; // Будет хранить 0 или 1 элемент
         
         let categoriesData = [];
         let regionsData = [];
@@ -205,13 +202,7 @@
         let historyStack = []; 
         let currentRenderParentId = "0";
 
-        let filterState = {
-            isFree: false,
-            isNeg: false,
-            condition: "",
-            seller: "",
-            sort: "lst.d"
-        };
+        let filterState = { isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d" };
 
         fetch('categories.json').then(r => r.json()).then(data => categoriesData = data);
         fetch('regions.json').then(r => r.json()).then(data => regionsData = data);
@@ -246,7 +237,6 @@
             document.getElementById('price_max').value = '';
             selectedCategory = null;
             selectedLocations = [];
-            lastLocationParentId = "0";
             filterState = { isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d" };
             document.getElementById('chk-free').classList.remove('selected');
             document.getElementById('chk-neg').classList.remove('selected');
@@ -274,17 +264,15 @@
             document.getElementById('list-title').innerText = title;
             const container = document.getElementById('list-container');
             container.innerHTML = '';
-            document.getElementById('apply-container').style.display = (currentListType === 'location' && parentId !== "0") ? "block" : "none";
-            container.style.paddingBottom = (currentListType === 'location' && parentId !== "0") ? "90px" : "0";
-
+            
             if (currentListType === 'category') renderCategoryList(parentId, title);
             else renderLocationList(parentId, title);
         }
 
+        // --- КАТЕГОРИИ ---
         function renderCategoryList(parentId, title) {
             const container = document.getElementById('list-container');
             
-            // Убрали кнопку "Все категории" из корня списка
             if (parentId !== "0") {
                 const selectCurrent = document.createElement('div');
                 selectCurrent.className = 'select-cat-btn';
@@ -304,6 +292,8 @@
                 const div = document.createElement('div');
                 div.className = `list-item ${isSelected ? 'selected' : ''}`;
                 div.setAttribute('data-name', item.name.toLowerCase());
+                
+                // Убрали галочки у всех, оставили только у выбранного
                 div.innerHTML = `
                     <span style="flex: 1; padding: 10px 0;" onclick="event.stopPropagation(); ${hasChildren ? `goInside('${item.id}', '${item.name}')` : `selectLeafCategory('${item.id}', '${item.name}', '${item.slug}')`}">${item.name}</span>
                     ${hasChildren ? `<span class="arrow" onclick="event.stopPropagation(); goInside('${item.id}', '${item.name}')">›</span>` : `<span class="check-mark-only">✓</span>`}
@@ -320,17 +310,23 @@
             showScreen('main-screen');
         }
 
+        // --- ЛОКАЦИИ ---
         function renderLocationList(parentId, title) {
             const container = document.getElementById('list-container');
+            
             if (parentId === "0") {
                 const listWrapper = document.createElement('div');
                 listWrapper.id = 'actual-list';
+                
+                // Вся Беларусь
+                const isAllSelected = (selectedLocations.length === 0);
                 const allItem = document.createElement('div');
-                allItem.className = `list-item ${selectedLocations.length === 0 ? 'selected' : ''}`;
+                allItem.className = `list-item ${isAllSelected ? 'selected' : ''}`;
                 allItem.innerHTML = `<span>Вся Беларусь</span> <span class="check-mark-only">✓</span>`;
                 allItem.onclick = () => { selectedLocations = []; updateMainDisplay(); showScreen('main-screen'); };
                 listWrapper.appendChild(allItem);
 
+                // Области
                 regionsData.filter(item => item.parent_id === "0").forEach(reg => {
                     const div = document.createElement('div');
                     div.className = 'list-item';
@@ -341,42 +337,40 @@
                 });
                 container.appendChild(listWrapper);
             } else {
-                // Если зашли в новую область, сбрасываем старые выбранные города
-                if (lastLocationParentId !== parentId) {
-                    selectedLocations = selectedLocations.filter(l => l.parentId === parentId);
-                    lastLocationParentId = parentId;
-                }
-
+                // Внутри области
                 const cities = regionsData.filter(item => item.parent_id === parentId);
-                const isAllSelected = cities.length > 0 && cities.every(c => selectedLocations.some(l => l.id === c.id && l.parentId === parentId));
-
+                
+                // Проверяем, выбрана ли сама область целиком
+                const isRegionSelected = (selectedLocations.length === 1 && selectedLocations[0].id === parentId && selectedLocations[0].isRegion);
+                
+                // Форматируем название (Весь Минск / Вся Область)
+                const prefix = title === "Минск" ? "Весь" : "Вся";
+                
                 const selectAllRow = document.createElement('div');
-                selectAllRow.className = `select-all-row ${isAllSelected ? 'selected' : ''}`;
-                selectAllRow.innerHTML = `<span>Вся ${title}</span> <div class="checkbox"></div>`;
+                selectAllRow.className = `list-item ${isRegionSelected ? 'selected' : ''}`;
+                selectAllRow.innerHTML = `<span>${prefix} ${title}</span> <span class="check-mark-only">✓</span>`;
                 selectAllRow.onclick = () => {
-                    selectedLocations = selectedLocations.filter(l => l.parentId !== parentId);
-                    if (!isAllSelected) {
-                        cities.forEach(c => selectedLocations.push({ id: c.id, name: c.name, parentId: parentId }));
-                    }
-                    renderList(parentId, title); 
+                    selectedLocations = [{ id: parentId, name: title, isRegion: true }];
+                    updateMainDisplay();
+                    showScreen('main-screen');
                 };
                 container.appendChild(selectAllRow);
 
                 const listWrapper = document.createElement('div');
                 listWrapper.id = 'actual-list';
                 cities.forEach(city => {
-                    const isSelected = selectedLocations.some(l => l.id === city.id && l.parentId === parentId);
+                    const isSelected = (selectedLocations.length === 1 && selectedLocations[0].id === city.id);
                     const div = document.createElement('div');
                     div.className = `list-item ${isSelected ? 'selected' : ''}`;
                     div.setAttribute('data-name', city.name.toLowerCase());
-                    div.innerHTML = `<span style="flex: 1; padding: 10px 0;">${city.name}</span> <div class="checkbox"></div>`;
+                    
+                    // Убрали квадратики, оставили только галочки
+                    div.innerHTML = `<span style="flex: 1; padding: 10px 0;">${city.name}</span> <span class="check-mark-only">✓</span>`;
+                    
                     div.onclick = () => {
-                        if (selectedLocations.some(l => l.id === city.id && l.parentId === parentId)) {
-                            selectedLocations = selectedLocations.filter(l => !(l.id === city.id && l.parentId === parentId));
-                        } else {
-                            selectedLocations.push({ id: city.id, name: city.name, parentId: parentId });
-                        }
-                        renderList(parentId, title);
+                        selectedLocations = [{ id: city.id, name: city.name, parentId: parentId }];
+                        updateMainDisplay();
+                        showScreen('main-screen');
                     };
                     listWrapper.appendChild(div);
                 });
@@ -384,16 +378,10 @@
             }
         }
 
-        function applyLocation() {
-            updateMainDisplay();
-            showScreen('main-screen');
-        }
-
         function updateMainDisplay() {
             const displayCat = document.getElementById('display-category');
             const saveBtn = document.getElementById('save-btn');
 
-            // Категория и проверка на кнопку Сохранить
             if (selectedCategory === null || selectedCategory.id === 'all') {
                 displayCat.innerText = "📦 Выбрать категорию";
                 saveBtn.disabled = true;
@@ -402,22 +390,26 @@
                 saveBtn.disabled = false;
             }
 
-            // Локация
             const displayLoc = document.getElementById('display-location');
-            if (selectedLocations.length === 0) { displayLoc.innerText = "📍 Выбрать локацию"; return; }
+            if (selectedLocations.length === 0) { 
+                displayLoc.innerText = "📍 Вся Беларусь"; // Если пусто, значит Вся Беларусь
+                return; 
+            }
             
-            const uniqueRegionIds = [...new Set(selectedLocations.map(l => l.parentId))].filter(id => id);
-            let selectedRegionsNames = [];
-            uniqueRegionIds.forEach(pid => {
-                const regionNode = regionsData.find(r => r.id === pid && r.parent_id === "0");
-                if (regionNode) selectedRegionsNames.push(regionNode.name);
-            });
-
-            if (selectedRegionsNames.length === 1) displayLoc.innerText = `📍 ${selectedRegionsNames[0]}`;
-            else if (selectedRegionsNames.length === 2) {
-                let shortNames = selectedRegionsNames.map(name => name.replace(" область", "").replace("Минск", "Минск"));
-                displayLoc.innerText = `📍 ${shortNames.join(", ")} обл.`;
-            } else displayLoc.innerText = `📍 Выбрано локаций: ${selectedRegionsNames.length}`;
+            const loc = selectedLocations[0];
+            if (loc.isRegion) {
+                displayLoc.innerText = `📍 ${loc.name}`;
+            } else {
+                // Если выбран город, показываем "Область, Город"
+                const regionNode = regionsData.find(r => r.id === loc.parentId && r.parent_id === "0");
+                if (regionNode) {
+                    // Убираем слово "область" для краткости
+                    const shortRegion = regionNode.name.replace(" область", "");
+                    displayLoc.innerText = `📍 ${shortRegion}, ${loc.name}`;
+                } else {
+                    displayLoc.innerText = `📍 ${loc.name}`;
+                }
+            }
         }
 
         function flattenData(data, parentId = "0", path = "", visited = new Set()) {
@@ -439,7 +431,6 @@
             if (!query) { renderList(currentRenderParentId, document.getElementById('list-title').innerText); return; }
 
             container.innerHTML = '';
-            document.getElementById('apply-container').style.display = 'none';
             let searchScope = (currentListType === 'category') ? flattenData(categoriesData, currentRenderParentId) : flattenData(regionsData, currentRenderParentId);
             const results = searchScope.filter(item => item.name.toLowerCase().includes(query));
 
@@ -455,16 +446,9 @@
                     if (currentListType === 'category') selectLeafCategory(item.id, item.name, item.slug || "");
                     else {
                         if (item.parent_id === "0") {
-                            selectedLocations = [];
-                            lastLocationParentId = item.id;
+                            selectedLocations = [{ id: item.id, name: item.name, isRegion: true }];
                         } else {
-                            if (lastLocationParentId !== item.parent_id) {
-                                selectedLocations = [];
-                                lastLocationParentId = item.parent_id;
-                            }
-                            if (!selectedLocations.some(l => l.id === item.id && l.parentId === item.parent_id)) {
-                                selectedLocations.push({ id: item.id, name: item.name, parentId: item.parent_id });
-                            }
+                            selectedLocations = [{ id: item.id, name: item.name, parentId: item.parent_id }];
                         }
                         updateMainDisplay();
                         showScreen('main-screen');
@@ -486,7 +470,16 @@
         function sendData() {
             if (!selectedCategory || selectedCategory.id === 'all') return;
 
-            let locIds = selectedLocations.map(l => l.id);
+            let locIds = [];
+            // Если выбрана область, отправляем все её города
+            if (selectedLocations.length === 1) {
+                if (selectedLocations[0].isRegion) {
+                    const regionId = selectedLocations[0].id;
+                    locIds = regionsData.filter(r => r.parent_id === regionId).map(c => c.id);
+                } else {
+                    locIds = [selectedLocations[0].id];
+                }
+            }
 
             const data = {
                 query: document.getElementById('query').value || "",
