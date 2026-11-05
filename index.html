@@ -28,7 +28,7 @@
         .search-input { width: 100%; background-color: var(--card_bg); border: none; padding: 14px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; margin-bottom: 20px; outline: none; }
         
         .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 18px; font-weight: 600; touch-action: manipulation; }
-        .menu-item .main-text { color: var(--text); display: flex; align-items: center; gap: 10px; width: 90%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+        .menu-item .main-text { color: var(--text); display: flex; align-items: center; gap: 10px; flex: 1; margin-right: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
         .menu-item .arrow-right { color: var(--hint); font-size: 24px; font-weight: 300; }
         
         .price-block { margin-top: 28px; }
@@ -320,7 +320,7 @@
             showScreen('main-screen');
         }
 
-        // --- ОБНОВЛЕНИЕ ГЛАВНОГО ЭКРАНА (ФИНАЛЬНАЯ ЛОГИКА) ---
+        // --- ОБНОВЛЕНИЕ ГЛАВНОГО ЭКРАНА ---
         function updateMainDisplay() {
             // 1. Категория
             const displayCat = document.getElementById('display-category');
@@ -344,7 +344,7 @@
                 return;
             }
 
-            // Собираем уникальные ID областей, в которых пользователь хоть что-то выбрал (или область целиком)
+            // Собираем уникальные ID областей, в которых пользователь хоть что-то выбрал
             const uniqueRegionIds = [...new Set(selectedLocations.map(l => l.parentId))].filter(id => id);
             
             // Находим названия этих областей
@@ -356,13 +356,16 @@
                 }
             });
 
-            // Форматируем вывод строго по ТЗ
+            // Форматируем вывод
             if (selectedRegionsNames.length === 1) {
-                // Если выбрана 1 область (хоть вся, хоть один город)
+                // Если 1 область: "Минская область"
                 displayLoc.innerText = `📍 ${selectedRegionsNames[0]}`;
             } else if (selectedRegionsNames.length === 2) {
-                // Если выбраны 2 области: "Брестская область, Гомельская область"
-                displayLoc.innerText = `📍 ${selectedRegionsNames.join(", ")}`;
+                // Если 2 области: убираем "область" и пишем "Минская, Могилёвская обл."
+                let shortNames = selectedRegionsNames.map(name => {
+                    return name.replace(" область", "").replace("Минск", "Минск");
+                });
+                displayLoc.innerText = `📍 ${shortNames.join(", ")} обл.`;
             } else {
                 // Если 3 и более областей
                 displayLoc.innerText = `📍 Выбрано локаций: ${selectedRegionsNames.length}`;
