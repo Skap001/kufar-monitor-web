@@ -520,7 +520,7 @@
 
             const data = {
                 query: document.getElementById('query').value || "",
-                category_id: (selectedCategory && selectedCategory.id !== 'all') ? selectedCategory.id : "",
+                category_slug: (selectedCategory && selectedCategory.id !== 'all') ? selectedCategory.slug : "",
                 category_name: (selectedCategory && selectedCategory.id !== 'all') ? selectedCategory.name : "Все категории",
                 location_ids: locIds,
                 location_display: document.getElementById('display-location').innerText.replace('📍 ', ''),

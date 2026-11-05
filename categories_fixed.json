@@ -146,7 +146,7 @@
   {
     "id": "2100",
     "name": "Услуги для авто",
-    "slug": "uslugi-dlja-avto",
+    "slug": "uslugi-dlya-avto",
     "parent_id": "2000"
   },
   {
@@ -158,7 +158,7 @@
   {
     "id": "13010",
     "name": "Услуги для авто",
-    "slug": "uslugi-dlja-avto",
+    "slug": "uslugi-dlya-avto",
     "parent_id": "13000"
   },
   {
@@ -272,7 +272,7 @@
   {
     "id": "13110",
     "name": "Услуги для животных",
-    "slug": "uslugi-dlja-zhivotnyh",
+    "slug": "uslugi-dlya-zhivotnyh",
     "parent_id": "13000"
   },
   {
@@ -590,7 +590,7 @@
   {
     "id": "19020",
     "name": "Мужская обувь",
-    "slug": "muzhskaja-obuv",
+    "slug": "muzhskaya-obuv",
     "parent_id": "19000"
   },
   {
@@ -764,7 +764,7 @@
   {
     "id": "12110",
     "name": "Товары для мам",
-    "slug": "tovary-dlja-mam",
+    "slug": "tovary-dlya-mam",
     "parent_id": "12000"
   },
   {
@@ -908,7 +908,7 @@
   {
     "id": "3150",
     "name": "Шторы, жалюзи, карнизы",
-    "slug": "shtory-zhaljuzi-karnizy",
+    "slug": "shtory-zhalyuzi-karnizy",
     "parent_id": "3000"
   },
   {
@@ -1316,19 +1316,19 @@
   {
     "id": "11030",
     "name": "Товары для животных",
-    "slug": "tovary-dlja-zhivotnyh",
+    "slug": "tovary-dlya-zhivotnyh",
     "parent_id": "11000"
   },
   {
     "id": "11050",
     "name": "Вязка животных",
-    "slug": "vjazka-zhivotnyh",
+    "slug": "vyazka-zhivotnyh",
     "parent_id": "11000"
   },
   {
     "id": "11040",
     "name": "Услуги для животных",
-    "slug": "uslugi-dlja-zhivotnyh",
+    "slug": "uslugi-dlya-zhivotnyh",
     "parent_id": "11000"
   },
   {
@@ -1376,7 +1376,7 @@
   {
     "id": "7030",
     "name": "Бюро находок",
-    "slug": "bjuro-nahodok",
+    "slug": "byuro-nahodok",
     "parent_id": "7000"
   },
   {
@@ -1394,7 +1394,7 @@
   {
     "id": "7020",
     "name": "Продукты питания",
-    "slug": "produkty-pitanija",
+    "slug": "produkty-pitaniya",
     "parent_id": "7000"
   },
   {
