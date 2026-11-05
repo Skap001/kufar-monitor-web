@@ -468,12 +468,21 @@
             if (!selectedCategory || selectedCategory.id === 'all') return;
 
             let locIds = [];
+            let locSlug = "";
+            let locName = "";
+            let isRegion = false;
+
             if (selectedLocations.length === 1) {
-                if (selectedLocations[0].isRegion) {
-                    const regionId = selectedLocations[0].id;
-                    locIds = regionsData.filter(r => r.parent_id === regionId).map(c => c.id);
+                const loc = selectedLocations[0];
+                locName = loc.name;
+                if (loc.isRegion) {
+                    isRegion = true;
+                    const regionNode = regionsData.find(r => r.id === loc.id && r.parent_id === "0");
+                    if (regionNode) locSlug = regionNode.slug;
+                    locIds = regionsData.filter(r => r.parent_id === loc.id).map(c => c.id);
                 } else {
-                    locIds = [selectedLocations[0].id];
+                    locSlug = loc.slug;
+                    locIds = [loc.id];
                 }
             }
 
@@ -482,6 +491,9 @@
                 category_slug: selectedCategory.slug,
                 category_name: selectedCategory.name,
                 location_ids: locIds,
+                location_slug: locSlug,    // <--- Передаем точный слаг
+                location_name: locName,    // <--- Передаем точное название
+                is_region: isRegion,       // <--- Передаем флаг (область или город)
                 location_display: document.getElementById('display-location').innerText.replace('📍 ', ''),
                 price_min: Number(document.getElementById('price_min').value) || 0,
                 price_max: Number(document.getElementById('price_max').value) || 0,
