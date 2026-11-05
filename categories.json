@@ -54,9 +54,33 @@
     "parent_id": "0"
   },
   {
-    "id": "25010",
-    "name": "Путешествия",
-    "slug": "puteshestvija",
+    "id": "25001",
+    "name": "Квартиры на сутки",
+    "slug": "travel-kvartiry",
+    "parent_id": "25000"
+  },
+  {
+    "id": "25002",
+    "name": "Комнаты на сутки",
+    "slug": "travel-komnaty",
+    "parent_id": "25000"
+  },
+  {
+    "id": "25003",
+    "name": "Дома на сутки",
+    "slug": "travel-doma",
+    "parent_id": "25000"
+  },
+  {
+    "id": "25004",
+    "name": "Усадьбы на сутки",
+    "slug": "travel-usadby",
+    "parent_id": "25000"
+  },
+  {
+    "id": "25005",
+    "name": "Отели на сутки",
+    "slug": "travel-oteli",
     "parent_id": "25000"
   },
   {
