@@ -21,20 +21,7 @@
         .main-content { padding: 16px; padding-bottom: 90px; flex: 1; overflow-y: auto; }
         h1 { font-size: 20px; margin: 0 0 16px 0; }
         
-        /* Увеличенная строка поиска */
-        .search-input { 
-            width: 100%; 
-            background-color: var(--card_bg); 
-            border: none; 
-            padding: 18px; 
-            border-radius: 12px; 
-            color: var(--text); 
-            font-size: 18px; /* Больше шрифт */
-            box-sizing: border-box; 
-            margin-bottom: 20px; 
-            outline: none; 
-        }
-        .search-input::placeholder { color: var(--hint); }
+        .search-input { width: 100%; background-color: var(--card_bg); border: none; padding: 16px; border-radius: 12px; color: var(--text); font-size: 17px; box-sizing: border-box; margin-bottom: 20px; outline: none; }
         
         .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 18px; font-weight: 600; touch-action: manipulation; }
         .menu-item .main-text { color: var(--text); display: flex; align-items: center; gap: 10px; flex: 1; margin-right: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
@@ -52,27 +39,17 @@
         .filter-checkbox .checkbox::after { content: ''; display: none; width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-bottom: 2px; }
         .filter-checkbox.selected .checkbox::after { display: block; }
 
-        /* Кнопка Выбрать фильтры и Сброс */
         .filter-actions { display: flex; gap: 12px; align-items: stretch; margin-top: 10px; }
         .btn-filters { flex: 1; display: flex; justify-content: center; align-items: center; gap: 8px; background-color: var(--card_bg); color: var(--text); border: none; padding: 16px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
         
-        /* Улучшенная кнопка сброса */
-        .btn-reset { 
-            width: 56px; 
-            height: auto; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            background-color: var(--card_bg); 
-            color: var(--text); /* Белая */
-            border: none; 
-            border-radius: 10px; 
-            cursor: pointer; 
-        }
+        .btn-reset { width: 56px; display: flex; justify-content: center; align-items: center; background-color: var(--card_bg); color: var(--text); border: none; border-radius: 10px; cursor: pointer; }
         .btn-reset svg { width: 24px; height: 24px; fill: currentColor; }
         
         .bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); border-top: 1px solid var(--border); }
-        .save-btn { width: 100%; padding: 16px; background-color: var(--btn_blue); color: var(--btn_text); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .save-btn { width: 100%; padding: 16px; background-color: var(--btn_blue); color: var(--btn_text); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        
+        /* Стили для заблокированной кнопки */
+        .save-btn:disabled { background-color: #2f3b4a; color: #708499; cursor: not-allowed; opacity: 0.7; }
         
         .header { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); }
         .back-btn { font-size: 36px; font-weight: 900; line-height: 1; padding-right: 16px; color: var(--btn_blue); cursor: pointer; user-select: none; margin-top: -4px; }
@@ -85,9 +62,6 @@
         
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); font-size: 17px; cursor: pointer; touch-action: manipulation; outline: none; }
         .list-item:active { background-color: var(--card_bg); }
-        
-        .check-mark-only { display: none; color: var(--btn_blue); font-size: 24px; font-weight: bold; }
-        .list-item.selected .check-mark-only { display: block; }
         
         .checkbox { width: 26px; height: 26px; border: 2px solid var(--hint); border-radius: 6px; display: flex; justify-content: center; align-items: center; box-sizing: border-box; background-color: transparent; transition: 0.1s; }
         .selected .checkbox { background-color: var(--btn_blue); border-color: var(--btn_blue); }
@@ -106,7 +80,6 @@
         .select-all-row.selected .checkbox { background-color: var(--btn_blue); border-color: var(--btn_blue); }
         .search-result-path { font-size: 13px; color: var(--hint); margin-top: 4px; }
 
-        /* Экран фильтров */
         .filter-screen-content { padding: 16px; padding-bottom: 100px; flex: 1; overflow-y: auto; }
         .filter-group { margin-bottom: 24px; }
         .filter-group-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
@@ -119,7 +92,6 @@
     </style>
 </head>
 <body>
-    <!-- ГЛАВНЫЙ ЭКРАН -->
     <div id="main-screen" class="screen active">
         <div class="main-content">
             <h1>Новый поиск</h1>
@@ -157,17 +129,18 @@
                     <span>⚙️ Выбрать фильтры</span>
                 </button>
                 <button class="btn-reset" onclick="resetAll()" title="Сбросить всё">
-                    <!-- Красивая SVG иконка сброса -->
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
                     </svg>
                 </button>
             </div>
         </div>
-        <div class="bottom-btn"><button class="save-btn" onclick="sendData()">Сохранить и начать</button></div>
+        <div class="bottom-btn">
+            <!-- Добавили disabled по умолчанию -->
+            <button id="save-btn" class="save-btn" onclick="sendData()" disabled>Сохранить и начать</button>
+        </div>
     </div>
 
-    <!-- ЭКРАН СПИСКОВ -->
     <div id="list-screen" class="screen">
         <div class="header">
             <div class="back-btn" onclick="goBack()">←</div>
@@ -182,14 +155,12 @@
         </div>
     </div>
 
-    <!-- ЭКРАН ФИЛЬТРОВ -->
     <div id="filters-screen" class="screen">
         <div class="header">
             <div class="back-btn" onclick="showScreen('main-screen')">←</div>
             <h2 class="list-title">Все фильтры</h2>
         </div>
         <div class="filter-screen-content">
-            <!-- Состояние -->
             <div class="filter-group">
                 <div class="filter-group-title">Состояние</div>
                 <div class="filter-options">
@@ -198,8 +169,6 @@
                     <div class="filter-option" data-val="used" onclick="selectOption(this, 'condition')">Б/у <div class="radio-circle"></div></div>
                 </div>
             </div>
-
-            <!-- Продавец -->
             <div class="filter-group">
                 <div class="filter-group-title">Продавец</div>
                 <div class="filter-options">
@@ -208,8 +177,6 @@
                     <div class="filter-option" data-val="company" onclick="selectOption(this, 'seller')">Компания <div class="radio-circle"></div></div>
                 </div>
             </div>
-
-            <!-- Сортировка -->
             <div class="filter-group">
                 <div class="filter-group-title">Сортировка</div>
                 <div class="filter-options">
@@ -230,6 +197,7 @@
 
         let selectedCategory = null; 
         let selectedLocations = []; 
+        let lastLocationParentId = "0"; // Запоминаем, в какой области были последний раз
         
         let categoriesData = [];
         let regionsData = [];
@@ -237,13 +205,12 @@
         let historyStack = []; 
         let currentRenderParentId = "0";
 
-        // Фильтры
         let filterState = {
             isFree: false,
             isNeg: false,
             condition: "",
             seller: "",
-            sort: "lst.d" // По умолчанию Актуальные
+            sort: "lst.d"
         };
 
         fetch('categories.json').then(r => r.json()).then(data => categoriesData = data);
@@ -256,7 +223,6 @@
             document.getElementById(id).classList.add('active');
         }
 
-        // --- ФИЛЬТРЫ ---
         function toggleQuickFilter(type) {
             if (type === 'free') {
                 filterState.isFree = !filterState.isFree;
@@ -278,27 +244,23 @@
             document.getElementById('query').value = '';
             document.getElementById('price_min').value = '';
             document.getElementById('price_max').value = '';
-            
             selectedCategory = null;
             selectedLocations = [];
-            
+            lastLocationParentId = "0";
             filterState = { isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d" };
             document.getElementById('chk-free').classList.remove('selected');
             document.getElementById('chk-neg').classList.remove('selected');
             
-            // Сброс радио-кнопок
             document.querySelectorAll('.filter-options').forEach(group => {
                 group.querySelectorAll('.filter-option').forEach((opt, index) => {
                     if (index === 0) opt.classList.add('selected');
                     else opt.classList.remove('selected');
                 });
             });
-
             updateMainDisplay();
             showScreen('main-screen');
         }
 
-        // --- ОСТАЛЬНОЙ КОД (Категории, Локации, Поиск) ---
         function openList(type) {
             currentListType = type;
             historyStack = [{ id: "0", name: type === 'category' ? "Категории" : "Локация" }];
@@ -321,14 +283,9 @@
 
         function renderCategoryList(parentId, title) {
             const container = document.getElementById('list-container');
-            if (parentId === "0") {
-                const isAll = (selectedCategory === null || selectedCategory.id === 'all');
-                const allItem = document.createElement('div');
-                allItem.className = `list-item ${isAll ? 'selected' : ''}`;
-                allItem.innerHTML = `<span>Все категории</span> <span class="check-mark-only">✓</span>`;
-                allItem.onclick = () => { selectedCategory = { id: "all", name: "Все категории", slug: "" }; updateMainDisplay(); showScreen('main-screen'); };
-                container.appendChild(allItem);
-            } else {
+            
+            // Убрали кнопку "Все категории" из корня списка
+            if (parentId !== "0") {
                 const selectCurrent = document.createElement('div');
                 selectCurrent.className = 'select-cat-btn';
                 selectCurrent.innerHTML = `<div class="blue-square-check">✓</div> <span>Выбрать: ${title}</span>`;
@@ -366,15 +323,14 @@
         function renderLocationList(parentId, title) {
             const container = document.getElementById('list-container');
             if (parentId === "0") {
-                const isAll = (selectedLocations.length === 0 || (selectedLocations.length === 1 && selectedLocations[0].id === 'all'));
-                const allItem = document.createElement('div');
-                allItem.className = `list-item ${isAll ? 'selected' : ''}`;
-                allItem.innerHTML = `<span>Вся Беларусь</span> <span class="check-mark-only">✓</span>`;
-                allItem.onclick = () => { selectedLocations = [{ id: 'all', name: 'Вся Беларусь' }]; updateMainDisplay(); showScreen('main-screen'); };
-                container.appendChild(allItem);
-
                 const listWrapper = document.createElement('div');
                 listWrapper.id = 'actual-list';
+                const allItem = document.createElement('div');
+                allItem.className = `list-item ${selectedLocations.length === 0 ? 'selected' : ''}`;
+                allItem.innerHTML = `<span>Вся Беларусь</span> <span class="check-mark-only">✓</span>`;
+                allItem.onclick = () => { selectedLocations = []; updateMainDisplay(); showScreen('main-screen'); };
+                listWrapper.appendChild(allItem);
+
                 regionsData.filter(item => item.parent_id === "0").forEach(reg => {
                     const div = document.createElement('div');
                     div.className = 'list-item';
@@ -385,6 +341,12 @@
                 });
                 container.appendChild(listWrapper);
             } else {
+                // Если зашли в новую область, сбрасываем старые выбранные города
+                if (lastLocationParentId !== parentId) {
+                    selectedLocations = selectedLocations.filter(l => l.parentId === parentId);
+                    lastLocationParentId = parentId;
+                }
+
                 const cities = regionsData.filter(item => item.parent_id === parentId);
                 const isAllSelected = cities.length > 0 && cities.every(c => selectedLocations.some(l => l.id === c.id && l.parentId === parentId));
 
@@ -392,12 +354,8 @@
                 selectAllRow.className = `select-all-row ${isAllSelected ? 'selected' : ''}`;
                 selectAllRow.innerHTML = `<span>Вся ${title}</span> <div class="checkbox"></div>`;
                 selectAllRow.onclick = () => {
-                    // Сбрасываем другие области
-                    selectedLocations = selectedLocations.filter(l => l.parentId === parentId || l.id === 'all');
-                    
-                    if (isAllSelected) {
-                        selectedLocations = selectedLocations.filter(l => l.parentId !== parentId);
-                    } else {
+                    selectedLocations = selectedLocations.filter(l => l.parentId !== parentId);
+                    if (!isAllSelected) {
                         cities.forEach(c => selectedLocations.push({ id: c.id, name: c.name, parentId: parentId }));
                     }
                     renderList(parentId, title); 
@@ -411,19 +369,9 @@
                     const div = document.createElement('div');
                     div.className = `list-item ${isSelected ? 'selected' : ''}`;
                     div.setAttribute('data-name', city.name.toLowerCase());
-                    
                     div.innerHTML = `<span style="flex: 1; padding: 10px 0;">${city.name}</span> <div class="checkbox"></div>`;
-                    
                     div.onclick = () => {
-                        // Проверяем, есть ли уже выбранные города из ДРУГИХ областей
-                        const hasOtherRegions = selectedLocations.some(l => l.parentId && l.parentId !== parentId && l.parentId !== "0");
-                        if (hasOtherRegions) {
-                            // Если есть, сбрасываем всё (начинаем новую область)
-                            selectedLocations = [];
-                        }
-
-                        const exists = selectedLocations.some(l => l.id === city.id && l.parentId === parentId);
-                        if (exists) {
+                        if (selectedLocations.some(l => l.id === city.id && l.parentId === parentId)) {
                             selectedLocations = selectedLocations.filter(l => !(l.id === city.id && l.parentId === parentId));
                         } else {
                             selectedLocations.push({ id: city.id, name: city.name, parentId: parentId });
@@ -437,26 +385,27 @@
         }
 
         function applyLocation() {
-            const regionId = currentRenderParentId;
-            if (regionId !== "0") {
-                const cities = regionsData.filter(item => item.parent_id === regionId);
-                const hasAny = cities.some(c => selectedLocations.some(l => l.id === c.id && l.parentId === regionId));
-                if (!hasAny) cities.forEach(c => selectedLocations.push({ id: c.id, name: c.name, parentId: regionId }));
-            }
             updateMainDisplay();
             showScreen('main-screen');
         }
 
         function updateMainDisplay() {
             const displayCat = document.getElementById('display-category');
-            if (selectedCategory === null) displayCat.innerText = "📦 Выбрать категорию";
-            else if (selectedCategory.id === 'all') displayCat.innerText = "📦 Все категории";
-            else displayCat.innerText = `📦 ${selectedCategory.name}`;
+            const saveBtn = document.getElementById('save-btn');
 
+            // Категория и проверка на кнопку Сохранить
+            if (selectedCategory === null || selectedCategory.id === 'all') {
+                displayCat.innerText = "📦 Выбрать категорию";
+                saveBtn.disabled = true;
+            } else {
+                displayCat.innerText = `📦 ${selectedCategory.name}`;
+                saveBtn.disabled = false;
+            }
+
+            // Локация
             const displayLoc = document.getElementById('display-location');
             if (selectedLocations.length === 0) { displayLoc.innerText = "📍 Выбрать локацию"; return; }
-            if (selectedLocations.length === 1 && selectedLocations[0].id === 'all') { displayLoc.innerText = "📍 Вся Беларусь"; return; }
-
+            
             const uniqueRegionIds = [...new Set(selectedLocations.map(l => l.parentId))].filter(id => id);
             let selectedRegionsNames = [];
             uniqueRegionIds.forEach(pid => {
@@ -506,11 +455,16 @@
                     if (currentListType === 'category') selectLeafCategory(item.id, item.name, item.slug || "");
                     else {
                         if (item.parent_id === "0") {
-                            const cities = regionsData.filter(r => r.parent_id === item.id);
-                            selectedLocations = selectedLocations.filter(l => l.parentId !== item.id);
-                            cities.forEach(c => selectedLocations.push({ id: c.id, name: c.name, parentId: item.id }));
+                            selectedLocations = [];
+                            lastLocationParentId = item.id;
                         } else {
-                            if (!selectedLocations.some(l => l.id === item.id && l.parentId === item.parent_id)) selectedLocations.push({ id: item.id, name: item.name, parentId: item.parent_id });
+                            if (lastLocationParentId !== item.parent_id) {
+                                selectedLocations = [];
+                                lastLocationParentId = item.parent_id;
+                            }
+                            if (!selectedLocations.some(l => l.id === item.id && l.parentId === item.parent_id)) {
+                                selectedLocations.push({ id: item.id, name: item.name, parentId: item.parent_id });
+                            }
                         }
                         updateMainDisplay();
                         showScreen('main-screen');
@@ -530,42 +484,15 @@
         }
 
         function sendData() {
-            if (!selectedCategory || selectedCategory.id === 'all') {
-                tg.showAlert("Пожалуйста, выберите конкретную категорию (не 'Все категории').");
-                return;
-            }
-            // Группируем выбранные локации по областям
-            let locGroups = {};
-            selectedLocations.forEach(loc => {
-                if (loc.id === 'all') return;
-                let pid = loc.parentId;
-                if (!locGroups[pid]) locGroups[pid] = [];
-                locGroups[pid].push(loc.id);
-            });
+            if (!selectedCategory || selectedCategory.id === 'all') return;
 
-            let locations_payload = [];
-            for (let pid in locGroups) {
-                let regionNode = regionsData.find(r => r.id === pid && r.parent_id === "0");
-                if (regionNode) {
-                    let cityIds = locGroups[pid];
-                    // Если выбраны все города области, просто очищаем массив городов (значит, выбрана вся область)
-                    let totalCities = regionsData.filter(r => r.parent_id === pid).length;
-                    if (cityIds.length === totalCities) {
-                        cityIds = []; 
-                    }
-                    
-                    locations_payload.push({
-                        slug: regionNode.slug,
-                        cities: cityIds
-                    });
-                }
-            }
+            let locIds = selectedLocations.map(l => l.id);
 
             const data = {
                 query: document.getElementById('query').value || "",
-                category_slug: (selectedCategory && selectedCategory.id !== 'all') ? selectedCategory.slug : "",
-                category_name: (selectedCategory && selectedCategory.id !== 'all') ? selectedCategory.name : "Все категории",
-                locations: locations_payload, // <--- ОТПРАВЛЯЕМ ГРУППЫ
+                category_slug: selectedCategory.slug,
+                category_name: selectedCategory.name,
+                location_ids: locIds,
                 location_display: document.getElementById('display-location').innerText.replace('📍 ', ''),
                 price_min: Number(document.getElementById('price_min').value) || 0,
                 price_max: Number(document.getElementById('price_max').value) || 0,
