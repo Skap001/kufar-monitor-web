@@ -21,7 +21,20 @@
         .main-content { padding: 16px; padding-bottom: 90px; flex: 1; overflow-y: auto; }
         h1 { font-size: 20px; margin: 0 0 16px 0; }
         
-        .search-input { width: 100%; background-color: var(--card_bg); border: none; padding: 14px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; margin-bottom: 20px; outline: none; }
+        /* Увеличенная строка поиска */
+        .search-input { 
+            width: 100%; 
+            background-color: var(--card_bg); 
+            border: none; 
+            padding: 18px; 
+            border-radius: 12px; 
+            color: var(--text); 
+            font-size: 18px; /* Больше шрифт */
+            box-sizing: border-box; 
+            margin-bottom: 20px; 
+            outline: none; 
+        }
+        .search-input::placeholder { color: var(--hint); }
         
         .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 18px; font-weight: 600; touch-action: manipulation; }
         .menu-item .main-text { color: var(--text); display: flex; align-items: center; gap: 10px; flex: 1; margin-right: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
@@ -32,7 +45,6 @@
         .price-inputs { display: flex; gap: 12px; width: 100%; margin-bottom: 16px; }
         .price-inputs input { flex: 1 1 0; min-width: 0; width: 100%; background-color: var(--card_bg); border: none; padding: 14px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; outline: none; }
         
-        /* Фильтры и чекбоксы на главном экране */
         .quick-filters { display: flex; gap: 16px; margin-bottom: 24px; }
         .filter-checkbox { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 16px; }
         .filter-checkbox .checkbox { width: 22px; height: 22px; border: 2px solid var(--hint); border-radius: 6px; display: flex; justify-content: center; align-items: center; box-sizing: border-box; background-color: transparent; }
@@ -41,9 +53,23 @@
         .filter-checkbox.selected .checkbox::after { display: block; }
 
         /* Кнопка Выбрать фильтры и Сброс */
-        .filter-actions { display: flex; gap: 12px; align-items: center; margin-top: 10px; }
+        .filter-actions { display: flex; gap: 12px; align-items: stretch; margin-top: 10px; }
         .btn-filters { flex: 1; display: flex; justify-content: center; align-items: center; gap: 8px; background-color: var(--card_bg); color: var(--text); border: none; padding: 16px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
-        .btn-reset { width: 54px; height: 54px; display: flex; justify-content: center; align-items: center; background-color: var(--card_bg); color: var(--hint); border: none; border-radius: 10px; font-size: 24px; cursor: pointer; }
+        
+        /* Улучшенная кнопка сброса */
+        .btn-reset { 
+            width: 56px; 
+            height: auto; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background-color: var(--card_bg); 
+            color: var(--text); /* Белая */
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+        }
+        .btn-reset svg { width: 24px; height: 24px; fill: currentColor; }
         
         .bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); border-top: 1px solid var(--border); }
         .save-btn { width: 100%; padding: 16px; background-color: var(--btn_blue); color: var(--btn_text); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
@@ -130,7 +156,12 @@
                 <button class="btn-filters" onclick="showScreen('filters-screen')">
                     <span>⚙️ Выбрать фильтры</span>
                 </button>
-                <button class="btn-reset" onclick="resetAll()">↻</button>
+                <button class="btn-reset" onclick="resetAll()" title="Сбросить всё">
+                    <!-- Красивая SVG иконка сброса -->
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                    </svg>
+                </button>
             </div>
         </div>
         <div class="bottom-btn"><button class="save-btn" onclick="sendData()">Сохранить и начать</button></div>
@@ -177,6 +208,16 @@
                     <div class="filter-option" data-val="company" onclick="selectOption(this, 'seller')">Компания <div class="radio-circle"></div></div>
                 </div>
             </div>
+
+            <!-- Сортировка -->
+            <div class="filter-group">
+                <div class="filter-group-title">Сортировка</div>
+                <div class="filter-options">
+                    <div class="filter-option selected" data-val="lst.d" onclick="selectOption(this, 'sort')">Актуальные (Сначала новые) <div class="radio-circle"></div></div>
+                    <div class="filter-option" data-val="prc.a" onclick="selectOption(this, 'sort')">Сначала дешевле <div class="radio-circle"></div></div>
+                    <div class="filter-option" data-val="prc.d" onclick="selectOption(this, 'sort')">Сначала дороже <div class="radio-circle"></div></div>
+                </div>
+            </div>
         </div>
         <div class="bottom-btn">
             <button class="save-btn" onclick="showScreen('main-screen')">Применить</button>
@@ -201,7 +242,8 @@
             isFree: false,
             isNeg: false,
             condition: "",
-            seller: ""
+            seller: "",
+            sort: "lst.d" // По умолчанию Актуальные
         };
 
         fetch('categories.json').then(r => r.json()).then(data => categoriesData = data);
@@ -240,7 +282,7 @@
             selectedCategory = null;
             selectedLocations = [];
             
-            filterState = { isFree: false, isNeg: false, condition: "", seller: "" };
+            filterState = { isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d" };
             document.getElementById('chk-free').classList.remove('selected');
             document.getElementById('chk-neg').classList.remove('selected');
             
@@ -487,7 +529,8 @@
                 is_free: filterState.isFree,
                 is_negotiable: filterState.isNeg,
                 condition: filterState.condition,
-                seller: filterState.seller
+                seller: filterState.seller,
+                sort: filterState.sort // Отправляем сортировку
             };
             tg.sendData(JSON.stringify(data));
             tg.close();
