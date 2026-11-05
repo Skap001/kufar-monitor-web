@@ -349,8 +349,16 @@
                 const selectAllRow = document.createElement('div');
                 selectAllRow.className = `list-item ${isRegionSelected ? 'selected' : ''}`;
                 selectAllRow.innerHTML = `<span>${prefix} ${title}</span> <span class="check-mark-only">✓</span>`;
+                
+                // ИСПРАВЛЕНИЕ: Добавляем слаг области
                 selectAllRow.onclick = () => {
-                    selectedLocations = [{ id: parentId, name: title, isRegion: true }];
+                    const regionNode = regionsData.find(r => r.id === parentId && r.parent_id === "0");
+                    selectedLocations = [{ 
+                        id: parentId, 
+                        name: title, 
+                        isRegion: true, 
+                        slug: regionNode ? regionNode.slug : "" 
+                    }];
                     updateMainDisplay();
                     showScreen('main-screen');
                 };
@@ -359,7 +367,6 @@
                 const listWrapper = document.createElement('div');
                 listWrapper.id = 'actual-list';
                 cities.forEach(city => {
-                    // СТРОГАЯ ПРОВЕРКА: !isRegion (чтобы Брест не подсвечивался, если выбрана вся область)
                     const isSelected = (selectedLocations.length === 1 && selectedLocations[0].isRegion !== true && selectedLocations[0].id === city.id && selectedLocations[0].parentId === parentId);
                     
                     const div = document.createElement('div');
@@ -368,7 +375,8 @@
                     div.innerHTML = `<span style="flex: 1; padding: 10px 0;">${city.name}</span> <span class="check-mark-only">✓</span>`;
                     
                     div.onclick = () => {
-                        selectedLocations = [{ id: city.id, name: city.name, parentId: parentId }];
+                        // Тут у тебя уже было правильно, оставляем как есть
+                        selectedLocations = [{ id: city.id, name: city.name, parentId: parentId, slug: city.slug }];
                         updateMainDisplay();
                         showScreen('main-screen');
                     };
@@ -475,13 +483,13 @@
             if (selectedLocations.length === 1) {
                 const loc = selectedLocations[0];
                 locName = loc.name;
+                
                 if (loc.isRegion) {
                     isRegion = true;
-                    const regionNode = regionsData.find(r => r.id === loc.id && r.parent_id === "0");
-                    if (regionNode) locSlug = regionNode.slug;
+                    locSlug = loc.slug; // Берем слаг, который мы передали при рендере
                     locIds = regionsData.filter(r => r.parent_id === loc.id).map(c => c.id);
                 } else {
-                    locSlug = loc.slug;
+                    locSlug = loc.slug; // <--- ТЕПЕРЬ БЕРЕМ СЛАГ ГОРОДА
                     locIds = [loc.id];
                 }
             }
@@ -491,9 +499,9 @@
                 category_slug: selectedCategory.slug,
                 category_name: selectedCategory.name,
                 location_ids: locIds,
-                location_slug: locSlug,    // <--- Передаем точный слаг
-                location_name: locName,    // <--- Передаем точное название
-                is_region: isRegion,       // <--- Передаем флаг (область или город)
+                location_slug: locSlug,
+                location_name: locName,
+                is_region: isRegion,
                 location_display: document.getElementById('display-location').innerText.replace('📍 ', ''),
                 price_min: Number(document.getElementById('price_min').value) || 0,
                 price_max: Number(document.getElementById('price_max').value) || 0,
