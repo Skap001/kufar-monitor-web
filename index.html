@@ -68,19 +68,17 @@
         .apply-block { padding: 16px; background-color: var(--bg); }
         .apply-btn { width: 100%; padding: 16px; background-color: var(--btn_blue); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; touch-action: manipulation; }
         
-        /* Кнопка "Выбрать категорию" */
         .select-cat-btn { 
             display: flex; align-items: center; gap: 12px; 
             padding: 16px; background-color: var(--card_bg); 
             border-radius: 10px; margin-bottom: 16px; font-weight: 600; 
-            cursor: pointer; touch-action: manipulation; color: var(--text); font-size: 17px; /* Цвет текста белый */
+            cursor: pointer; touch-action: manipulation; color: var(--text); font-size: 17px;
         }
         .blue-square-check {
             width: 24px; height: 24px; background-color: var(--btn_blue); border-radius: 6px;
             display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: bold;
         }
 
-        /* Кнопка "Выбрать все" (Локации) */
         .select-all-row { display: flex; justify-content: space-between; align-items: center; padding: 16px; background-color: var(--card_bg); border-radius: 10px; margin-bottom: 16px; font-weight: 600; cursor: pointer; touch-action: manipulation; outline: none; font-size: 17px;}
         .select-all-row .checkbox { border-color: var(--hint); }
         .select-all-row.selected .checkbox { background-color: var(--btn_blue); border-color: var(--btn_blue); }
@@ -322,7 +320,7 @@
             showScreen('main-screen');
         }
 
-        // --- ОБНОВЛЕНИЕ ГЛАВНОГО ЭКРАНА ---
+        // --- ОБНОВЛЕНИЕ ГЛАВНОГО ЭКРАНА (ФИНАЛЬНАЯ ЛОГИКА) ---
         function updateMainDisplay() {
             // 1. Категория
             const displayCat = document.getElementById('display-category');
@@ -337,7 +335,6 @@
             // 2. Локация
             const displayLoc = document.getElementById('display-location');
             
-            // Если ничего не выбрано или выбрана "Вся Беларусь"
             if (selectedLocations.length === 0) {
                 displayLoc.innerText = "📍 Выбрать локацию";
                 return;
@@ -347,7 +344,7 @@
                 return;
             }
 
-            // Собираем уникальные ID областей, в которых пользователь хоть что-то выбрал
+            // Собираем уникальные ID областей, в которых пользователь хоть что-то выбрал (или область целиком)
             const uniqueRegionIds = [...new Set(selectedLocations.map(l => l.parentId))].filter(id => id);
             
             // Находим названия этих областей
@@ -359,16 +356,13 @@
                 }
             });
 
-            // Форматируем вывод
-            if (selectedRegionsNames.length === 0) {
-                displayLoc.innerText = "📍 Выбрать локацию";
-            } else if (selectedRegionsNames.length === 1) {
+            // Форматируем вывод строго по ТЗ
+            if (selectedRegionsNames.length === 1) {
                 // Если выбрана 1 область (хоть вся, хоть один город)
                 displayLoc.innerText = `📍 ${selectedRegionsNames[0]}`;
             } else if (selectedRegionsNames.length === 2) {
-                // Если выбраны 2 области: "Брестская, Гомельская области"
-                let cleanNames = selectedRegionsNames.map(n => n.replace(" область", "").replace("Минск", "Минск"));
-                displayLoc.innerText = `📍 ${cleanNames.join(", ")} обл.`;
+                // Если выбраны 2 области: "Брестская область, Гомельская область"
+                displayLoc.innerText = `📍 ${selectedRegionsNames.join(", ")}`;
             } else {
                 // Если 3 и более областей
                 displayLoc.innerText = `📍 Выбрано локаций: ${selectedRegionsNames.length}`;
