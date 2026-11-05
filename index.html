@@ -277,7 +277,8 @@
         function renderCategoryList(parentId, title) {
             const container = document.getElementById('list-container');
             
-            if (parentId !== "0") {
+            // Запрещаем выбирать корень "Авто и запчасти" (id: "2000"), чтобы не ломать поиск
+            if (parentId !== "0" && parentId !== "2000" && title !== "Авто и запчасти") {
                 const selectCurrent = document.createElement('div');
                 selectCurrent.className = 'select-cat-btn';
                 selectCurrent.innerHTML = `<div class="blue-square-check">✓</div> <span>Выбрать: ${title}</span>`;
