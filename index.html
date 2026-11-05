@@ -324,7 +324,7 @@
 
         // --- ОБНОВЛЕНИЕ ГЛАВНОГО ЭКРАНА ---
         function updateMainDisplay() {
-            // Категория
+            // 1. Категория
             const displayCat = document.getElementById('display-category');
             if (selectedCategory === null) {
                 displayCat.innerText = "📦 Выбрать категорию";
@@ -334,46 +334,44 @@
                 displayCat.innerText = `📦 ${selectedCategory.name}`;
             }
 
-            // Локация
+            // 2. Локация
             const displayLoc = document.getElementById('display-location');
             
-            if (selectedLocations.length === 0 || (selectedLocations.length === 1 && selectedLocations[0].id === 'all')) {
-                displayLoc.innerText = selectedLocations.length === 1 ? "📍 Вся Беларусь" : "📍 Выбрать локацию";
+            // Если ничего не выбрано или выбрана "Вся Беларусь"
+            if (selectedLocations.length === 0) {
+                displayLoc.innerText = "📍 Выбрать локацию";
+                return;
+            }
+            if (selectedLocations.length === 1 && selectedLocations[0].id === 'all') {
+                displayLoc.innerText = "📍 Вся Беларусь";
                 return;
             }
 
-            const parentIds = [...new Set(selectedLocations.map(l => l.parentId))].filter(Boolean);
+            // Собираем уникальные ID областей, в которых пользователь хоть что-то выбрал
+            const uniqueRegionIds = [...new Set(selectedLocations.map(l => l.parentId))].filter(id => id);
             
-            let displayParts = [];
-            let extraCitiesCount = 0;
-
-            parentIds.forEach(pid => {
-                const allCitiesInRegion = regionsData.filter(r => r.parent_id === pid);
-                const selectedCitiesInRegion = selectedLocations.filter(l => l.parentId === pid);
-                
-                if (allCitiesInRegion.length > 0 && allCitiesInRegion.every(c => selectedLocations.some(l => l.id === c.id && l.parentId === pid))) {
-                    const regionName = regionsData.find(r => r.id === pid && r.parent_id === "0");
-                    if (regionName) {
-                        let shortName = regionName.name.replace(" область", "");
-                        displayParts.push(shortName);
-                    }
-                } else {
-                    extraCitiesCount += selectedCitiesInRegion.length;
+            // Находим названия этих областей
+            let selectedRegionsNames = [];
+            uniqueRegionIds.forEach(pid => {
+                const regionNode = regionsData.find(r => r.id === pid && r.parent_id === "0");
+                if (regionNode) {
+                    selectedRegionsNames.push(regionNode.name);
                 }
             });
 
-            let textParts = [];
-            if (displayParts.length > 0) {
-                textParts.push(displayParts.join(", ") + " обл.");
-            }
-            if (extraCitiesCount > 0) {
-                textParts.push(`городов: ${extraCitiesCount}`);
-            }
-
-            if (textParts.length === 0) {
-                displayLoc.innerText = `📍 Выбрано: ${selectedLocations.length}`;
+            // Форматируем вывод
+            if (selectedRegionsNames.length === 0) {
+                displayLoc.innerText = "📍 Выбрать локацию";
+            } else if (selectedRegionsNames.length === 1) {
+                // Если выбрана 1 область (хоть вся, хоть один город)
+                displayLoc.innerText = `📍 ${selectedRegionsNames[0]}`;
+            } else if (selectedRegionsNames.length === 2) {
+                // Если выбраны 2 области: "Брестская, Гомельская области"
+                let cleanNames = selectedRegionsNames.map(n => n.replace(" область", "").replace("Минск", "Минск"));
+                displayLoc.innerText = `📍 ${cleanNames.join(", ")} обл.`;
             } else {
-                displayLoc.innerText = `📍 ${textParts.join(" + ")}`;
+                // Если 3 и более областей
+                displayLoc.innerText = `📍 Выбрано локаций: ${selectedRegionsNames.length}`;
             }
         }
 
