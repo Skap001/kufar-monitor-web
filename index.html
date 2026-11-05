@@ -515,14 +515,38 @@
         }
 
         function sendData() {
-            let locIds = [];
-            if (!(selectedLocations.length === 1 && selectedLocations[0].id === 'all')) locIds = selectedLocations.map(l => l.id);
+            // Группируем выбранные локации по областям
+            let locGroups = {};
+            selectedLocations.forEach(loc => {
+                if (loc.id === 'all') return;
+                let pid = loc.parentId;
+                if (!locGroups[pid]) locGroups[pid] = [];
+                locGroups[pid].push(loc.id);
+            });
+
+            let locations_payload = [];
+            for (let pid in locGroups) {
+                let regionNode = regionsData.find(r => r.id === pid && r.parent_id === "0");
+                if (regionNode) {
+                    let cityIds = locGroups[pid];
+                    // Если выбраны все города области, просто очищаем массив городов (значит, выбрана вся область)
+                    let totalCities = regionsData.filter(r => r.parent_id === pid).length;
+                    if (cityIds.length === totalCities) {
+                        cityIds = []; 
+                    }
+                    
+                    locations_payload.push({
+                        slug: regionNode.slug,
+                        cities: cityIds
+                    });
+                }
+            }
 
             const data = {
                 query: document.getElementById('query').value || "",
                 category_slug: (selectedCategory && selectedCategory.id !== 'all') ? selectedCategory.slug : "",
                 category_name: (selectedCategory && selectedCategory.id !== 'all') ? selectedCategory.name : "Все категории",
-                location_ids: locIds,
+                locations: locations_payload, // <--- ОТПРАВЛЯЕМ ГРУППЫ
                 location_display: document.getElementById('display-location').innerText.replace('📍 ', ''),
                 price_min: Number(document.getElementById('price_min').value) || 0,
                 price_max: Number(document.getElementById('price_max').value) || 0,
@@ -530,7 +554,7 @@
                 is_negotiable: filterState.isNeg,
                 condition: filterState.condition,
                 seller: filterState.seller,
-                sort: filterState.sort // Отправляем сортировку
+                sort: filterState.sort
             };
             tg.sendData(JSON.stringify(data));
             tg.close();
