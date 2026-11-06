@@ -308,6 +308,8 @@
             const listWrapper = document.createElement('div');
             listWrapper.id = 'actual-list';
             categoriesData.filter(item => item.parent_id === parentId).forEach(item => {
+                // СКРЫВАЕМ Недвижимость (1000) и Путешествия (25000)
+                if (item.id === "1000" || item.id === "25000") return;
                 const hasChildren = categoriesData.some(child => child.parent_id === item.id);
                 const isSelected = (selectedCategory && selectedCategory.id === item.id && selectedCategory.name === item.name);
                 const div = document.createElement('div');
