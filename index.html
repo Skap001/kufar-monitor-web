@@ -97,7 +97,7 @@
     <div id="main-screen" class="screen active">
         <div class="main-content">
             <h1>Новый поиск</h1>
-            <input type="text" id="query" class="search-input" placeholder="🔍 Что вы ищете?">
+            <input type="text" id="query" class="search-input" placeholder="🔍 Ключевые слова в названии">
             
             <div class="menu-item" onclick="openList('category')">
                 <div class="main-text" id="display-category">📦 Выбрать категорию</div>
@@ -176,6 +176,13 @@
                 </div>
             </div>
             <div class="filter-group">
+                <div class="filter-group-title">Где искать слова?</div>
+                <div class="filter-options">
+                    <div class="filter-option selected" data-val="false" onclick="selectOption(this, 'search_desc')">Только в названии <div class="radio-circle"></div></div>
+                    <div class="filter-option" data-val="true" onclick="selectOption(this, 'search_desc')">В названии и описании <div class="radio-circle"></div></div>
+                </div>
+            </div>
+            <div class="filter-group">
                 <div class="filter-group-title">Сортировка</div>
                 <div class="filter-options">
                     <div class="filter-option selected" data-val="lst.d" onclick="selectOption(this, 'sort')">Актуальные (Сначала новые) <div class="radio-circle"></div></div>
@@ -206,7 +213,14 @@
         let historyStack = []; 
         let currentRenderParentId = "0";
 
-        let filterState = { isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d" };
+        let filterState = { 
+            isFree: false, 
+            isNeg: false, 
+            condition: "", 
+            seller: "", 
+            sort: "lst.d",
+            search_desc: "false"
+        };
 
         fetch('categories.json').then(r => r.json()).then(data => categoriesData = data);
         fetch('regions.json').then(r => r.json()).then(data => regionsData = data);
@@ -241,7 +255,9 @@
             document.getElementById('price_max').value = '';
             selectedCategory = null;
             selectedLocations = [];
-            filterState = { isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d" };
+            filterState = { 
+                isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d", search_desc: "false" 
+            };
             document.getElementById('chk-free').classList.remove('selected');
             document.getElementById('chk-neg').classList.remove('selected');
             
@@ -510,7 +526,8 @@
                 is_negotiable: filterState.isNeg,
                 condition: filterState.condition,
                 seller: filterState.seller,
-                sort: filterState.sort
+                sort: filterState.sort,
+                search_desc: filterState.search_desc === "true" // Передаем как Boolean
             };
             tg.sendData(JSON.stringify(data));
             tg.close();
