@@ -97,7 +97,7 @@
     <div id="main-screen" class="screen active">
         <div class="main-content">
             <h1>Новый поиск</h1>
-            <input type="text" id="query" class="search-input" placeholder="🔍 Ключевые слова в названии">
+            <input type="text" id="query" class="search-input" placeholder="🔍 Ключевые слова в названии" oninput="updateMainDisplay()">
             
             <div class="menu-item" onclick="openList('category')">
                 <div class="main-text" id="display-category">📦 Выбрать категорию</div>
@@ -406,20 +406,22 @@
         function updateMainDisplay() {
             const displayCat = document.getElementById('display-category');
             const saveBtn = document.getElementById('save-btn');
-
-            // Разрешаем сохранять, если выбрана категория ИЛИ введено ключевое слово
             const queryText = document.getElementById('query').value.trim();
+
+            // Разрешаем сохранить, если есть категория ИЛИ введен поисковый запрос
             if ((selectedCategory === null || selectedCategory.id === 'all') && !queryText) {
                 displayCat.innerText = "📦 Выбрать категорию";
                 saveBtn.disabled = true;
             } else {
-                // Если категория не выбрана, но есть текст поиска — пишем "Все категории"
-                displayCat.innerText = selectedCategory && selectedCategory.id !== 'all' 
-                    ? `📦 ${selectedCategory.name}` 
-                    : "📦 Все категории";
+                if (selectedCategory && selectedCategory.id !== 'all') {
+                    displayCat.innerText = `📦 ${selectedCategory.name}`;
+                } else {
+                    displayCat.innerText = "📦 Все категории";
+                }
                 saveBtn.disabled = false;
             }
 
+            // Локация
             const displayLoc = document.getElementById('display-location');
             if (selectedLocations.length === 0) { 
                 displayLoc.innerText = "📍 Вся Беларусь";
