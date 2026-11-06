@@ -445,6 +445,9 @@
         function flattenData(data, parentId = "0", path = "", visited = new Set()) {
             let result = [];
             data.filter(item => item.parent_id === parentId).forEach(item => {
+                // ПРОПУСКАЕМ Недвижимость (1000) и Путешествия (25000) вместе со всеми их детьми
+                if (item.id === "1000" || item.id === "25000") return;
+
                 const uid = `${item.parent_id}_${item.id}_${item.name}`;
                 if (visited.has(uid)) return;
                 visited.add(uid);
