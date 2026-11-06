@@ -242,6 +242,7 @@
         let currentListType = "";
         let historyStack = []; 
         let currentRenderParentId = "0";
+        let currentEditId = null;
 
         let filterState = { 
             isFree: false, 
@@ -265,10 +266,75 @@
             { id: 'kufar_installment', name: 'Куфар Рассрочка', type: 'toggle' }
         ];
 
-        fetch('categories.json').then(r => r.json()).then(data => categoriesData = data);
-        fetch('regions.json').then(r => r.json()).then(data => regionsData = data);
+        fetch('categories.json').then(r => r.json()).then(data => {
+            categoriesData = data;
+            return fetch('regions.json').then(r => r.json());
+        }).then(rdata => {
+            regionsData = rdata;
+            loadStateFromUrl();
+            updateMainDisplay();
+        });
 
-        updateMainDisplay();
+        function loadStateFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const editId = urlParams.get('edit_id');
+            const stateBase64 = urlParams.get('state');
+
+            if (editId && stateBase64) {
+                currentEditId = parseInt(editId);
+                try {
+                    let decoded = atob(stateBase64.replace(/-/g, '+').replace(/_/g, '/'));
+                    const data = JSON.parse(decoded);
+                    
+                    document.getElementById('query').value = data.query || "";
+                    document.getElementById('price_min').value = data.price_min || "";
+                    document.getElementById('price_max').value = data.price_max || "";
+                    
+                    if (data.category_slug) {
+                        selectedCategory = { slug: data.category_slug, name: data.category_name || "Категория" };
+                    }
+                    
+                    if (data.location_slug) {
+                        const rNode = regionsData.find(r => r.slug === data.location_slug);
+                        if (rNode) {
+                            selectedLocations = [{ 
+                                id: rNode.id, name: rNode.name, slug: rNode.slug, 
+                                isRegion: data.is_region, parentId: rNode.parent_id 
+                            }];
+                        }
+                    }
+
+                    filterState = {
+                        isFree: data.is_free || false,
+                        condition: data.condition || "",
+                        seller: data.seller || "",
+                        sort: data.sort || "lst.d",
+                        search_desc: data.search_desc || false,
+                        only_photo: data.only_photo || false,
+                        only_video: data.only_video || false,
+                        exchange: data.exchange || false,
+                        kufar_delivery: data.kufar_delivery || false,
+                        kufar_payment: data.kufar_payment || false,
+                        kufar_installment: data.kufar_installment || false
+                    };
+                    
+                    if (filterState.isFree) document.getElementById('chk-free').classList.add('selected');
+                    if (filterState.exchange) document.getElementById('chk-exchange').classList.add('selected');
+                    if (filterState.only_photo) document.getElementById('tg-photo').classList.add('selected');
+                    if (filterState.only_video) document.getElementById('tg-video').classList.add('selected');
+                    if (filterState.kufar_delivery) document.getElementById('tg-dle').classList.add('selected');
+                    if (filterState.kufar_payment) document.getElementById('tg-sde').classList.add('selected');
+                    if (filterState.kufar_installment) document.getElementById('tg-inst').classList.add('selected');
+
+                    updateFilterBadge();
+                    updateFilterTexts();
+                } catch (e) {
+                    console.error("Ошибка загрузки состояния для редактирования", e);
+                }
+            } else {
+                restoreDraft();
+            }
+        }
 
         function showScreen(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -314,6 +380,7 @@
                     updateFilterBadge();
                 }
             }
+            saveDraft();
         }
 
         function toggleQuickFilter(type) {
@@ -329,6 +396,7 @@
                 document.getElementById('chk-exchange').classList.toggle('selected', filterState.exchange);
             }
             updateFilterBadge();
+            saveDraft();
         }
 
         // --- СЧЕТЧИК ФИЛЬТРОВ ---
@@ -363,6 +431,7 @@
             filterState[key] = !filterState[key];
             document.getElementById(elemId).classList.toggle('selected', filterState[key]);
             updateFilterBadge();
+            saveDraft();
         }
 
         function openFilterOption(type) {
@@ -396,6 +465,7 @@
                     filterState[currentOptionType] = opt.v;
                     updateFilterTexts();
                     updateFilterBadge();
+                    saveDraft();
                     showScreen('filters-screen');
                 };
                 container.appendChild(div);
@@ -523,6 +593,7 @@
         function selectLeafCategory(id, name, slug) {
             selectedCategory = { id: id, name: name, slug: slug };
             updateMainDisplay();
+            saveDraft();
             showScreen('main-screen');
         }
 
@@ -558,6 +629,7 @@
                     const regionNode = regionsData.find(r => r.id === parentId && r.parent_id === "0");
                     selectedLocations = [{ id: parentId, name: title, isRegion: true, slug: regionNode ? regionNode.slug : "" }];
                     updateMainDisplay();
+                    saveDraft();
                     showScreen('main-screen');
                 };
                 container.appendChild(selectAllRow);
@@ -573,6 +645,7 @@
                     div.onclick = () => {
                         selectedLocations = [{ id: city.id, name: city.name, parentId: parentId, slug: city.slug }];
                         updateMainDisplay();
+                        saveDraft();
                         showScreen('main-screen');
                     };
                     listWrapper.appendChild(div);
@@ -632,6 +705,63 @@
                 const prev = historyStack[historyStack.length - 1];
                 renderList(prev.id, prev.name);
             } else showScreen('main-screen');
+        }
+
+        function saveDraft() {
+            const state = {
+                query: document.getElementById('query').value,
+                price_min: Number(document.getElementById('price_min').value) || 0,
+                price_max: Number(document.getElementById('price_max').value) || 0,
+                category_slug: selectedCategory ? selectedCategory.slug : "",
+                category_name: selectedCategory ? selectedCategory.name : "",
+                location_slug: selectedLocations.length > 0 ? selectedLocations[0].slug : "",
+                is_region: selectedLocations.length > 0 ? !!selectedLocations[0].isRegion : false,
+                is_free: filterState.isFree,
+                condition: filterState.condition,
+                seller: filterState.seller,
+                sort: filterState.sort,
+                search_desc: filterState.search_desc,
+                only_photo: filterState.only_photo,
+                only_video: filterState.only_video,
+                exchange: filterState.exchange,
+                kufar_delivery: filterState.kufar_delivery,
+                kufar_payment: filterState.kufar_payment,
+                kufar_installment: filterState.kufar_installment
+            };
+            localStorage.setItem('kufar_draft', JSON.stringify(state));
+        }
+
+        function restoreDraft() {
+            const draftRaw = localStorage.getItem('kufar_draft');
+            if (!draftRaw) return;
+            try {
+                const data = JSON.parse(draftRaw);
+                if (data.query) document.getElementById('query').value = data.query;
+                if (data.price_min) document.getElementById('price_min').value = data.price_min;
+                if (data.price_max) document.getElementById('price_max').value = data.price_max;
+                if (data.category_slug) selectedCategory = { slug: data.category_slug, name: data.category_name || "" };
+                if (data.location_slug) {
+                    const rNode = regionsData.find(r => r.slug === data.location_slug);
+                    if (rNode) selectedLocations = [{ id: rNode.id, name: rNode.name, slug: rNode.slug, isRegion: data.is_region, parentId: rNode.parent_id }];
+                }
+                Object.assign(filterState, {
+                    isFree: data.is_free || false,
+                    condition: data.condition || "",
+                    seller: data.seller || "",
+                    sort: data.sort || "lst.d",
+                    search_desc: data.search_desc || false,
+                    only_photo: data.only_photo || false,
+                    only_video: data.only_video || false,
+                    exchange: data.exchange || false,
+                    kufar_delivery: data.kufar_delivery || false,
+                    kufar_payment: data.kufar_payment || false,
+                    kufar_installment: data.kufar_installment || false
+                });
+                if (filterState.isFree) document.getElementById('chk-free').classList.add('selected');
+                if (filterState.exchange) document.getElementById('chk-exchange').classList.add('selected');
+                updateFilterBadge();
+                updateFilterTexts();
+            } catch (e) {}
         }
 
         function sendData() {
@@ -696,6 +826,7 @@
             document.querySelectorAll('.filter-toggle').forEach(el => el.classList.remove('selected'));
             updateFilterBadge();
             updateFilterTexts();
+            localStorage.removeItem('kufar_draft');
             updateMainDisplay();
             showScreen('main-screen');
         }
