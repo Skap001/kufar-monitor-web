@@ -242,6 +242,7 @@
         let currentListType = "";
         let historyStack = []; 
         let currentRenderParentId = "0";
+        let isLocSelected = false;
         let currentEditId = null;
 
         let filterState = { 
@@ -295,6 +296,7 @@
                     }
                     
                     if (data.location_slug) {
+                        isLocSelected = true;
                         const rNode = regionsData.find(r => r.slug === data.location_slug);
                         if (rNode) {
                             selectedLocations = [{ 
@@ -355,6 +357,10 @@
             }
 
             const displayLoc = document.getElementById('display-location');
+            if (!isLocSelected) {
+                displayLoc.innerText = "📍 Выбрать локацию";
+                return;
+            }
             if (selectedLocations.length === 0) { 
                 displayLoc.innerText = "📍 Вся Беларусь";
                 return; 
@@ -605,7 +611,7 @@
                 const allItem = document.createElement('div');
                 allItem.className = `list-item ${selectedLocations.length === 0 ? 'selected' : ''}`;
                 allItem.innerHTML = `<span>Вся Беларусь</span> <span class="check-mark-only">✓</span>`;
-                allItem.onclick = () => { selectedLocations = []; updateMainDisplay(); showScreen('main-screen'); };
+                allItem.onclick = () => { selectedLocations = []; updateMainDisplay(); isLocSelected = true; showScreen('main-screen'); };
                 listWrapper.appendChild(allItem);
 
                 regionsData.filter(item => item.parent_id === "0").forEach(reg => {
@@ -628,6 +634,7 @@
                 selectAllRow.onclick = () => {
                     const regionNode = regionsData.find(r => r.id === parentId && r.parent_id === "0");
                     selectedLocations = [{ id: parentId, name: title, isRegion: true, slug: regionNode ? regionNode.slug : "" }];
+                    isLocSelected = true;
                     updateMainDisplay();
                     saveDraft();
                     showScreen('main-screen');
@@ -644,6 +651,7 @@
                     div.innerHTML = `<span style="flex: 1; padding: 10px 0;">${city.name}</span> <span class="check-mark-only">✓</span>`;
                     div.onclick = () => {
                         selectedLocations = [{ id: city.id, name: city.name, parentId: parentId, slug: city.slug }];
+                        isLocSelected = true;
                         updateMainDisplay();
                         saveDraft();
                         showScreen('main-screen');
@@ -792,6 +800,7 @@
                 location_slug: locSlug,
                 location_name: locName,
                 is_region: isRegion,
+                isLocSelected: isLocSelected,
                 location_display: document.getElementById('display-location').innerText.replace('📍 ', ''),
                 price_min: Number(document.getElementById('price_min').value) || 0,
                 price_max: Number(document.getElementById('price_max').value) || 0,
@@ -817,6 +826,7 @@
             document.getElementById('price_max').value = '';
             selectedCategory = null;
             selectedLocations = [];
+            isLocSelected = false;
             filterState = { 
                 isFree: false, condition: "", seller: "", sort: "lst.d", search_desc: false,
                 only_photo: false, only_video: false, exchange: false, kufar_delivery: false, kufar_payment: false, kufar_installment: false
