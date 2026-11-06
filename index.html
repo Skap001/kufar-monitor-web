@@ -14,15 +14,10 @@
             --btn_text: #ffffff;
             --card_bg: var(--tg-theme-secondary-bg-color, #232e3c);
             --border: var(--tg-theme-section-separator-color, #2f3b4a);
+            --green: #34c759;
         }
-        
-        /* Жесткая фиксация высоты для мобильных */
         html, body { margin: 0; padding: 0; height: 100%; height: 100dvh; overflow: hidden; background-color: var(--bg); }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            color: var(--text); -webkit-tap-highlight-color: transparent; 
-        }
-        
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--text); -webkit-tap-highlight-color: transparent; }
         .screen { display: none; flex-direction: column; height: 100vh; height: 100dvh; box-sizing: border-box; }
         .screen.active { display: flex; }
         
@@ -30,7 +25,6 @@
         h1 { font-size: 20px; margin: 0 0 16px 0; }
         
         .search-input { width: 100%; background-color: var(--card_bg); border: none; padding: 16px; border-radius: 12px; color: var(--text); font-size: 17px; box-sizing: border-box; margin-bottom: 20px; outline: none; }
-        
         .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 18px; font-weight: 600; touch-action: manipulation; }
         .menu-item .main-text { color: var(--text); display: flex; align-items: center; gap: 10px; flex: 1; margin-right: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
         .menu-item .arrow-right { color: var(--hint); font-size: 24px; font-weight: 300; }
@@ -49,11 +43,10 @@
 
         .filter-actions { display: flex; gap: 12px; align-items: stretch; margin-top: 10px; }
         .btn-filters { flex: 1; display: flex; justify-content: center; align-items: center; gap: 8px; background-color: var(--card_bg); color: var(--text); border: none; padding: 16px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
-        
         .btn-reset { width: 56px; display: flex; justify-content: center; align-items: center; background-color: var(--card_bg); color: var(--text); border: none; border-radius: 10px; cursor: pointer; }
         .btn-reset svg { width: 24px; height: 24px; fill: currentColor; }
         
-        .bottom-btn { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); border-top: 1px solid var(--border); box-sizing: border-box; }
+        .bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background-color: var(--bg); border-top: 1px solid var(--border); box-sizing: border-box; }
         .save-btn { width: 100%; padding: 16px; background-color: var(--btn_blue); color: var(--btn_text); border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .save-btn:disabled { background-color: #2f3b4a; color: #708499; cursor: not-allowed; opacity: 0.7; }
         
@@ -68,29 +61,36 @@
         
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); font-size: 17px; cursor: pointer; touch-action: manipulation; outline: none; }
         .list-item:active { background-color: var(--card_bg); }
-        
         .check-mark-only { display: none; color: var(--btn_blue); font-size: 24px; font-weight: bold; }
         .list-item.selected .check-mark-only { display: block; }
-        
         .arrow { color: var(--hint); font-size: 28px; font-weight: 300; padding-left: 10px; user-select: none; margin-top: -4px;}
         
-        .apply-block { padding: 16px; background-color: var(--bg); }
-        .apply-btn { width: 100%; padding: 16px; background-color: var(--btn_blue); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; touch-action: manipulation; }
-        
-        .select-cat-btn { display: flex; align-items: center; gap: 12px; padding: 16px; background-color: var(--card_bg); border-radius: 10px; margin-bottom: 16px; font-weight: 600; cursor: pointer; touch-action: manipulation; color: var(--text); font-size: 17px; }
+        .select-cat-btn { display: flex; align-items: center; gap: 12px; padding: 16px; background-color: var(--card_bg); border-radius: 10px; margin-bottom: 16px; font-weight: 600; cursor: pointer; color: var(--text); font-size: 17px; }
         .blue-square-check { width: 24px; height: 24px; background-color: var(--btn_blue); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: bold; }
-        
         .search-result-path { font-size: 13px; color: var(--hint); margin-top: 4px; }
 
+        /* НОВЫЙ ДИЗАЙН ФИЛЬТРОВ */
         .filter-screen-content { padding: 16px; padding-bottom: 100px; flex: 1; overflow-y: auto; }
-        .filter-group { margin-bottom: 24px; }
-        .filter-group-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
-        .filter-options { display: flex; flex-direction: column; gap: 8px; }
-        .filter-option { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background-color: var(--card_bg); border-radius: 10px; cursor: pointer; border: 1px solid transparent; }
-        .filter-option.selected { border-color: var(--btn_blue); }
-        .filter-option .radio-circle { width: 20px; height: 20px; border: 2px solid var(--hint); border-radius: 50%; display: flex; justify-content: center; align-items: center; }
-        .filter-option.selected .radio-circle { border-color: var(--btn_blue); }
-        .filter-option.selected .radio-circle::after { content: ''; width: 10px; height: 10px; background: var(--btn_blue); border-radius: 50%; }
+        .filter-search-wrapper { padding: 0 16px 16px 16px; }
+        .filter-search { width: 100%; background-color: var(--card_bg); border: none; padding: 12px 16px; border-radius: 10px; color: var(--text); font-size: 16px; box-sizing: border-box; outline: none; }
+        
+        .accordion { margin-bottom: 12px; background-color: var(--card_bg); border-radius: 10px; overflow: hidden; }
+        .accordion-header { padding: 16px; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .accordion-header::after { content: '▼'; font-size: 12px; color: var(--hint); transition: transform 0.2s; }
+        .accordion.open .accordion-header::after { transform: rotate(180deg); }
+        .accordion-content { display: none; padding: 0 16px 16px 16px; border-top: 1px solid var(--border); }
+        .accordion.open .accordion-content { display: block; }
+
+        .filter-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 16px; }
+        .filter-row:last-child { border-bottom: none; }
+        .filter-row .val { color: var(--hint); font-size: 15px; }
+        
+        .filter-toggle { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 16px; }
+        .filter-toggle:last-child { border-bottom: none; }
+        .filter-toggle .box { width: 22px; height: 22px; border: 2px solid var(--hint); border-radius: 6px; display: flex; justify-content: center; align-items: center; box-sizing: border-box; }
+        .filter-toggle.selected .box { background-color: var(--btn_blue); border-color: var(--btn_blue); }
+        .filter-toggle .box::after { content: ''; display: none; width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-bottom: 2px; }
+        .filter-toggle.selected .box::after { display: block; }
     </style>
 </head>
 <body>
@@ -142,6 +142,7 @@
         </div>
     </div>
 
+    <!-- ЭКРАН СПИСКОВ (КАТЕГОРИИ/ЛОКАЦИИ) -->
     <div id="list-screen" class="screen">
         <div class="header">
             <div class="back-btn" onclick="goBack()">←</div>
@@ -153,74 +154,97 @@
         <div class="list-container" id="list-container"></div>
     </div>
 
+    <!-- ЭКРАН ФИЛЬТРОВ -->
     <div id="filters-screen" class="screen">
         <div class="header">
             <div class="back-btn" onclick="showScreen('main-screen')">←</div>
             <h2 class="list-title">Все фильтры</h2>
         </div>
+        <div class="filter-search-wrapper">
+            <input type="text" id="filter-search" class="filter-search" placeholder="🔍 Найти фильтр" oninput="searchFilter()">
+        </div>
         <div class="filter-screen-content">
-            <div class="filter-group">
-                <div class="filter-group-title">Состояние</div>
-                <div class="filter-options">
-                    <div class="filter-option selected" data-val="" onclick="selectOption(this, 'condition')">Не важно <div class="radio-circle"></div></div>
-                    <div class="filter-option" data-val="new" onclick="selectOption(this, 'condition')">Новое <div class="radio-circle"></div></div>
-                    <div class="filter-option" data-val="used" onclick="selectOption(this, 'condition')">Б/у <div class="radio-circle"></div></div>
+            
+            <!-- АККОРДЕОН 1: ОСНОВНЫЕ -->
+            <div class="accordion open" id="acc-main">
+                <div class="accordion-header" onclick="toggleAccordion('acc-main')">Основные фильтры</div>
+                <div class="accordion-content">
+                    
+                    <div class="filter-toggle" id="tg-photo" onclick="toggleFilter('only_photo', 'tg-photo')">
+                        <span>Только с фото</span> <div class="box"></div>
+                    </div>
+                    <div class="filter-toggle" id="tg-video" onclick="toggleFilter('only_video', 'tg-video')">
+                        <span>Только с видео</span> <div class="box"></div>
+                    </div>
+                    <div class="filter-toggle" id="tg-exchange" onclick="toggleFilter('exchange', 'tg-exchange')">
+                        <span>Возможен обмен</span> <div class="box"></div>
+                    </div>
+
+                    <div class="filter-row" onclick="openFilterOption('condition')">
+                        <span>Состояние</span> <span class="val" id="val-condition">Не важно</span>
+                    </div>
+                    <div class="filter-row" onclick="openFilterOption('seller')">
+                        <span>Продавец</span> <span class="val" id="val-seller">Не важно</span>
+                    </div>
+                    <div class="filter-row" onclick="openFilterOption('sort')">
+                        <span>Сортировка</span> <span class="val" id="val-sort">Актуальные</span>
+                    </div>
+
                 </div>
             </div>
-            <div class="filter-group">
-                <div class="filter-group-title">Продавец</div>
-                <div class="filter-options">
-                    <div class="filter-option selected" data-val="" onclick="selectOption(this, 'seller')">Не важно <div class="radio-circle"></div></div>
-                    <div class="filter-option" data-val="private" onclick="selectOption(this, 'seller')">Частное лицо <div class="radio-circle"></div></div>
-                    <div class="filter-option" data-val="company" onclick="selectOption(this, 'seller')">Компания <div class="radio-circle"></div></div>
+
+            <!-- АККОРДЕОН 2: ДРУГИЕ -->
+            <div class="accordion" id="acc-other">
+                <div class="accordion-header" onclick="toggleAccordion('acc-other')">Другие фильтры</div>
+                <div class="accordion-content">
+                    <div class="filter-toggle" id="tg-dle" onclick="toggleFilter('kufar_delivery', 'tg-dle')">
+                        <span>Куфар Доставка</span> <div class="box"></div>
+                    </div>
+                    <div class="filter-toggle" id="tg-sde" onclick="toggleFilter('kufar_payment', 'tg-sde')">
+                        <span>Куфар Оплата</span> <div class="box"></div>
+                    </div>
+                    <div class="filter-toggle" id="tg-inst" onclick="toggleFilter('kufar_installment', 'tg-inst')">
+                        <span>Куфар Рассрочка</span> <div class="box"></div>
+                    </div>
                 </div>
             </div>
-            <div class="filter-group">
-                <div class="filter-group-title">Где искать слова?</div>
-                <div class="filter-options">
-                    <div class="filter-option selected" data-val="false" onclick="selectOption(this, 'search_desc')">Только в названии <div class="radio-circle"></div></div>
-                    <div class="filter-option" data-val="true" onclick="selectOption(this, 'search_desc')">В названии и описании <div class="radio-circle"></div></div>
-                </div>
-            </div>
-            <div class="filter-group">
-                <div class="filter-group-title">Сортировка</div>
-                <div class="filter-options">
-                    <div class="filter-option selected" data-val="lst.d" onclick="selectOption(this, 'sort')">Актуальные (Сначала новые) <div class="radio-circle"></div></div>
-                    <div class="filter-option" data-val="prc.a" onclick="selectOption(this, 'sort')">Сначала дешевле <div class="radio-circle"></div></div>
-                    <div class="filter-option" data-val="prc.d" onclick="selectOption(this, 'sort')">Сначала дороже <div class="radio-circle"></div></div>
-                </div>
-            </div>
+
         </div>
         <div class="bottom-btn">
-            <button class="save-btn" onclick="showScreen('main-screen')">Применить</button>
+            <button class="save-btn" onclick="applyFilters()">Применить</button>
         </div>
+    </div>
+
+    <!-- ЭКРАН ОПЦИЙ (ДЛЯ РАДИОКНОПОК) -->
+    <div id="option-screen" class="screen">
+        <div class="header">
+            <div class="back-btn" onclick="showScreen('filters-screen')">←</div>
+            <h2 id="option-title" class="list-title">Выбор</h2>
+        </div>
+        <div class="list-container" id="option-list"></div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
-        tg.ready(); 
-        tg.expand(); // Разворачиваем на весь экран
-        
-        // Устанавливаем цвет хедера в тон фону, чтобы не было белой полосы
-        tg.setHeaderColor('secondary_bg_color');
+        tg.ready(); tg.expand(); tg.setHeaderColor('secondary_bg_color');
 
         let selectedCategory = null; 
-        let selectedLocations = []; // Хранит только 1 элемент
-        
+        let selectedLocations = []; 
         let categoriesData = [];
         let regionsData = [];
         let currentListType = "";
         let historyStack = []; 
         let currentRenderParentId = "0";
 
+        // ФИЛЬТРЫ
         let filterState = { 
-            isFree: false, 
-            isNeg: false, 
-            condition: "", 
-            seller: "", 
-            sort: "lst.d",
-            search_desc: "false"
+            isFree: false, isNeg: false,
+            condition: "", seller: "", sort: "lst.d", search_desc: false,
+            only_photo: false, only_video: false, exchange: false,
+            kufar_delivery: false, kufar_payment: false, kufar_installment: false
         };
+
+        let currentOptionType = "";
 
         fetch('categories.json').then(r => r.json()).then(data => categoriesData = data);
         fetch('regions.json').then(r => r.json()).then(data => regionsData = data);
@@ -232,45 +256,100 @@
             document.getElementById(id).classList.add('active');
         }
 
-        function toggleQuickFilter(type) {
-            if (type === 'free') {
-                filterState.isFree = !filterState.isFree;
-                document.getElementById('chk-free').classList.toggle('selected', filterState.isFree);
+        function updateMainDisplay() {
+            const displayCat = document.getElementById('display-category');
+            const saveBtn = document.getElementById('save-btn');
+            const queryText = document.getElementById('query').value.trim();
+
+            if ((selectedCategory === null || selectedCategory.id === 'all') && !queryText) {
+                displayCat.innerText = "📦 Выбрать категорию";
+                saveBtn.disabled = true;
             } else {
-                filterState.isNeg = !filterState.isNeg;
-                document.getElementById('chk-neg').classList.toggle('selected', filterState.isNeg);
+                displayCat.innerText = (selectedCategory && selectedCategory.id !== 'all') ? `📦 ${selectedCategory.name}` : "📦 Все категории";
+                saveBtn.disabled = false;
+            }
+
+            const displayLoc = document.getElementById('display-location');
+            if (selectedLocations.length === 0) { 
+                displayLoc.innerText = "📍 Вся Беларусь";
+                return; 
+            }
+            const loc = selectedLocations[0];
+            if (loc.isRegion) {
+                displayLoc.innerText = `📍 ${loc.name}`;
+            } else {
+                const regionNode = regionsData.find(r => r.id === loc.parentId && r.parent_id === "0");
+                displayLoc.innerText = regionNode ? `📍 ${regionNode.name}, ${loc.name}` : `📍 ${loc.name}`;
             }
         }
 
-        function selectOption(el, group) {
-            const parent = el.closest('.filter-options');
-            parent.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('selected'));
-            el.classList.add('selected');
-            filterState[group] = el.getAttribute('data-val');
+        // --- ФИЛЬТРЫ ЛОГИКА ---
+        function toggleAccordion(id) {
+            document.getElementById(id).classList.toggle('open');
         }
 
-        function resetAll() {
-            document.getElementById('query').value = '';
-            document.getElementById('price_min').value = '';
-            document.getElementById('price_max').value = '';
-            selectedCategory = null;
-            selectedLocations = [];
-            filterState = { 
-                isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d", search_desc: "false" 
-            };
-            document.getElementById('chk-free').classList.remove('selected');
-            document.getElementById('chk-neg').classList.remove('selected');
-            
-            document.querySelectorAll('.filter-options').forEach(group => {
-                group.querySelectorAll('.filter-option').forEach((opt, index) => {
-                    if (index === 0) opt.classList.add('selected');
-                    else opt.classList.remove('selected');
-                });
+        function toggleFilter(key, elemId) {
+            filterState[key] = !filterState[key];
+            document.getElementById(elemId).classList.toggle('selected', filterState[key]);
+        }
+
+        function searchFilter() {
+            const query = document.getElementById('filter-search').value.toLowerCase();
+            const rows = document.querySelectorAll('.filter-row, .filter-toggle');
+            rows.forEach(r => {
+                r.style.display = r.innerText.toLowerCase().includes(query) ? 'flex' : 'none';
             });
-            updateMainDisplay();
+        }
+
+        function applyFilters() {
+            // Обновляем визуальные значения
+            document.getElementById('val-condition').innerText = 
+                filterState.condition === 'new' ? 'Новое' : filterState.condition === 'used' ? 'Б/у' : 'Не важно';
+            document.getElementById('val-seller').innerText = 
+                filterState.seller === 'private' ? 'Частное лицо' : filterState.seller === 'company' ? 'Компания' : 'Не важно';
+            document.getElementById('val-sort').innerText = 
+                filterState.sort === 'prc.a' ? 'Сначала дешевле' : filterState.sort === 'prc.d' ? 'Сначала дороже' : 'Актуальные';
+            
             showScreen('main-screen');
         }
 
+        // --- ОПЦИИ (ВЛОЖЕННЫЕ СПИСКИ) ---
+        function openFilterOption(type) {
+            currentOptionType = type;
+            showScreen('option-screen');
+            const container = document.getElementById('option-list');
+            container.innerHTML = '';
+            
+            let title = "";
+            let options = [];
+
+            if (type === 'condition') {
+                title = "Состояние";
+                options = [{v: "", t: "Не важно"}, {v: "new", t: "Новое"}, {v: "used", t: "Б/у"}];
+            } else if (type === 'seller') {
+                title = "Продавец";
+                options = [{v: "", t: "Не важно"}, {v: "private", t: "Частное лицо"}, {v: "company", t: "Компания"}];
+            } else if (type === 'sort') {
+                title = "Сортировка";
+                options = [{v: "lst.d", t: "Актуальные (Сначала новые)"}, {v: "prc.a", t: "Сначала дешевле"}, {v: "prc.d", t: "Сначала дороже"}];
+            }
+
+            document.getElementById('option-title').innerText = title;
+
+            options.forEach(opt => {
+                const isSel = (filterState[currentOptionType] === opt.v);
+                const div = document.createElement('div');
+                div.className = `list-item ${isSel ? 'selected' : ''}`;
+                div.innerHTML = `<span>${opt.t}</span> <span class="check-mark-only">✓</span>`;
+                div.onclick = () => {
+                    filterState[currentOptionType] = opt.v;
+                    showScreen('filters-screen');
+                };
+                container.appendChild(div);
+            });
+        }
+
+        // --- ОСТАЛЬНОЙ КОД (КАТЕГОРИИ, ЛОКАЦИИ, ОТПРАВКА) ---
         function openList(type) {
             currentListType = type;
             historyStack = [{ id: "0", name: type === 'category' ? "Категории" : "Локация" }];
@@ -289,12 +368,9 @@
             else renderLocationList(parentId, title);
         }
 
-        // --- КАТЕГОРИИ ---
         function renderCategoryList(parentId, title) {
             const container = document.getElementById('list-container');
-            
-            // Запрещаем выбирать корни "Авто" (2000) и "Путешествия" (25000)
-            if (parentId !== "0") { // Разрешаем все категории, включая Авто и Путешествия
+            if (parentId !== "0") {
                 const selectCurrent = document.createElement('div');
                 selectCurrent.className = 'select-cat-btn';
                 selectCurrent.innerHTML = `<div class="blue-square-check">✓</div> <span>Выбрать: ${title}</span>`;
@@ -308,14 +384,12 @@
             const listWrapper = document.createElement('div');
             listWrapper.id = 'actual-list';
             categoriesData.filter(item => item.parent_id === parentId).forEach(item => {
-                // СКРЫВАЕМ Недвижимость (1000) и Путешествия (25000)
-                if (item.id === "1000" || item.id === "25000") return;
+                if (item.id === "1000" || item.id === "25000") return; // Скрываем Недвижимость и Путешествия
                 const hasChildren = categoriesData.some(child => child.parent_id === item.id);
                 const isSelected = (selectedCategory && selectedCategory.id === item.id && selectedCategory.name === item.name);
                 const div = document.createElement('div');
                 div.className = `list-item ${isSelected ? 'selected' : ''}`;
                 div.setAttribute('data-name', item.name.toLowerCase());
-                
                 div.innerHTML = `
                     <span style="flex: 1; padding: 10px 0;" onclick="event.stopPropagation(); ${hasChildren ? `goInside('${item.id}', '${item.name}')` : `selectLeafCategory('${item.id}', '${item.name}', '${item.slug}')`}">${item.name}</span>
                     ${hasChildren ? `<span class="arrow" onclick="event.stopPropagation(); goInside('${item.id}', '${item.name}')">›</span>` : `<span class="check-mark-only">✓</span>`}
@@ -332,17 +406,13 @@
             showScreen('main-screen');
         }
 
-        // --- ЛОКАЦИИ ---
         function renderLocationList(parentId, title) {
             const container = document.getElementById('list-container');
-            
             if (parentId === "0") {
                 const listWrapper = document.createElement('div');
                 listWrapper.id = 'actual-list';
-                
-                const isAllSelected = (selectedLocations.length === 0);
                 const allItem = document.createElement('div');
-                allItem.className = `list-item ${isAllSelected ? 'selected' : ''}`;
+                allItem.className = `list-item ${selectedLocations.length === 0 ? 'selected' : ''}`;
                 allItem.innerHTML = `<span>Вся Беларусь</span> <span class="check-mark-only">✓</span>`;
                 allItem.onclick = () => { selectedLocations = []; updateMainDisplay(); showScreen('main-screen'); };
                 listWrapper.appendChild(allItem);
@@ -358,25 +428,15 @@
                 container.appendChild(listWrapper);
             } else {
                 const cities = regionsData.filter(item => item.parent_id === parentId);
-                
-                // СТРОГАЯ ПРОВЕРКА: isRegion === true
                 const isRegionSelected = (selectedLocations.length === 1 && selectedLocations[0].isRegion === true && selectedLocations[0].id === parentId);
-                
                 const prefix = title === "Минск" ? "Весь" : "Вся";
                 
                 const selectAllRow = document.createElement('div');
                 selectAllRow.className = `list-item ${isRegionSelected ? 'selected' : ''}`;
                 selectAllRow.innerHTML = `<span>${prefix} ${title}</span> <span class="check-mark-only">✓</span>`;
-                
-                // ИСПРАВЛЕНИЕ: Добавляем слаг области
                 selectAllRow.onclick = () => {
                     const regionNode = regionsData.find(r => r.id === parentId && r.parent_id === "0");
-                    selectedLocations = [{ 
-                        id: parentId, 
-                        name: title, 
-                        isRegion: true, 
-                        slug: regionNode ? regionNode.slug : "" 
-                    }];
+                    selectedLocations = [{ id: parentId, name: title, isRegion: true, slug: regionNode ? regionNode.slug : "" }];
                     updateMainDisplay();
                     showScreen('main-screen');
                 };
@@ -386,14 +446,11 @@
                 listWrapper.id = 'actual-list';
                 cities.forEach(city => {
                     const isSelected = (selectedLocations.length === 1 && selectedLocations[0].isRegion !== true && selectedLocations[0].id === city.id && selectedLocations[0].parentId === parentId);
-                    
                     const div = document.createElement('div');
                     div.className = `list-item ${isSelected ? 'selected' : ''}`;
                     div.setAttribute('data-name', city.name.toLowerCase());
                     div.innerHTML = `<span style="flex: 1; padding: 10px 0;">${city.name}</span> <span class="check-mark-only">✓</span>`;
-                    
                     div.onclick = () => {
-                        // Тут у тебя уже было правильно, оставляем как есть
                         selectedLocations = [{ id: city.id, name: city.name, parentId: parentId, slug: city.slug }];
                         updateMainDisplay();
                         showScreen('main-screen');
@@ -404,50 +461,10 @@
             }
         }
 
-        function updateMainDisplay() {
-            const displayCat = document.getElementById('display-category');
-            const saveBtn = document.getElementById('save-btn');
-            const queryText = document.getElementById('query').value.trim();
-
-            // Разрешаем сохранить, если есть категория ИЛИ введен поисковый запрос
-            if ((selectedCategory === null || selectedCategory.id === 'all') && !queryText) {
-                displayCat.innerText = "📦 Выбрать категорию";
-                saveBtn.disabled = true;
-            } else {
-                if (selectedCategory && selectedCategory.id !== 'all') {
-                    displayCat.innerText = `📦 ${selectedCategory.name}`;
-                } else {
-                    displayCat.innerText = "📦 Все категории";
-                }
-                saveBtn.disabled = false;
-            }
-
-            // Локация
-            const displayLoc = document.getElementById('display-location');
-            if (selectedLocations.length === 0) { 
-                displayLoc.innerText = "📍 Вся Беларусь";
-                return; 
-            }
-            
-            const loc = selectedLocations[0];
-            if (loc.isRegion) {
-                displayLoc.innerText = `📍 ${loc.name}`;
-            } else {
-                const regionNode = regionsData.find(r => r.id === loc.parentId && r.parent_id === "0");
-                if (regionNode) {
-                    displayLoc.innerText = `📍 ${regionNode.name}, ${loc.name}`;
-                } else {
-                    displayLoc.innerText = `📍 ${loc.name}`;
-                }
-            }
-        }
-
         function flattenData(data, parentId = "0", path = "", visited = new Set()) {
             let result = [];
             data.filter(item => item.parent_id === parentId).forEach(item => {
-                // ПРОПУСКАЕМ Недвижимость (1000) и Путешествия (25000) вместе со всеми их детьми
-                if (item.id === "1000" || item.id === "25000") return;
-
+                if (item.id === "1000" || item.id === "25000") return; // Скрываем в поиске
                 const uid = `${item.parent_id}_${item.id}_${item.name}`;
                 if (visited.has(uid)) return;
                 visited.add(uid);
@@ -465,11 +482,7 @@
 
             container.innerHTML = '';
             let searchScope = (currentListType === 'category') ? flattenData(categoriesData, currentRenderParentId) : flattenData(regionsData, currentRenderParentId);
-            const results = searchScope.filter(item => 
-                item.name.toLowerCase().includes(query) && 
-                item.id !== "1000" && 
-                item.id !== "25000"
-            );
+            const results = searchScope.filter(item => item.name.toLowerCase().includes(query));
 
             if (results.length === 0) { container.innerHTML = '<div style="padding: 16px; color: gray;">Ничего не найдено</div>'; return; }
 
@@ -482,11 +495,8 @@
                 div.onclick = () => {
                     if (currentListType === 'category') selectLeafCategory(item.id, item.name, item.slug || "");
                     else {
-                        if (item.parent_id === "0") {
-                            selectedLocations = [{ id: item.id, name: item.name, isRegion: true }];
-                        } else {
-                            selectedLocations = [{ id: item.id, name: item.name, parentId: item.parent_id }];
-                        }
+                        if (item.parent_id === "0") selectedLocations = [{ id: item.id, name: item.name, isRegion: true, slug: item.slug }];
+                        else selectedLocations = [{ id: item.id, name: item.name, parentId: item.parent_id, slug: item.slug }];
                         updateMainDisplay();
                         showScreen('main-screen');
                     }
@@ -505,8 +515,7 @@
         }
 
         function sendData() {
-            const queryText = document.getElementById('query').value.trim();
-            if ((!selectedCategory || selectedCategory.id === 'all') && !queryText) return;
+            if (!selectedCategory && !document.getElementById('query').value.trim()) return;
 
             let locIds = [];
             let locSlug = "";
@@ -516,13 +525,11 @@
             if (selectedLocations.length === 1) {
                 const loc = selectedLocations[0];
                 locName = loc.name;
-                
+                locSlug = loc.slug;
                 if (loc.isRegion) {
                     isRegion = true;
-                    locSlug = loc.slug; // Берем слаг, который мы передали при рендере
                     locIds = regionsData.filter(r => r.parent_id === loc.id).map(c => c.id);
                 } else {
-                    locSlug = loc.slug; // <--- ТЕПЕРЬ БЕРЕМ СЛАГ ГОРОДА
                     locIds = [loc.id];
                 }
             }
@@ -543,10 +550,43 @@
                 condition: filterState.condition,
                 seller: filterState.seller,
                 sort: filterState.sort,
-                search_desc: filterState.search_desc === "true" // Передаем как Boolean
+                search_desc: filterState.search_desc,
+                only_photo: filterState.only_photo,
+                only_video: filterState.only_video,
+                exchange: filterState.exchange,
+                kufar_delivery: filterState.kufar_delivery,
+                kufar_payment: filterState.kufar_payment,
+                kufar_installment: filterState.kufar_installment
             };
             tg.sendData(JSON.stringify(data));
             tg.close();
+        }
+
+        function toggleQuickFilter(type) {
+            if (type === 'free') {
+                filterState.isFree = !filterState.isFree;
+                document.getElementById('chk-free').classList.toggle('selected', filterState.isFree);
+            } else {
+                filterState.isNeg = !filterState.isNeg;
+                document.getElementById('chk-neg').classList.toggle('selected', filterState.isNeg);
+            }
+        }
+
+        function resetAll() {
+            document.getElementById('query').value = '';
+            document.getElementById('price_min').value = '';
+            document.getElementById('price_max').value = '';
+            selectedCategory = null;
+            selectedLocations = [];
+            filterState = { 
+                isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d", search_desc: false,
+                only_photo: false, only_video: false, exchange: false, kufar_delivery: false, kufar_payment: false, kufar_installment: false
+            };
+            document.getElementById('chk-free').classList.remove('selected');
+            document.getElementById('chk-neg').classList.remove('selected');
+            document.querySelectorAll('.filter-toggle').forEach(el => el.classList.remove('selected'));
+            updateMainDisplay();
+            showScreen('main-screen');
         }
     </script>
 </body>
