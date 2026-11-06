@@ -294,8 +294,7 @@
             const container = document.getElementById('list-container');
             
             // Запрещаем выбирать корни "Авто" (2000) и "Путешествия" (25000)
-            const forbiddenRoots = ["2000", "25000"];
-            if (parentId !== "0" && !forbiddenRoots.includes(parentId)) {
+            if (parentId !== "0") { // Разрешаем все категории, включая Авто и Путешествия
                 const selectCurrent = document.createElement('div');
                 selectCurrent.className = 'select-cat-btn';
                 selectCurrent.innerHTML = `<div class="blue-square-check">✓</div> <span>Выбрать: ${title}</span>`;
