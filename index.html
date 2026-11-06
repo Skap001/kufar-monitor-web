@@ -43,6 +43,10 @@
 
         .filter-actions { display: flex; gap: 12px; align-items: stretch; margin-top: 10px; }
         .btn-filters { flex: 1; display: flex; justify-content: center; align-items: center; gap: 8px; background-color: var(--card_bg); color: var(--text); border: none; padding: 16px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        
+        /* Синий счетчик фильтров */
+        .badge { background-color: var(--btn_blue); color: white; border-radius: 50%; width: 22px; height: 22px; display: none; align-items: center; justify-content: center; font-size: 13px; font-weight: bold; }
+        
         .btn-reset { width: 56px; display: flex; justify-content: center; align-items: center; background-color: var(--card_bg); color: var(--text); border: none; border-radius: 10px; cursor: pointer; }
         .btn-reset svg { width: 24px; height: 24px; fill: currentColor; }
         
@@ -69,10 +73,11 @@
         .blue-square-check { width: 24px; height: 24px; background-color: var(--btn_blue); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: bold; }
         .search-result-path { font-size: 13px; color: var(--hint); margin-top: 4px; }
 
-        /* НОВЫЙ ДИЗАЙН ФИЛЬТРОВ */
-        .filter-screen-content { padding: 16px; padding-bottom: 100px; flex: 1; overflow-y: auto; }
+        /* ЭКРАН ФИЛЬТРОВ */
         .filter-search-wrapper { padding: 16px; }
         .filter-search { width: 100%; background-color: var(--card_bg); border: none; padding: 16px; border-radius: 12px; color: var(--text); font-size: 17px; box-sizing: border-box; outline: none; }
+        
+        .filter-screen-content { padding: 0 16px 100px 16px; flex: 1; overflow-y: auto; }
         
         .accordion { margin-bottom: 12px; background-color: var(--card_bg); border-radius: 10px; overflow: hidden; }
         .accordion-header { padding: 16px; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
@@ -94,6 +99,7 @@
     </style>
 </head>
 <body>
+    <!-- ГЛАВНЫЙ ЭКРАН -->
     <div id="main-screen" class="screen active">
         <div class="main-content">
             <h1>Новый поиск</h1>
@@ -112,8 +118,8 @@
             <div class="price-block">
                 <div class="price-title">Цена (BYN)</div>
                 <div class="price-inputs">
-                    <input type="number" id="price_min" placeholder="От">
-                    <input type="number" id="price_max" placeholder="До">
+                    <input type="number" id="price_min" placeholder="От" min="0" oninput="handlePriceInput()">
+                    <input type="number" id="price_max" placeholder="До" min="0" oninput="handlePriceInput()">
                 </div>
             </div>
 
@@ -121,14 +127,15 @@
                 <div class="filter-checkbox" id="chk-free" onclick="toggleQuickFilter('free')">
                     <div class="box"></div> <span>Бесплатно</span>
                 </div>
-                <div class="filter-checkbox" id="chk-neg" onclick="toggleQuickFilter('neg')">
-                    <div class="box"></div> <span>Договорная</span>
+                <div class="filter-checkbox" id="chk-exchange" onclick="toggleQuickFilter('exchange')">
+                    <div class="box"></div> <span>Возможен обмен</span>
                 </div>
             </div>
 
             <div class="filter-actions">
                 <button class="btn-filters" onclick="showScreen('filters-screen')">
                     <span>⚙️ Выбрать фильтры</span>
+                    <span id="filter-badge" class="badge">0</span>
                 </button>
                 <button class="btn-reset" onclick="resetAll()" title="Сбросить всё">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -142,7 +149,7 @@
         </div>
     </div>
 
-    <!-- ЭКРАН СПИСКОВ (КАТЕГОРИИ/ЛОКАЦИИ) -->
+    <!-- ЭКРАН СПИСКОВ -->
     <div id="list-screen" class="screen">
         <div class="header">
             <div class="back-btn" onclick="goBack()">←</div>
@@ -163,9 +170,13 @@
         <div class="filter-search-wrapper">
             <input type="text" id="filter-search" class="filter-search" placeholder="🔍 Найти фильтр" oninput="searchFilter()">
         </div>
-        <div class="filter-screen-content">
+        
+        <!-- КОНТЕЙНЕР ДЛЯ РЕЗУЛЬТАТОВ ПОИСКА -->
+        <div class="filter-screen-content" id="filter-search-results" style="display: none;"></div>
+
+        <!-- ОСНОВНЫЕ АККОРДЕОНЫ -->
+        <div class="filter-screen-content" id="filter-main-content">
             
-            <!-- АККОРДЕОН 1: ОСНОВНЫЕ -->
             <div class="accordion open" id="acc-main">
                 <div class="accordion-header" onclick="toggleAccordion('acc-main')">Основные фильтры</div>
                 <div class="accordion-content">
@@ -176,10 +187,7 @@
                     <div class="filter-toggle" id="tg-video" onclick="toggleFilter('only_video', 'tg-video')">
                         <span>Только с видео</span> <div class="box"></div>
                     </div>
-                    <div class="filter-toggle" id="tg-exchange" onclick="toggleFilter('exchange', 'tg-exchange')">
-                        <span>Возможен обмен</span> <div class="box"></div>
-                    </div>
-
+                    
                     <div class="filter-row" onclick="openFilterOption('condition')">
                         <span>Состояние</span> <span class="val" id="val-condition">Не важно</span>
                     </div>
@@ -193,7 +201,6 @@
                 </div>
             </div>
 
-            <!-- АККОРДЕОН 2: ДРУГИЕ -->
             <div class="accordion" id="acc-other">
                 <div class="accordion-header" onclick="toggleAccordion('acc-other')">Другие фильтры</div>
                 <div class="accordion-content">
@@ -215,7 +222,7 @@
         </div>
     </div>
 
-    <!-- ЭКРАН ОПЦИЙ (ДЛЯ РАДИОКНОПОК) -->
+    <!-- ЭКРАН ОПЦИЙ -->
     <div id="option-screen" class="screen">
         <div class="header">
             <div class="back-btn" onclick="showScreen('filters-screen')">←</div>
@@ -236,15 +243,27 @@
         let historyStack = []; 
         let currentRenderParentId = "0";
 
-        // ФИЛЬТРЫ
         let filterState = { 
-            isFree: false, isNeg: false,
+            isFree: false, 
             condition: "", seller: "", sort: "lst.d", search_desc: false,
             only_photo: false, only_video: false, exchange: false,
             kufar_delivery: false, kufar_payment: false, kufar_installment: false
         };
 
         let currentOptionType = "";
+
+        // Список всех фильтров для умного поиска
+        const allFilters = [
+            { id: 'only_photo', name: 'Только с фото', type: 'toggle' },
+            { id: 'only_video', name: 'Только с видео', type: 'toggle' },
+            { id: 'exchange', name: 'Возможен обмен', type: 'toggle' },
+            { id: 'condition', name: 'Состояние', type: 'option' },
+            { id: 'seller', name: 'Продавец', type: 'option' },
+            { id: 'sort', name: 'Сортировка', type: 'option' },
+            { id: 'kufar_delivery', name: 'Куфар Доставка', type: 'toggle' },
+            { id: 'kufar_payment', name: 'Куфар Оплата', type: 'toggle' },
+            { id: 'kufar_installment', name: 'Куфар Рассрочка', type: 'toggle' }
+        ];
 
         fetch('categories.json').then(r => r.json()).then(data => categoriesData = data);
         fetch('regions.json').then(r => r.json()).then(data => regionsData = data);
@@ -283,7 +302,59 @@
             }
         }
 
-        // --- ФИЛЬТРЫ ЛОГИКА ---
+        // --- ЛОГИКА БЕСПЛАТНО И ЦЕНЫ ---
+        function handlePriceInput() {
+            const minVal = parseFloat(document.getElementById('price_min').value) || 0;
+            const maxVal = parseFloat(document.getElementById('price_max').value) || 0;
+            
+            if (minVal > 0 || maxVal > 0) {
+                if (filterState.isFree) {
+                    filterState.isFree = false;
+                    document.getElementById('chk-free').classList.remove('selected');
+                    updateFilterBadge();
+                }
+            }
+        }
+
+        function toggleQuickFilter(type) {
+            if (type === 'free') {
+                filterState.isFree = !filterState.isFree;
+                if (filterState.isFree) {
+                    document.getElementById('price_min').value = '';
+                    document.getElementById('price_max').value = '';
+                }
+                document.getElementById('chk-free').classList.toggle('selected', filterState.isFree);
+            } else if (type === 'exchange') {
+                filterState.exchange = !filterState.exchange;
+                document.getElementById('chk-exchange').classList.toggle('selected', filterState.exchange);
+            }
+            updateFilterBadge();
+        }
+
+        // --- СЧЕТЧИК ФИЛЬТРОВ ---
+        function updateFilterBadge() {
+            let count = 0;
+            if (filterState.isFree) count++;
+            if (filterState.exchange) count++;
+            if (filterState.only_photo) count++;
+            if (filterState.only_video) count++;
+            if (filterState.kufar_delivery) count++;
+            if (filterState.kufar_payment) count++;
+            if (filterState.kufar_installment) count++;
+            if (filterState.condition) count++;
+            if (filterState.seller) count++;
+            if (filterState.sort !== 'lst.d') count++;
+
+            const badge = document.getElementById('filter-badge');
+            if (count > 0) {
+                badge.style.display = 'flex';
+                badge.innerText = count;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // --- ЛОГИКА ФИЛЬТРОВ ---
         function toggleAccordion(id) {
             document.getElementById(id).classList.toggle('open');
         }
@@ -291,38 +362,9 @@
         function toggleFilter(key, elemId) {
             filterState[key] = !filterState[key];
             document.getElementById(elemId).classList.toggle('selected', filterState[key]);
+            updateFilterBadge();
         }
 
-        function searchFilter() {
-            const query = document.getElementById('filter-search').value.toLowerCase();
-            const rows = document.querySelectorAll('.filter-row, .filter-toggle');
-            rows.forEach(r => {
-                r.style.display = r.innerText.toLowerCase().includes(query) ? 'flex' : 'none';
-            });
-        }
-
-        function updateFilterTexts() {
-            document.getElementById('val-condition').innerText = 
-                filterState.condition === 'new' ? 'Новое' : filterState.condition === 'used' ? 'Б/у' : 'Не важно';
-            document.getElementById('val-seller').innerText = 
-                filterState.seller === 'private' ? 'Частное лицо' : filterState.seller === 'company' ? 'Компания' : 'Не важно';
-            document.getElementById('val-sort').innerText = 
-                filterState.sort === 'prc.a' ? 'Сначала дешевле' : filterState.sort === 'prc.d' ? 'Сначала дороже' : 'Актуальные';
-        }
-
-        function applyFilters() {
-            // Обновляем визуальные значения
-            document.getElementById('val-condition').innerText = 
-                filterState.condition === 'new' ? 'Новое' : filterState.condition === 'used' ? 'Б/у' : 'Не важно';
-            document.getElementById('val-seller').innerText = 
-                filterState.seller === 'private' ? 'Частное лицо' : filterState.seller === 'company' ? 'Компания' : 'Не важно';
-            document.getElementById('val-sort').innerText = 
-                filterState.sort === 'prc.a' ? 'Сначала дешевле' : filterState.sort === 'prc.d' ? 'Сначала дороже' : 'Актуальные';
-            
-            showScreen('main-screen');
-        }
-
-        // --- ОПЦИИ (ВЛОЖЕННЫЕ СПИСКИ) ---
         function openFilterOption(type) {
             currentOptionType = type;
             showScreen('option-screen');
@@ -352,10 +394,78 @@
                 div.innerHTML = `<span>${opt.t}</span> <span class="check-mark-only">✓</span>`;
                 div.onclick = () => {
                     filterState[currentOptionType] = opt.v;
-                    updateFilterTexts(); // <--- ВОТ ЭТА СТРОКА ИСПРАВИТ БАГ
+                    updateFilterTexts();
+                    updateFilterBadge();
                     showScreen('filters-screen');
                 };
                 container.appendChild(div);
+            });
+        }
+
+        function updateFilterTexts() {
+            document.getElementById('val-condition').innerText = 
+                filterState.condition === 'new' ? 'Новое' : filterState.condition === 'used' ? 'Б/у' : 'Не важно';
+            document.getElementById('val-seller').innerText = 
+                filterState.seller === 'private' ? 'Частное лицо' : filterState.seller === 'company' ? 'Компания' : 'Не важно';
+            document.getElementById('val-sort').innerText = 
+                filterState.sort === 'prc.a' ? 'Сначала дешевле' : filterState.sort === 'prc.d' ? 'Сначала дороже' : 'Актуальные';
+        }
+
+        function applyFilters() {
+            updateFilterTexts();
+            showScreen('main-screen');
+        }
+
+        // --- УМНЫЙ ПОИСК ПО ФИЛЬТРАМ ---
+        function searchFilter() {
+            const query = document.getElementById('filter-search').value.toLowerCase().trim();
+            const mainContent = document.getElementById('filter-main-content');
+            const resultsContainer = document.getElementById('filter-search-results');
+
+            if (!query) {
+                mainContent.style.display = 'block';
+                resultsContainer.style.display = 'none';
+                return;
+            }
+
+            mainContent.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            resultsContainer.innerHTML = '';
+
+            const matched = allFilters.filter(f => f.name.toLowerCase().includes(query));
+
+            if (matched.length === 0) {
+                resultsContainer.innerHTML = '<div style="padding: 16px; color: gray;">Ничего не найдено</div>';
+                return;
+            }
+
+            matched.forEach(f => {
+                const isChecked = filterState[f.id];
+                const div = document.createElement('div');
+                
+                if (f.type === 'toggle') {
+                    div.className = `filter-toggle ${isChecked ? 'selected' : ''}`;
+                    div.innerHTML = `<span>${f.name}</span> <div class="box"></div>`;
+                    div.onclick = () => {
+                        filterState[f.id] = !filterState[f.id];
+                        div.classList.toggle('selected', filterState[f.id]);
+                        updateFilterBadge();
+                    };
+                } else {
+                    let valText = "Не важно";
+                    if (f.id === 'condition') valText = filterState.condition === 'new' ? 'Новое' : filterState.condition === 'used' ? 'Б/у' : 'Не важно';
+                    if (f.id === 'seller') valText = filterState.seller === 'private' ? 'Частное лицо' : filterState.seller === 'company' ? 'Компания' : 'Не важно';
+                    if (f.id === 'sort') valText = filterState.sort === 'prc.a' ? 'Сначала дешевле' : filterState.sort === 'prc.d' ? 'Сначала дороже' : 'Актуальные';
+                    
+                    div.className = `filter-row`;
+                    div.innerHTML = `<span>${f.name}</span> <span class="val">${valText}</span>`;
+                    div.onclick = () => {
+                        document.getElementById('filter-search').value = ''; // Сброс поиска
+                        searchFilter(); // Вернуть аккордеоны
+                        openFilterOption(f.id);
+                    };
+                }
+                resultsContainer.appendChild(div);
             });
         }
 
@@ -556,7 +666,6 @@
                 price_min: Number(document.getElementById('price_min').value) || 0,
                 price_max: Number(document.getElementById('price_max').value) || 0,
                 is_free: filterState.isFree,
-                is_negotiable: filterState.isNeg,
                 condition: filterState.condition,
                 seller: filterState.seller,
                 sort: filterState.sort,
@@ -572,16 +681,6 @@
             tg.close();
         }
 
-        function toggleQuickFilter(type) {
-            if (type === 'free') {
-                filterState.isFree = !filterState.isFree;
-                document.getElementById('chk-free').classList.toggle('selected', filterState.isFree);
-            } else {
-                filterState.isNeg = !filterState.isNeg;
-                document.getElementById('chk-neg').classList.toggle('selected', filterState.isNeg);
-            }
-        }
-
         function resetAll() {
             document.getElementById('query').value = '';
             document.getElementById('price_min').value = '';
@@ -589,12 +688,14 @@
             selectedCategory = null;
             selectedLocations = [];
             filterState = { 
-                isFree: false, isNeg: false, condition: "", seller: "", sort: "lst.d", search_desc: false,
+                isFree: false, condition: "", seller: "", sort: "lst.d", search_desc: false,
                 only_photo: false, only_video: false, exchange: false, kufar_delivery: false, kufar_payment: false, kufar_installment: false
             };
             document.getElementById('chk-free').classList.remove('selected');
-            document.getElementById('chk-neg').classList.remove('selected');
+            document.getElementById('chk-exchange').classList.remove('selected');
             document.querySelectorAll('.filter-toggle').forEach(el => el.classList.remove('selected'));
+            updateFilterBadge();
+            updateFilterTexts();
             updateMainDisplay();
             showScreen('main-screen');
         }
