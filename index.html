@@ -462,7 +462,11 @@
 
             container.innerHTML = '';
             let searchScope = (currentListType === 'category') ? flattenData(categoriesData, currentRenderParentId) : flattenData(regionsData, currentRenderParentId);
-            const results = searchScope.filter(item => item.name.toLowerCase().includes(query));
+            const results = searchScope.filter(item => 
+                item.name.toLowerCase().includes(query) && 
+                item.id !== "1000" && 
+                item.id !== "25000"
+            );
 
             if (results.length === 0) { container.innerHTML = '<div style="padding: 16px; color: gray;">Ничего не найдено</div>'; return; }
 
