@@ -280,6 +280,13 @@
             const urlParams = new URLSearchParams(window.location.search);
             const editId = urlParams.get('edit_id');
             const stateBase64 = urlParams.get('state');
+            const isNew = urlParams.get('new');
+
+            if (isNew) {
+                resetAll(); // Сбрасываем все фильтры в дефолт
+                localStorage.removeItem('kufar_draft'); // Очищаем кэш
+            } else if (editId && stateBase64) {
+                currentEditId = parseInt(editId);
 
             if (editId && stateBase64) {
                 currentEditId = parseInt(editId);
@@ -793,7 +800,6 @@
             let locName = "";
             let isRegion = false;
 
-            // ВОТ ЗДЕСЬ МЫ ДОБАВИЛИ ЛОГИКУ ОПРЕДЕЛЕНИЯ ЛОКАЦИИ И ФИКС "ДРУГИХ ГОРОДОВ"
             if (selectedLocations.length === 1) {
                 const loc = selectedLocations[0];
                 locName = loc.name;
@@ -811,8 +817,8 @@
                             "vitebskaja-oblast": "vitebskaya-obl"
                         };
                         const mapped = regionMap[parentRegionNode.slug] || parentRegionNode.slug;
-                        locSlug = mapped + "-drugie"; // Получаем mogilevskaya-obl-drugie
-                        locName = parentRegionNode.name + ", " + loc.name; // Могилевская область, Другие города
+                        locSlug = mapped + "-drugie";
+                        locName = parentRegionNode.name + ", " + loc.name;
                     }
                 } else if (loc.isRegion) {
                     isRegion = true;
@@ -821,6 +827,35 @@
                     locIds = [loc.id];
                 }
             }
+
+            const data = {
+                edit_id: currentEditId, // <--- ДОБАВЛЕНО ДЛЯ СОХРАНЕНИЯ ИЗМЕНЕНИЙ
+                query: document.getElementById('query').value || "",
+                category_slug: (selectedCategory && selectedCategory.id !== 'all') ? selectedCategory.slug : "",
+                category_name: (selectedCategory && selectedCategory.id !== 'all') ? selectedCategory.name : "Все категории",
+                location_ids: locIds,
+                location_slug: locSlug,
+                location_name: locName,
+                is_region: isRegion,
+                isLocSelected: isLocSelected,
+                location_display: isLocSelected ? document.getElementById('display-location').innerText.replace('📍 ', '') : "Вся Беларусь",
+                price_min: Number(document.getElementById('price_min').value) || 0,
+                price_max: Number(document.getElementById('price_max').value) || 0,
+                is_free: filterState.isFree,
+                condition: filterState.condition,
+                seller: filterState.seller,
+                sort: filterState.sort,
+                search_desc: filterState.search_desc,
+                only_photo: filterState.only_photo,
+                only_video: filterState.only_video,
+                exchange: filterState.exchange,
+                kufar_delivery: filterState.kufar_delivery,
+                kufar_payment: filterState.kufar_payment,
+                kufar_installment: filterState.kufar_installment
+            };
+            tg.sendData(JSON.stringify(data));
+            tg.close();
+        }
 
             const data = {
                 query: document.getElementById('query').value || "",
