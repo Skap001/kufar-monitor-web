@@ -283,7 +283,7 @@
             const isNew = urlParams.get('new');
 
             if (isNew) {
-                currentEditId = null;
+                currentEditId = null; 
                 resetAll(); 
                 localStorage.removeItem('kufar_draft'); 
             } else if (editId && stateBase64) {
