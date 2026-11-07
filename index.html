@@ -793,11 +793,28 @@
             let locName = "";
             let isRegion = false;
 
+            // ВОТ ЗДЕСЬ МЫ ДОБАВИЛИ ЛОГИКУ ОПРЕДЕЛЕНИЯ ЛОКАЦИИ И ФИКС "ДРУГИХ ГОРОДОВ"
             if (selectedLocations.length === 1) {
                 const loc = selectedLocations[0];
                 locName = loc.name;
                 locSlug = loc.slug;
-                if (loc.isRegion) {
+                
+                if (loc.slug === 'drugie-goroda' && loc.parentId) {
+                    const parentRegionNode = regionsData.find(r => r.id === loc.parentId && r.parent_id === "0");
+                    if (parentRegionNode) {
+                        const regionMap = {
+                            "brestskaja-oblast": "brestskaya-obl",
+                            "gomel-skaja-oblast": "gomelskaya-obl",
+                            "grodnenskaja-oblast": "grodnenskaya-obl",
+                            "mogilevskaja-oblast": "mogilevskaya-obl",
+                            "minskaja-oblast": "minskaya-obl",
+                            "vitebskaja-oblast": "vitebskaya-obl"
+                        };
+                        const mapped = regionMap[parentRegionNode.slug] || parentRegionNode.slug;
+                        locSlug = mapped + "-drugie"; // Получаем mogilevskaya-obl-drugie
+                        locName = parentRegionNode.name + ", " + loc.name; // Могилевская область, Другие города
+                    }
+                } else if (loc.isRegion) {
                     isRegion = true;
                     locIds = regionsData.filter(r => r.parent_id === loc.id).map(c => c.id);
                 } else {
