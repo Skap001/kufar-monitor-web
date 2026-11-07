@@ -283,6 +283,7 @@
             const isNew = urlParams.get('new');
 
             if (isNew) {
+                currentEditId = null;
                 resetAll(); 
                 localStorage.removeItem('kufar_draft'); 
             } else if (editId && stateBase64) {
@@ -855,6 +856,7 @@
         }
 
         function resetAll() {
+            currentEditId = null;
             document.getElementById('query').value = '';
             document.getElementById('price_min').value = '';
             document.getElementById('price_max').value = '';
